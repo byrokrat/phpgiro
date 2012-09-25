@@ -1,0 +1,22 @@
+{
+    "name": "itbz/phpautogiro",
+    "description": "Create and parse files from the swedish banksystem Autogirot",
+    "keywords": ["autogiro"],
+    "homepage": "https://github.com/itbz/phpautogiro",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hannes Forsgård",
+            "email": "hannes.forsgard@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "itbz\\phpautogiro": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
