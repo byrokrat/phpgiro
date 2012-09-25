@@ -4,3 +4,4 @@ composer.phar
 composer.lock
 phpautogiro.sublime-project
 phpautogiro.sublime-workspace
+tests/data
