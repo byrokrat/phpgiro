@@ -5,7 +5,7 @@
     <property name="SRC_DIR" value="${APP_ROOT}/src" />
     <property name="TEST_DIR" value="${APP_ROOT}/tests" />
     <property name="BUILD_DIR" value="${APP_ROOT}/build" />
-    <property name="CODE_STANDARD" value="Zend" />
+    <property name="CODE_STANDARD" value="PSR2" />
 
     <fileset dir="${SRC_DIR}" id="sourceCode">
         <include name="**/*.php" />
