@@ -14,13 +14,6 @@
 namespace itbz\phpautogiro;
 
 /**
- * Create a PhpGiro object from a file in one of the supported file formats.
- *
- * PhpGiro is a library to parse and create files using layouts common in the swedish
- * banking system. PhpGiro understands the following formats:
- *
- * PhpGiro requires PHP >= 5.3
- *
  * <h3>Supported file formats</h3>
  *
  * Layouts A - H in the legacy Autogiro Privat.
@@ -98,6 +91,7 @@ class Factory
             'PhpGiro_AG_New_G' => utf8_decode("MAKULERING/ÄNDRING"),
             'PhpGiro_AG_H' => "AG-EMEDGIV",
             'PhpGiro_AG_I' => "BEVAKNINGSREG",
+
             'PhpGiro_BG_Max' => "BGMAX"
         );
 
