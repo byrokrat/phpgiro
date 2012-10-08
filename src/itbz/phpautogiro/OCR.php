@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro
+ * @package itbz\phpautogiro
  */
 
+namespace itbz\phpautogiro;
 
 /**
  * Contains static methods for creating and validating
  * ocr numbers and check digits.
  *
- * @package STB\Giro
+ * @package itbz\phpautogiro
  */
-class PhpGiro_OCR
+class OCR
 {
 
     /**

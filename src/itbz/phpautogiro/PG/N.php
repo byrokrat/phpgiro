@@ -8,17 +8,19 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro\Pg
+ * @package itbz\phpautogiro\PG
  */
 
+namespace itbz\phpautogiro\PG;
+
+use itbz\phpautogiro\Char80;
 
 /**
  * PlusGiro file layout N
  *
- * @package STB\Giro\Pg
+ * @package itbz\phpautogiro\PG
  */
-class PhpGiro_PG_N extends PhpGiro_Char80
+class N extends Char80
 {
 
     /**

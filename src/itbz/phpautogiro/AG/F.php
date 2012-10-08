@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
 
+namespace itbz\phpautogiro\AG;
 
 /**
  * AG layout F, feedback on rejected transactions.
  *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
-class PhpGiro_AG_F extends PhpGiro_AG_Object
+class F extends Object
 {
 
     /**

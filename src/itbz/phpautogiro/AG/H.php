@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
 
+namespace itbz\phpautogiro\AG;
 
 /**
  * AG layout H, new consents from the bank.
@@ -27,9 +27,9 @@
  * [address] => array
  * </code>
  *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
-class PhpGiro_AG_H extends PhpGiro_AG_Object
+class H extends Object
 {
 
     /**

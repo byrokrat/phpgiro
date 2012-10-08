@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
 
+namespace itbz\phpautogiro\AG;
 
 /**
  * AG layout E, feedback on new and removed consents.
  *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
-class PhpGiro_AG_E extends PhpGiro_AG_Object
+class E extends Object
 {
 
     /**

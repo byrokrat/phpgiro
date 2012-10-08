@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG\Nya
  */
 
+namespace itbz\phpautogiro\AG\Nya;
 
 /**
  * AG layout D, feedback on completed transactions. New file layout.
  *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG\Nya
  */
-class PhpGiro_AG_New_D extends PhpGiro_AG_D
+class D extends \itbz\phpautogiro\AG\D
 {
 
 	/**

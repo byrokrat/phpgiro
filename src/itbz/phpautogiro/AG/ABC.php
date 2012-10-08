@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
 
+namespace itbz\phpautogiro\AG;
 
 /**
  * Parse and create autogiro files layouts A, B and C (information sent to BGC).
@@ -66,9 +66,9 @@
  * See AgLayoutABC_new::addBgConsent()
  * and AgLayoutABC_new::changeBetNr()
  *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
-class PhpGiro_AG_ABC extends PhpGiro_AG_Object
+class ABC extends Object
 {
 
     /**

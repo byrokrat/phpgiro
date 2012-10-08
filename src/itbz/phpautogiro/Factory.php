@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro
+ * @package itbz\phpautogiro
  */
 
+namespace itbz\phpautogiro;
 
 /**
  * Create a PhpGiro object from a file in one of the supported file formats.
@@ -64,9 +64,10 @@
  *   NEW = nya autogiro with nwe layout
  * </pre>
  *
- * @package STB\Giro
+ * @package itbz\phpautogiro
  */
-class PhpGiro_Factory {
+class Factory
+{
 
     /**
      * Autodiscover layout and get an Char80 object to process.

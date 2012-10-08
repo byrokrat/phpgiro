@@ -1,7 +1,7 @@
 <?php
 /**
  * View autogiro files in browser
- * @package STB\Giro
+ * @package itbz\phpautogiro
  */
 
 

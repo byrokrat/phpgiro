@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG\Nya
  */
 
+namespace itbz\phpautogiro\AG\Nya;
 
 /**
  * Added functinality for creating A, B or C layouted files using new layout.
  * 
  * This class is not needed for parsing new A, B or C files.
  *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG\Nya
  */
-class PhpGiro_AG_New_ABC extends PhpGiro_AG_ABC
+class ABC extends \itbz\phpautogiro\AG\ABC
 {
 
     /* FUNCTIONS TO CREATE FILES */

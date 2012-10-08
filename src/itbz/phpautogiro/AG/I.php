@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
 
+namespace itbz\phpautogiro\AG;
 
 /**
  * AG layout I, list of transactions registered with the bank, but not processed.
@@ -30,9 +30,9 @@
  * [statusMsg] => string message describing status code
  * </code>
  *
- * @package STB\Giro\Ag
+ * @package itbz\phpautogiro\AG
  */
-class PhpGiro_AG_I extends PhpGiro_AG_Object
+class I extends Object
 {
 
     /**
