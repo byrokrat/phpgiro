@@ -43,7 +43,7 @@
             standard="${CODE_STANDARD}"
             showWarnings="true"
             encoding="utf8"
-            haltonerror="false"
+            haltonerror="true"
             haltonwarning="false"
             docGenerator="HTML"
             docFile="${BUILD_DIR}/phpcs/rules.html"
