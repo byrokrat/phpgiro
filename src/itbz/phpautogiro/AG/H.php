@@ -102,7 +102,7 @@ class H extends Object
      *
      * @param string $info
      *
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseInfo($info){
         $this->nrOfPosts++;
@@ -119,9 +119,9 @@ class H extends Object
      *
      * @param string $addr2
      *
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
-    protected function parseAddress($addr1, $addr2 = FALSE)
+    protected function parseAddress($addr1, $addr2 = false)
     {
         $this->nrOfPosts++;
         $addrs = func_get_args();
@@ -130,7 +130,7 @@ class H extends Object
             $this->pushTo('address', $addr);
         }
 
-        return TRUE;
+        return true;
     }
 
 
@@ -149,7 +149,7 @@ class H extends Object
      *
      * @param string $status
      *
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseNewConsent($bg, $betNr, $clearing, $account, $orgNr, $status)
     {
@@ -170,7 +170,7 @@ class H extends Object
 
         $this->push($consent);
 
-        return TRUE;
+        return true;
     }
 
  
@@ -181,18 +181,18 @@ class H extends Object
      *
      * @param string $nrPosts
      *
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseFoot($date, $nrPosts)
     {
         if ( !$this->validDate($date) ) return false;
         if ( (int)$nrPosts != $this->nrOfPosts ) {
             $this->error(sprintf(_("Unvalid file content, wrong number of type '%s' posts"), "52, 53, 54, 55 and 56"));
-            return FALSE;
+            return false;
         }
         $this->writeSection();
 
-        return TRUE;
+        return true;
     }
 
 }

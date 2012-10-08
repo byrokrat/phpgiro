@@ -28,7 +28,7 @@ class F extends \itbz\phpautogiro\AG\F
      *
      * @param string $bg
      */
-    public function __construct($customerNr = FALSE, $bg = FALSE)
+    public function __construct($customerNr = false, $bg = false)
     {
         parent::__construct($customerNr, $bg);
         $this->map['01'] = array("/^01AUTOGIRO.{12}..(\d{8}).{12}AVVISADE BET UPPDR.{2}(\d{6})(\d{10})\s*$/", 'parseHeadDateCustBg');

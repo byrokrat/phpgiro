@@ -23,67 +23,67 @@ use itbz\phpautogiro\OCR;
 class Advice extends OCR
 {
 
-	/**
-	 * Get complete code for advice printing, either a type 41 advice
-	 * with amount pre definied, or a type 42 with no fixed amount.
-	 * If $forceAmount == true an error will be triggered if no amount
-	 * is set.
-	 * @param bool $forceAmount
-	 * @return string
-	 */
-	public function getCode($forceAmount=false){
-		if ( !$account = $this->getAccount() ) {
-			trigger_error('Unable to make advice code, account not set.');
-			return false;
-		} else {
-			$account = str_pad($this->account, 8, " ", STR_PAD_LEFT);
-		}
+    /**
+     * Get complete code for advice printing, either a type 41 advice
+     * with amount pre definied, or a type 42 with no fixed amount.
+     * If $forceAmount == true an error will be triggered if no amount
+     * is set.
+     * @param bool $forceAmount
+     * @return string
+     */
+    public function getCode($forceAmount=false){
+        if ( !$account = $this->getAccount() ) {
+            trigger_error('Unable to make advice code, account not set.');
+            return false;
+        } else {
+            $account = str_pad($this->account, 8, " ", STR_PAD_LEFT);
+        }
 
-		if ( !$ocr = $this->getOcr() ) {
-			trigger_error('Unable to make advice code, OCR not set.');
-			return false;
-		} else {
-			$ocr = str_pad($this->ocr, 25, " ", STR_PAD_LEFT);
-		}
+        if ( !$ocr = $this->getOcr() ) {
+            trigger_error('Unable to make advice code, OCR not set.');
+            return false;
+        } else {
+            $ocr = str_pad($this->ocr, 25, " ", STR_PAD_LEFT);
+        }
 
-		if ( $amount = $this->getAmount() ) {
-			$type = "41"; 
-			$kr = str_pad($amount[0], 8, " ", STR_PAD_LEFT);
-			$ore = $amount[1];
-			$cDigit = self::getCheckDigit($kr.$ore);
-		} else {
-			if ( $forceAmount ) {
-				trigger_error('Unable to make advice code, amount not set.');
-				return false;
-			}
-			$type = "42";
-			$kr = "        ";
-			$ore = "  ";
-			$cDigit = " ";
-		}
-		
-		return "H   # $ocr #$kr $ore   $cDigit >                 $account#$type#    ";
-	}
+        if ( $amount = $this->getAmount() ) {
+            $type = "41"; 
+            $kr = str_pad($amount[0], 8, " ", STR_PAD_LEFT);
+            $ore = $amount[1];
+            $cDigit = self::getCheckDigit($kr.$ore);
+        } else {
+            if ( $forceAmount ) {
+                trigger_error('Unable to make advice code, amount not set.');
+                return false;
+            }
+            $type = "42";
+            $kr = "        ";
+            $ore = "  ";
+            $cDigit = " ";
+        }
+        
+        return "H   # $ocr #$kr $ore   $cDigit >                 $account#$type#    ";
+    }
 
 
-	/**
-	 * Get advice image
-	 * @return image resource identifier
-	 */
-	public function getAdvice(){
-		$code = $this->getCode();
+    /**
+     * Get advice image
+     * @return image resource identifier
+     */
+    public function getAdvice(){
+        $code = $this->getCode();
 
-		$img = imagecreate(800, 80);
-		$color = imagecolorallocate($img, 0, 0, 0);
-		$bg = imagecolorallocate($img, 255, 255, 230);
-		$font = "./fonts/OCRB.ttf";
+        $img = imagecreate(800, 80);
+        $color = imagecolorallocate($img, 0, 0, 0);
+        $bg = imagecolorallocate($img, 255, 255, 230);
+        $font = "./fonts/OCRB.ttf";
 
-		imagefill($img, 0, 0, $bg);
-		imagettftext($img, 10, 0, 10, 25, $color, $font, "Det här ser inte riktigt ut som en bankgiroavi...");
-		imagettftext($img, 10, 0, 10, 55, $color, $font, $code);
+        imagefill($img, 0, 0, $bg);
+        imagettftext($img, 10, 0, 10, 25, $color, $font, "Det här ser inte riktigt ut som en bankgiroavi...");
+        imagettftext($img, 10, 0, 10, 55, $color, $font, $code);
 
-		return $img;
-	}
+        return $img;
+    }
 }
 
 /*

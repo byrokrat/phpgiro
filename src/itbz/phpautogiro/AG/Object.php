@@ -154,7 +154,7 @@ abstract class Object extends Char80
      * @param string $date
      * @param string $customerNr
      * @param string $bg
-     * @return FALSE if $bg or $customerNr is not valid, TRUE otherwise
+     * @return false if $bg or $customerNr is not valid, true otherwise
      */
     protected function parseHeadDateCustBg($date, $customerNr, $bg){
         if ( !$this->validBg($bg) ) return false;
@@ -169,7 +169,7 @@ abstract class Object extends Char80
      * recieving $bg number. Validates $bg and sets $date.
      * @param string $date
      * @param string $bg
-     * @return FALSE if $bg is not valid, TRUE otherwise
+     * @return false if $bg is not valid, true otherwise
      */
     protected function parseHeadDateBg($date, $bg){
         if ( !$this->validBg($bg) ) return false;
@@ -204,7 +204,7 @@ abstract class Object extends Char80
      * @param string $bg
      * @param string $ref
      * @param string $status
-     * @return bool TRUE on success, FALSE on error
+     * @return bool true on success, false on error
      */
     protected function parseTransaction($tc, $date, $period, $repetitions, $betNr, $amount, $bg=false, $ref=false, $status=false){
         if ( $bg && !$this->validBg($bg) ) return false;
@@ -244,7 +244,7 @@ abstract class Object extends Char80
      * @param string $nrCredit
      * @param string $nrInvoice
      * @param string $sumInvoice
-     * @return bool TRUE on success, FALSE on error
+     * @return bool true on success, false on error
      */
     protected function parseTransactionFoot($date, $sumCredit, $nrCredit, $nrInvoice, $sumInvoice){
         if ( !$this->validDate($date) ) return false;

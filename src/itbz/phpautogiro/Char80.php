@@ -128,7 +128,7 @@ abstract class Char80
     /**
      * Read file to parse
      * @param string $fname
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     public function readFile($fname){
         if ( is_readable($fname) ) {
@@ -143,7 +143,7 @@ abstract class Char80
     /**
      * Set raw content to parse
      * @param string|array $raw
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     public function setRawContent($raw){
         if ( is_string($raw) ) {
@@ -177,7 +177,7 @@ abstract class Char80
      * Pads all lines to 80 characters. Add \r\n line ending. Validates file
      * structure. Content is returned as ASCII ISO8859-1.
      *
-     * @return string|bool FALSE is file does not have a valid structure
+     * @return string|bool false is file does not have a valid structure
      */
     public function getFile(){
         $str = "";
@@ -199,7 +199,7 @@ abstract class Char80
      * Write contents to filesystem
      * @param string $fname
      * @param string $dirname
-     * @return int Bytes written, FALSE on failure.
+     * @return int Bytes written, false on failure.
      */
     public function writeFile($fname, $dirname=false){
         if ( $dirname && is_dir($dirname) ) {
@@ -212,7 +212,7 @@ abstract class Char80
     /**
      * Add a line to raw content. Must contain a $tc and valid structure
      * @param string $line
-     * @return bool TRUE on succes, FALSE on failure
+     * @return bool true on succes, false on failure
      */
     public function addLine($line){
         $line = preg_replace("/\n/", "", $line);
@@ -242,7 +242,7 @@ abstract class Char80
 
     /**
      * Parse raw content to stack
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     public function parse(){
         $this->errors = array();
@@ -280,7 +280,7 @@ abstract class Char80
 
     /**
      * Validate structure of parsed file
-     * @return bool TRUE if file is valid, FALSE otherwise
+     * @return bool true if file is valid, false otherwise
      */
     public function valid(){
         $fstruct = "";
@@ -350,7 +350,7 @@ abstract class Char80
      * Push item to 'substack' pop()[$key]
      * @param string|int $key
      * @param mixed item
-     * @return TRUE on success, FALSE if pop() does not return an array
+     * @return true on success, false if pop() does not return an array
      */
     protected function pushTo($key, $item){
         $parent = $this->pop();
@@ -470,10 +470,10 @@ abstract class Char80
 
     /**
      * Set key-value pair. Will only set value if key is not definied.
-     * Returns TRUE is current value for key is $val. FALSE otherwise.
+     * Returns true is current value for key is $val. false otherwise.
      * @param string $key
      * @param string $val
-     * @param bool $std If set to TRUE $val will be set as standard value for $key
+     * @param bool $std If set to true $val will be set as standard value for $key
      * @return bool
      */
     protected function setValue($key, $val, $std=false){
@@ -594,7 +594,7 @@ abstract class Char80
 
 
     /**
-     * Get the array with parsed errors, FALSE if no error occured.
+     * Get the array with parsed errors, false if no error occured.
      * @return array
      */
     public function getErrors(){
@@ -603,7 +603,7 @@ abstract class Char80
 
 
     /**
-     * Returns TRUE if an error has occured, FALSE otherwise
+     * Returns true if an error has occured, false otherwise
      * @return bool
      */
     public function hasError(){
@@ -699,7 +699,7 @@ abstract class Char80
      * the last two positions denoting cents (00 if cents were not specified
      * in integer or string) and no punctuation.
      * @param int|float|string $amount
-     * @param bool $signal If TRUE negative values will be represented as
+     * @param bool $signal If true negative values will be represented as
      * siganal values (see str2amount() for description).
      * @return string
      */

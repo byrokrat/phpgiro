@@ -132,7 +132,7 @@ class ABC extends Object
      * @param string $date
      * @param string $customerNr
      * @param string $bg
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseHead($date, $customerNr, $bg)
     {
@@ -150,7 +150,7 @@ class ABC extends Object
      * Remove consent
      * @param string $bg
      * @param string $betNr
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseRemoveConsent($bg, $betNr)
     {
@@ -173,15 +173,15 @@ class ABC extends Object
      * @param string $account
      * @param string $orgNr
      * @param string $reject
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseAddConsent(
         $bg,
         $betNr,
-        $clearing = FALSE,
-        $account = FALSE,
-        $orgNr = FALSE,
-        $reject = FALSE
+        $clearing = false,
+        $account = false,
+        $orgNr = false,
+        $reject = false
     )
     {
         if ( !$this->validBg($bg) ) return false;
@@ -211,7 +211,7 @@ class ABC extends Object
      * @param string $bg
      * @param string $oldBetNr
      * @param string $newBetNr
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseChangeBetNr($bg, $oldBetNr, $newBetNr)
     {
@@ -235,7 +235,7 @@ class ABC extends Object
      * Cancel bet number
      * @param string $bg
      * @param string $betNr
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseCancelBetNr($bg, $betNr)
     {
@@ -256,7 +256,7 @@ class ABC extends Object
      * @param string $bg
      * @param string $betNr
      * @param string $date
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseCancelBetNrDate($bg, $betNr, $date){
         if ( !$this->validBg($bg) ) return false;
@@ -279,7 +279,7 @@ class ABC extends Object
      * @param string $amount
      * @param string $code
      * @param string $ref
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseCancelTransaction($bg, $betNr, $date, $amount, $code, $ref = "")
     {
@@ -310,7 +310,7 @@ class ABC extends Object
      * @param string $code
      * @param string $newDate
      * @param string $ref
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseModify($tc, $bg, $betNr, $oldDate, $amount, $code, $newDate, $ref = "")
     {
@@ -360,12 +360,12 @@ class ABC extends Object
      * @param string $clearing Account clearing number. 4 characters.
      * @param string $account
      * @param string $orgNr Swedish social security number, or organisation number
-     * @param bool $reject Set to TRUE if this is an answer to an online application
+     * @param bool $reject Set to true if this is an answer to an online application
      * and you DECLINE the application. If in doubt, do not use.
      * @return void
      * @api
      */
-    public function addConsent($betNr, $clearing, $account, $orgNr, $reject = FALSE)
+    public function addConsent($betNr, $clearing, $account, $orgNr, $reject = false)
     {
         $betNr = str_pad($betNr, 16, '0', STR_PAD_LEFT);
         if ( strlen($clearing) != 4 ) {
@@ -500,11 +500,11 @@ class ABC extends Object
      * @param string $date YYYYMMDD
      * @param string|int|float $amount
      * @param string $ref
-     * @param bool $credit TRUE of transaction is a credit, FALSE invoice.
+     * @param bool $credit true of transaction is a credit, false invoice.
      * @return void
      * @api
      */
-    public function cancelTransaction($betNr, $date, $amount, $ref = FALSE, $credit = FALSE)
+    public function cancelTransaction($betNr, $date, $amount, $ref = false, $credit = false)
     {
         return $this->cancel($betNr, $date, $amount, $ref, $credit);
     }
@@ -516,10 +516,10 @@ class ABC extends Object
      * @param string $date YYYYMMDD
      * @param string|int|float $amount
      * @param string $ref
-     * @param bool $credit TRUE of transaction is a credit, FALSE invoice.
+     * @param bool $credit true of transaction is a credit, false invoice.
      * @return void
      */
-    private function cancel($betNr, $date = FALSE, $amount = FALSE, $ref = FALSE, $credit = FALSE)
+    private function cancel($betNr, $date = false, $amount = false, $ref = false, $credit = false)
     {
         $betNr = str_pad($betNr, 16, '0', STR_PAD_LEFT);
         $bg = $this->getValue('bg');
@@ -589,7 +589,7 @@ class ABC extends Object
      * @param string $newDate YYYYMMDD
      * @param string|int|float $amount
      * @param string $ref
-     * @param bool $credit TRUE of transaction is a credit, FALSE invoice.
+     * @param bool $credit true of transaction is a credit, false invoice.
      * @return void
      * @api
      */
@@ -641,7 +641,7 @@ class ABC extends Object
      * Write contents to filesystem
      * @param string $comm See getDatesetname()
      * @param string $dirname
-     * @return int Bytes written, FALSE on failure.
+     * @return int Bytes written, false on failure.
      */
     public function writeFile($comm="AGAG", $dirname=false){
         $fname = $this->getDatesetname($comm);

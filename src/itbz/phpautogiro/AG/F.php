@@ -79,7 +79,7 @@ class F extends Object
      * @param string $sumCredit
      * @param string $nrInvoice
      * @param string $sumInvoice
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseTransactionFoot($date, $nrCredit, $sumCredit, $nrInvoice, $sumInvoice)
     {

@@ -21,17 +21,17 @@ namespace itbz\phpautogiro\AG\Nya;
 class D extends \itbz\phpautogiro\AG\D
 {
 
-	/**
-	 * AG layout D, feedback on completed transactions. New file layout.
-	 *
-	 * @param string $customerNr
-	 *
-	 * @param string $bg
-	 */
-	public function __construct($customerNr = FALSE, $bg = FALSE)
-	{
-			echo "LAYOUT D new file type not supported..\n\n\n";
-			return false;
-	}
+    /**
+     * AG layout D, feedback on completed transactions. New file layout.
+     *
+     * @param string $customerNr
+     *
+     * @param string $bg
+     */
+    public function __construct($customerNr = false, $bg = false)
+    {
+            echo "LAYOUT D new file type not supported..\n\n\n";
+            return false;
+    }
 
 }

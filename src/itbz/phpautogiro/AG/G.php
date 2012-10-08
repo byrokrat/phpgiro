@@ -88,7 +88,7 @@ class G extends Object
      *
      * @param string $bg
      */
-    public function __construct($customerNr = FALSE, $bg = FALSE)
+    public function __construct($customerNr = false, $bg = false)
     {
         parent::__construct($customerNr, $bg);
         $this->map['01'] = array(utf8_decode("/^01(\d{8})AUTOGIRO9900MAK\/ÄNDRINGSLISTA.{23}(\d{6})(\d{10})/"), 'parseHeadDateCustBg');
@@ -110,7 +110,7 @@ class G extends Object
      * @param string $newDate
      * @param string $ref
      * @param string $status
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseMak($tc, $date, $betNr, $code, $amount, $isRef, $newDate, $ref, $status){
         if ( $isRef == "REFERENS" ) {
@@ -151,7 +151,7 @@ class G extends Object
      * @param string $nrCredit
      * @param string $nrInvoice
      * @param string $sumInvoice
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseFoot($date, $sumCredit, $nrCredit, $nrInvoice, $sumInvoice){
         if ( !$this->validDate($date) ) return false;

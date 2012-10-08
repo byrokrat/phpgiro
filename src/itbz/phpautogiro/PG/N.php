@@ -92,18 +92,18 @@ class N extends Char80
      *
      * @param string $reject
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseHead($agencyNr, $agencyName, $accountingUnit, $date, $reject)
     {
         $this->clearValues();
-        $this->setValue('agency', $agencyNr, TRUE);
-        $this->setValue('agencyName', trim(utf8_encode($agencyName)), TRUE);
-        $this->setValue('accountingUnit', $accountingUnit, TRUE);
-        $this->setValue('date', $date, TRUE);
-        $this->setValue('rejectReg', $reject, TRUE);
+        $this->setValue('agency', $agencyNr, true);
+        $this->setValue('agencyName', trim(utf8_encode($agencyName)), true);
+        $this->setValue('accountingUnit', $accountingUnit, true);
+        $this->setValue('date', $date, true);
+        $this->setValue('rejectReg', $reject, true);
 
-        return TRUE;
+        return true;
     }
 
 
@@ -114,14 +114,14 @@ class N extends Char80
      *
      * @param string $customer
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseCustomer($customerNr, $customer)
     {
-        if ( !$this->setValue('customer', trim(utf8_decode($customer)), TRUE) ) {
+        if ( !$this->setValue('customer', trim(utf8_decode($customer)), true) ) {
             $this->error(_("Unvalid customer name"));
 
-            return FALSE;
+            return false;
         }
 
         return $this->setCustAndIs($customerNr);
@@ -135,14 +135,14 @@ class N extends Char80
      *
      * @param string $ISnr
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseIS($customerNr, $ISnr)
     {
         if (!$this->setValue('account', trim($ISnr))) {
             $this->error(_("Unvalid account"));
 
-            return FALSE;
+            return false;
         }
 
         return $this->setCustAndIs($customerNr);
@@ -158,14 +158,14 @@ class N extends Char80
      *
      * @param string $date
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseDate($customerNr, $ISnr, $date)
     {
         if (!$this->setValue('transactionDate', $date)) {
             $this->error(_("Unvalid date"));
 
-            return FALSE;
+            return false;
         }
 
         return $this->setCustAndIs($customerNr, $ISnr);
@@ -187,7 +187,7 @@ class N extends Char80
      *
      * @param string $reject
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseTransaction($ref, $amount, $senderCode, $sender, $nr, $reject)
     {
@@ -202,7 +202,7 @@ class N extends Char80
         );
         $this->push($t);
 
-        return TRUE;
+        return true;
     }
 
 
@@ -219,15 +219,15 @@ class N extends Char80
      *
      * @param string $sumTrans
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseISfoot($customerNr, $ISnr, $date, $nrTrans, $sumTrans)
     {
-        if (!$this->setCustAndIs($customerNr, $ISnr)) return FALSE;
+        if (!$this->setCustAndIs($customerNr, $ISnr)) return false;
 
         if (!$this->setValue('date', $date)) {
             $this->error(_("Unvalid date"));
-            return FALSE;
+            return false;
         }
 
         $this->postCount += $this->count();
@@ -235,17 +235,17 @@ class N extends Char80
 
         if ((int)$nrTrans != $this->count()) {
             $this->error(_("Unvalid file content, wrong number of transaction posts."));
-            return FALSE;
+            return false;
         }
 
         if ($this->str2amount($sumTrans) != $this->sum('amount')) {
             $this->error(_("Unvalid file content, wrong transaction sum."));
-            return FALSE;
+            return false;
         }
 
         $this->writeSection();
 
-        return TRUE;
+        return true;
     }
 
 
@@ -260,30 +260,30 @@ class N extends Char80
      *
      * @param string $sumTrans
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseFoot($agencyNr, $date, $nrTrans, $sumTrans)
     {
         if (!$this->setValue('agency', $agencyNr)) {
             $this->error(_("Agency number does not match."));
-            return FALSE;
+            return false;
         }
         if (!$this->setValue('date', $date)) {
             $this->error(_("Date does not match."));
-            return FALSE;
+            return false;
         }
 
         if ((int)$nrTrans != $this->postCount) {
             $this->error(_("Unvalid file content, wrong number of transaction posts."));
-            return FALSE;
+            return false;
         }
 
         if ($this->str2amount($sumTrans) != $this->postSum) {
             $this->error(_("Unvalid file content, wrong transaction sum."));
-            return FALSE;
+            return false;
         }
         
-        return TRUE;
+        return true;
     }
 
 
@@ -294,19 +294,19 @@ class N extends Char80
      *
      * @param string $ISnr
      *
-     * @return bool TRUE on success, FALSE if an error occured
+     * @return bool true on success, false if an error occured
      */
-    private function setCustAndIs($customerNr, $ISnr = FALSE)
+    private function setCustAndIs($customerNr, $ISnr = false)
     {
-        if ( !$this->setValue('customerNr', $customerNr, TRUE) ) {
+        if ( !$this->setValue('customerNr', $customerNr, true) ) {
             $this->error(_("Unvalid customer number"));
-            return FALSE;
+            return false;
         }
         if ( $ISnr && !$this->setValue('account', trim($ISnr)) ) {
             $this->error(_("Unvalid account"));
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
 }

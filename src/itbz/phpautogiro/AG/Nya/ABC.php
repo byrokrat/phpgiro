@@ -29,7 +29,7 @@ class ABC extends \itbz\phpautogiro\AG\ABC
      * Write consent post for BG accout to file. When dealing with BG accounts
      * $betNr is always the same as the account number.
      * @param string $bgFrom BG account nr, and number to identify consent.
-     * @param bool $reject Set to TRUE if this is an answer to an online application
+     * @param bool $reject Set to true if this is an answer to an online application
      * and you DECLINE the application.
      * @return void
      * @api

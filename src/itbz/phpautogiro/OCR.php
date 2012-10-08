@@ -59,7 +59,7 @@ class OCR
     /**
      * Set target account number
      * @param string $account
-     * @return bool TRUE on success, FALSE if $account is not valid
+     * @return bool true on success, false if $account is not valid
      */
     public function setAccount($account){
         if ( self::validCheckDigit($account) ) {
@@ -107,7 +107,7 @@ class OCR
      * If you want the check digit computed use setRef() instead.
      * @param int|string $ocr
      * @param bool $checkLength
-     * @return TRUE on success, FALSE if ocr is not valid
+     * @return true on success, false if ocr is not valid
      */
     public function setOcr($ocr, $checkLength=false){
         if ( self::validOCR($ocr, $checkLength) ) {
@@ -168,7 +168,7 @@ class OCR
      * digit will also be validated.
      * @param int|string $nr
      * @param bool $checkLength
-     * @return bool TRUE of valid, FALSE if not
+     * @return bool true of valid, false if not
      */
     public static function validOCR($nr, $checkLength=true){
         $remove = ($checkLength) ? -2 : -1;
@@ -179,8 +179,8 @@ class OCR
 
 
     /**
-     * Returns TRUE if last position of $nr is a valid
-     * modulus 10 check digit, FALSE otherwise.
+     * Returns true if last position of $nr is a valid
+     * modulus 10 check digit, false otherwise.
      * @param int|string $nr
      * @return bool
      */

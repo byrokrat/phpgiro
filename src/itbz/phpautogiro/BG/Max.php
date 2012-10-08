@@ -139,16 +139,16 @@ class Max extends Char80
      *
      * @param string $test
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseHead($ver, $time, $test)
     {
         $this->layout = "BGMAX ".(int)$ver;
-        $this->setValue('date', substr($time, 0, 8), TRUE);
-        $this->setValue('datetime', $time, TRUE);
-        if ( $test == 'T' ) $this->setValue('test', TRUE);
+        $this->setValue('date', substr($time, 0, 8), true);
+        $this->setValue('datetime', $time, true);
+        if ( $test == 'T' ) $this->setValue('test', true);
 
-        return TRUE;
+        return true;
     }
 
 
@@ -161,7 +161,7 @@ class Max extends Char80
      *
      * @param string $currency
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseOpening($bgTo, $pgTo, $currency)
     {
@@ -170,7 +170,7 @@ class Max extends Char80
         if ( $pgTo ) $this->setValue('pgTo', $pgTo);
         $this->setValue('currency', $currency);
 
-        return TRUE;
+        return true;
     }
 
 
@@ -191,9 +191,9 @@ class Max extends Char80
      *
      * @param string $img
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
-    protected function parseTransaction($bgFrom, $ref, $amount, $refCode, $channel, $nr = FALSE, $img = FALSE)
+    protected function parseTransaction($bgFrom, $ref, $amount, $refCode, $channel, $nr = false, $img = false)
     {
         $this->transacts++;
         $t = array(
@@ -205,11 +205,11 @@ class Max extends Char80
             'channel' => $channel,
             'channelDesc' => $this->channels[$channel],
         );
-        if ( $nr !== FALSE ) $t['nr'] = ltrim($nr, '0'); 
-        if ( $img == "1" ) $t['img'] = TRUE;
+        if ( $nr !== false ) $t['nr'] = ltrim($nr, '0'); 
+        if ( $img == "1" ) $t['img'] = true;
         $this->push($t);
 
-        return TRUE;
+        return true;
     }
 
 
@@ -228,7 +228,7 @@ class Max extends Char80
      *
      * @param string $deductCode
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseDeduction($ref, $amount, $refCode, $nr, $img, $deductCode)
     {
@@ -241,10 +241,10 @@ class Max extends Char80
             'deductionCode' => $deductCode,
             'deductionDesc' => $this->deductCodes[$deductCode],
         );
-        if ( $img == "1" ) $post['img'] = TRUE;
+        if ( $img == "1" ) $post['img'] = true;
         $this->pushTo('deductions', $post);
 
-        return TRUE;
+        return true;
     }
 
 
@@ -267,7 +267,7 @@ class Max extends Char80
      *
      * @param string $img
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function extrarefpost($tc, $bgFrom, $ref, $amount, $refCode, $channel, $nr, $img)
     {
@@ -286,11 +286,11 @@ class Max extends Char80
             //'channel' => $channel,
             //'nr' => ltrim($nr, '0'),
         );
-        if ( $img == "1" ) $post['img'] = TRUE;
+        if ( $img == "1" ) $post['img'] = true;
 
         $this->pushTo('extraRefs', $post);
 
-        return TRUE;
+        return true;
     }
 
 
@@ -299,20 +299,20 @@ class Max extends Char80
      *
      * @param string $msg
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseInfo($msg)
     {
         $this->pushTo('info', trim(utf8_encode($msg)));
 
-        return TRUE;
+        return true;
     }
 
 
     /**
      * Parse address
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseAddress()
     {
@@ -320,7 +320,7 @@ class Max extends Char80
             $this->pushTo('address', trim(utf8_encode($arg)));
         }
 
-        return TRUE;
+        return true;
     }
 
 
@@ -329,7 +329,7 @@ class Max extends Char80
      *
      * @param string $orgNr
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseOrgNr($orgNr)
     {
@@ -337,7 +337,7 @@ class Max extends Char80
         $t['orgNr'] = ltrim($orgNr, '0');
         $this->push($t);
 
-        return TRUE;
+        return true;
     }
 
 
@@ -360,9 +360,9 @@ class Max extends Char80
      *
      * @param string $type
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
-    protected function parseEnd($clearing, $account, $date, $nr, $sumTrans, $currency, $nrTrans, $type = FALSE)
+    protected function parseEnd($clearing, $account, $date, $nr, $sumTrans, $currency, $nrTrans, $type = false)
     {
         $this->deposits++;
         
@@ -389,7 +389,7 @@ class Max extends Char80
 
         if ( !$this->setValue('currency', $currency) ) {
             $this->error(_("Unvalid currency"));
-            return FALSE;
+            return false;
         }
 
         $type = trim($type);
@@ -397,16 +397,16 @@ class Max extends Char80
         
         if ( (int)$nrTrans != ($this->count()+$deductsInStack) ) {
             $this->error(_("Unvalid file content, wrong number of transaction posts."));
-            return FALSE;
+            return false;
         }
         
         if ( $this->str2amount($sumTrans) != ($this->sum('amount')-$sumDeductsInStack) ) {
             $this->error(_("Unvalid file content, wrong transaction sum."));
-            return FALSE;
+            return false;
         }
         $this->writeSection();        
 
-        return TRUE;
+        return true;
     }
 
 
@@ -421,28 +421,28 @@ class Max extends Char80
      *
      * @param string $deposits
      *
-     * @return bool TRUE if succesfull, FALSE on failure
+     * @return bool true if succesfull, false on failure
      */
     protected function parseFoot($transacts, $deducts, $extRefs, $deposits)
     {
         if ( (int)$transacts != $this->transacts ) {
             $this->error(_("Unvalid file content, wrong number of transaction posts."));
-            return FALSE;
+            return false;
         }
         if ( (int)$deducts != $this->deducts ) {
             $this->error(_("Unvalid file content, wrong number of deduction posts."));
-            return FALSE;
+            return false;
         }
         if ( (int)$extRefs != $this->extRefs ) {
             $this->error(_("Unvalid file content, wrong number of extra references."));
-            return FALSE;
+            return false;
         }
         if ( (int)$deposits != $this->deposits ) {
             $this->error(_("Unvalid file content, wrong number of deposit posts."));
-            return FALSE;
+            return false;
         }
 
-        return TRUE;
+        return true;
     }
 
 }

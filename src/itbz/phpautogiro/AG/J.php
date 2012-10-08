@@ -88,7 +88,7 @@ class J extends Object
      *
      * @param string $bg
      */
-    public function __construct($customerNr = FALSE, $bg = FALSE)
+    public function __construct($customerNr = false, $bg = false)
     {
         parent::__construct($customerNr, $bg);
         $this->setMap();
@@ -131,7 +131,7 @@ class J extends Object
      * @param string $maxAmount
      * @param string $clearing
      * @param string $account
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseConsent($bg, $orgNr, $betNr, $source, $activeYear, $created, $changed, $status1, $status2=false, $maxAmount=false, $clearing=false, $account=false){
         self::buildStateIdNr($orgNr, $orgNrType);

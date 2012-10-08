@@ -28,7 +28,7 @@ class G extends \itbz\phpautogiro\AG\G
      *
      * @param string $bg
      */
-    public function __construct($customerNr = FALSE, $bg = FALSE)
+    public function __construct($customerNr = false, $bg = false)
     {
         parent::__construct($customerNr, $bg);
         $this->map['01'] = array(utf8_decode("/^01AUTOGIRO.{12}..(\d{8}).{12}MAKULERING\/ÄNDRING..(\d{6})(\d{10})/"), 'parseHeadDateCustBg');

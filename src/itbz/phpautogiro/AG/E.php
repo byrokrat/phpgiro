@@ -88,7 +88,7 @@ class E extends Object
      * @param string $status
      * @param string $date
      * @param string $validDate
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseConsentInfo($bg, $betNr, $clearing, $account, $orgNr, $info, $status, $date, $validDate=false){
         if ( !$this->validBg($bg) ) return false;
@@ -145,7 +145,7 @@ class E extends Object
      * TC == 09, footer layout E style
      * @param string $date
      * @param string $nrPosts
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool true on success, false on failure
      */
     protected function parseFoot($date, $nrPosts){
         if ( !$this->validDate($date) ) return false;
