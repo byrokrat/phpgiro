@@ -26,15 +26,15 @@ class Sniffer implements LayoutInterface
      * @var array
      */
     private static $identifiers = array(
-        self::LAYOUT_D => array('BET. SPEC & STOPP TK'),
-        'PhpGiro_AG_New_E' => array('AUTOGIRO', 'AG-MEDAVI'),
-        self::LAYOUT_E => array('AG-MEDAVI'),
-        self::LAYOUT_F => array('FELLISTA REG.KONTRL'),
-        'PhpGiro_AG_New_F' => array('AVVISADE BET UPPDR'),
-        self::LAYOUT_G => array("MAK/ÄNDRINGSLISTA"),
-        'PhpGiro_AG_New_G' => array("MAKULERING/ÄNDRING"),
-        self::LAYOUT_H => array("AG-EMEDGIV"),
-        self::LAYOUT_I => array("BEVAKNINGSREG")
+        self::LAYOUT_NEW_D  => array('BET. SPEC & STOPP TK'),
+        self::LAYOUT_NEW_E  => array('AUTOGIRO', 'AG-MEDAVI'),
+        self::LAYOUT_AGP_E  => array('AG-MEDAVI'),
+        self::LAYOUT_AGP_F  => array('FELLISTA REG.KONTRL'),
+        self::LAYOUT_NEW_F  => array('AVVISADE BET UPPDR'),
+        self::LAYOUT_AGP_G  => array("MAK/ÄNDRINGSLISTA"),
+        self::LAYOUT_NEW_G  => array("MAKULERING/ÄNDRING"),
+        self::LAYOUT_AGP_H  => array("AG-EMEDGIV"),
+        self::LAYOUT_NEW_I  => array("BEVAKNINGSREG")
     );
 
     /**
@@ -46,6 +46,25 @@ class Sniffer implements LayoutInterface
      */
     public function sniff(array $lines)
     {
-        return self::LAYOUT_D;
+        // Undrar om jag ska skriva den här så att den kan tåla tomma
+        // rader i början av $lines!!
+        // 
+        // skriv test för det först..
+        $line = $lines[0];
+
+        foreach (self::$identifiers as $flag => $ids) {
+            $match = true;
+            foreach ($ids as $id) {
+                $id = utf8_decode($id);
+                if (strpos($line, $id) === false) {
+                    $match = false;
+                }
+            }
+            if ($match) {
+                return $flag;
+            }
+        }
+
+
     }
 }

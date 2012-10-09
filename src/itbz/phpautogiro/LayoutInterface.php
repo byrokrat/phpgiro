@@ -23,30 +23,52 @@ interface LayoutInterface
     /**
      * Layout D constant
      */
-    const LAYOUT_D = 1;
+    const LAYOUT_AGP_D = 1;
+
+    /**
+     * Layout E constant
+     */
+    const LAYOUT_AGP_E = 3;
+
+    /**
+     * Layout F constant
+     */
+    const LAYOUT_AGP_F = 5;
+
+    /**
+     * Layout G constant
+     */
+    const LAYOUT_AGP_G = 7;
+
+    /**
+     * Layout H constant
+     */
+    const LAYOUT_AGP_H = 9;
+
+
 
     /**
      * Layout D constant
      */
-    const LAYOUT_E = 2;
+    const LAYOUT_NEW_D = 2;
 
     /**
-     * Layout D constant
+     * Layout E-new constant
      */
-    const LAYOUT_F = 3;
+    const LAYOUT_NEW_E = 4;
 
     /**
-     * Layout D constant
+     * Layout F-new constant
      */
-    const LAYOUT_G = 5;
+    const LAYOUT_NEW_F = 6;
 
     /**
-     * Layout D constant
+     * Layout G-new constant
      */
-    const LAYOUT_H = 6;
+    const LAYOUT_NEW_G = 8;
 
     /**
-     * Layout D constant
+     * Layout I constant
      */
-    const LAYOUT_I = 7;
+    const LAYOUT_NEW_I = 10;
 }

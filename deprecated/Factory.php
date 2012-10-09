@@ -114,7 +114,7 @@ class Factory
             }
         }
 
-        $last =    $this->getLastLine($fname);
+        $last = $this->getLastLine($fname);
 
         if ( strpos($line, "AUTOGIRO") !== false ) {
             if ( strpos($last, '09') === 0 ) {
