@@ -21,9 +21,14 @@ namespace itbz\phpautogiro;
 interface LayoutInterface
 {
     /**
+     * Layout ABC constant
+     */
+    const LAYOUT_AGP_ABC = 1;
+
+    /**
      * Layout D constant
      */
-    const LAYOUT_AGP_D = 1;
+    const LAYOUT_AGP_D = 2;
 
     /**
      * Layout E constant
@@ -33,42 +38,60 @@ interface LayoutInterface
     /**
      * Layout F constant
      */
-    const LAYOUT_AGP_F = 5;
+    const LAYOUT_AGP_F = 4;
 
     /**
      * Layout G constant
      */
-    const LAYOUT_AGP_G = 7;
+    const LAYOUT_AGP_G = 5;
 
     /**
      * Layout H constant
      */
-    const LAYOUT_AGP_H = 9;
-
-
+    const LAYOUT_AGP_H = 6;
 
     /**
      * Layout D constant
      */
-    const LAYOUT_NEW_D = 2;
+    const LAYOUT_NEW_D = 7;
 
     /**
      * Layout E-new constant
      */
-    const LAYOUT_NEW_E = 4;
+    const LAYOUT_NEW_E = 8;
 
     /**
      * Layout F-new constant
      */
-    const LAYOUT_NEW_F = 6;
+    const LAYOUT_NEW_F = 9;
 
     /**
      * Layout G-new constant
      */
-    const LAYOUT_NEW_G = 8;
+    const LAYOUT_NEW_G = 10;
+
+    /**
+     * Layout H-new constant
+     */
+    const LAYOUT_NEW_H = 11;
 
     /**
      * Layout I constant
      */
-    const LAYOUT_NEW_I = 10;
+    const LAYOUT_NEW_I = 12;
+
+    /**
+     * Layout J constant
+     */
+    const LAYOUT_NEW_J = 13;
+
+    /**
+     * Layout BGMAX constant
+     */
+    const LAYOUT_BGMAX = 14;
+
+    /**
+     * Layout ABC constant
+     */
+    const LAYOUT_NEW_ABC = 15;
 }

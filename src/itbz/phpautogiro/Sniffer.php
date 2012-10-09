@@ -13,8 +13,10 @@
 
 namespace itbz\phpautogiro;
 
+use itbz\phpautogiro\Exception\SniffException;
+
 /**
- * Sniff the layout type of a AG-string
+ * Sniff the layout type of a autogiro file
  *
  * @package itbz\phpautogiro
  */
@@ -25,20 +27,65 @@ class Sniffer implements LayoutInterface
      * 
      * @var array
      */
-    private static $prefixIdentifiers = array(
-        self::LAYOUT_NEW_D  => array('BET. SPEC & STOPP TK'),
-        self::LAYOUT_NEW_E  => array('AUTOGIRO', 'AG-MEDAVI'),
-        self::LAYOUT_AGP_E  => array('AG-MEDAVI'),
-        self::LAYOUT_AGP_F  => array('FELLISTA REG.KONTRL'),
-        self::LAYOUT_NEW_F  => array('AVVISADE BET UPPDR'),
-        self::LAYOUT_AGP_G  => array("MAK/ÄNDRINGSLISTA"),
-        self::LAYOUT_NEW_G  => array("MAKULERING/ÄNDRING"),
-        self::LAYOUT_AGP_H  => array("AG-EMEDGIV"),
-        self::LAYOUT_NEW_I  => array("BEVAKNINGSREG")
+    private static $identifiers = array(
+        self::LAYOUT_NEW_D => array(
+            'first' => '/BET\. SPEC & STOPP TK/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_NEW_E => array(
+            'first' => '/AUTOGIRO.*AG-MEDAVI/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_AGP_E => array(
+            'first' => '/AG-MEDAVI/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_AGP_F => array(
+            'first' => '/FELLISTA REG\.KONTRL/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_NEW_F => array(
+            'first' => '/AVVISADE BET UPPDR/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_AGP_G => array(
+            'first' => '/MAK\/ÄNDRINGSLISTA/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_NEW_G => array(
+            'first' => '/MAKULERING\/ÄNDRING/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_AGP_H => array(
+            'first' => '/AG-EMEDGIV/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_NEW_I => array(
+            'first' => '/BEVAKNINGSREG/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_AGP_D => array(
+            'first' => '/AUTOGIRO/',
+            'last'  => '/^09/'
+        ),
+        self::LAYOUT_AGP_ABC => array(
+            'first' => '/AUTOGIRO/',
+            'last'  => '//'
+        ),
+        self::LAYOUT_NEW_J => array(
+            'first' => '/^([0-9]|\s)+$/',
+            'last'  => '/^([0-9]|\s)+$/'
+        ),
+        self::LAYOUT_BGMAX => array(
+            'first' => '/BGMAX/',
+            'last'  => '//'
+        )
     );
 
     /**
-     * Sniff layout type from file
+     * Sniff the layout type of a autogiro file
+     *
+     * NOTE: The response is a *guess* and should not be depended upon.
      * 
      * @param array $lines The file contents
      * 
@@ -54,24 +101,24 @@ class Sniffer implements LayoutInterface
             }
         );
 
-        // Sniff the first line
-        $line = current($lines);
+        $firstLine = current($lines);
+        end($lines);
+        $lastLine = current($lines);
 
-        foreach (self::$prefixIdentifiers as $flag => $ids) {
-            $match = true;
-            foreach ($ids as $id) {
-                $id = utf8_decode($id);
-                if (strpos($line, $id) === false) {
-                    $match = false;
-                }
-            }
-            if ($match) {
+        foreach (self::$identifiers as $flag => $regexes) {
+            $firstLineRegex = utf8_decode($regexes['first']);
+            $lastLineRegex = utf8_decode($regexes['last']);
+            if (
+                preg_match($firstLineRegex, $firstLine)
+                && preg_match($lastLineRegex, $lastLine)
+            ) {
+                // Match found
 
                 return $flag;
             }
         }
 
-        // Sniff the last line
-        // ...
+        $msg = _('Error sniffing file type: no matching type found.');
+        throw new SniffException($msg);
     }
 }
