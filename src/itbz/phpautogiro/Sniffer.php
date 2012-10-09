@@ -25,7 +25,7 @@ class Sniffer implements LayoutInterface
      * 
      * @var array
      */
-    private static $identifiers = array(
+    private static $prefixIdentifiers = array(
         self::LAYOUT_NEW_D  => array('BET. SPEC & STOPP TK'),
         self::LAYOUT_NEW_E  => array('AUTOGIRO', 'AG-MEDAVI'),
         self::LAYOUT_AGP_E  => array('AG-MEDAVI'),
@@ -46,13 +46,18 @@ class Sniffer implements LayoutInterface
      */
     public function sniff(array $lines)
     {
-        // Undrar om jag ska skriva den här så att den kan tåla tomma
-        // rader i början av $lines!!
-        // 
-        // skriv test för det först..
-        $line = $lines[0];
+        // Remove empty lines
+        $lines = array_filter(
+            $lines,
+            function ($line) {
+                return !!trim($line);
+            }
+        );
 
-        foreach (self::$identifiers as $flag => $ids) {
+        // Sniff the first line
+        $line = current($lines);
+
+        foreach (self::$prefixIdentifiers as $flag => $ids) {
             $match = true;
             foreach ($ids as $id) {
                 $id = utf8_decode($id);
@@ -61,10 +66,12 @@ class Sniffer implements LayoutInterface
                 }
             }
             if ($match) {
+
                 return $flag;
             }
         }
 
-
+        // Sniff the last line
+        // ...
     }
 }
