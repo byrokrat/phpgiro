@@ -146,7 +146,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testLayoutIJ()
+    public function testLayoutI()
     {
         $sniffer = new Sniffer;
         $lines = file(__DIR__ . '/samples/new/utdrag-bevakningsregistret.txt');
@@ -155,7 +155,11 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
             $sniffer->sniff($lines),
             'Layout I should be identified from utdrag-bevakningsregistret.txt'
         );
+    }
 
+    public function testLayoutJ()
+    {
+        $sniffer = new Sniffer;
         $lines = file(__DIR__ . '/samples/new/utdrag-medgivanderegistret.txt');
         $this->assertEquals(
             Sniffer::LAYOUT_J,
@@ -182,27 +186,5 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
     {
         $sniffer = new Sniffer;
         $sniffer->sniff(array('sdfasdf', 'adsfasdf'));
-    }
-
-
-    public function testBlankLines()
-    {
-        $sniffer = new Sniffer();
-
-        $lines = file(__DIR__ . '/samples/agp/AGPLayoutD.txt');
-        $lines[] = "   \r\n";
-        $this->assertEquals(
-            Sniffer::LAYOUT_PRIV_D,
-            $sniffer->sniff($lines),
-            'Layout PRIV D should be identified ignoring empty line at the end'
-        );
-
-        $lines = file(__DIR__ . '/samples/agp/AGPLayoutH.txt');
-        array_unshift($lines, "    \r\n");
-        $this->assertEquals(
-            Sniffer::LAYOUT_H,
-            $sniffer->sniff($lines),
-            'Layout H should be identified ignoring empty line at the beginning'
-        );
     }
 }
