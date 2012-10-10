@@ -13,11 +13,13 @@
 
 namespace itbz\phpautogiro\Exception;
 
+use itbz\phpautogiro\Exception;
+
 /**
- * Base exception
+ * Exception thrown when sniffer is unable to guess AG file type
  *
  * @package itbz\phpautogiro\Exception
  */
-class SniffException extends \itbz\phpautogiro\Exception
+class SniffException extends Exception
 {
 }
