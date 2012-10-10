@@ -93,14 +93,6 @@ class Sniffer implements LayoutInterface
      */
     public function sniff(array $lines)
     {
-        // Remove empty lines
-        $lines = array_filter(
-            $lines,
-            function ($line) {
-                return !!trim($line);
-            }
-        );
-
         $firstLine = current($lines);
         end($lines);
         $lastLine = current($lines);
