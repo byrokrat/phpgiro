@@ -31,22 +31,22 @@ interface LayoutInterface
     const LAYOUT_D = 2;
 
     /**
-     * Layout E-new constant
+     * Layout E constant
      */
     const LAYOUT_E = 3;
 
     /**
-     * Layout F-new constant
+     * Layout F constant
      */
     const LAYOUT_F = 4;
 
     /**
-     * Layout G-new constant
+     * Layout G constant
      */
     const LAYOUT_G = 5;
 
     /**
-     * Layout H-new constant
+     * Layout H constant
      */
     const LAYOUT_H = 6;
 
