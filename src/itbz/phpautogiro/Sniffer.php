@@ -28,51 +28,51 @@ class Sniffer implements LayoutInterface
      * @var array
      */
     private static $identifiers = array(
-        self::LAYOUT_NEW_D => array(
+        self::LAYOUT_D => array(
             'first' => '/BET\. SPEC & STOPP TK/',
             'last'  => '//'
         ),
-        self::LAYOUT_NEW_E => array(
+        self::LAYOUT_E => array(
             'first' => '/AUTOGIRO.*AG-MEDAVI/',
             'last'  => '//'
         ),
-        self::LAYOUT_AGP_E => array(
+        self::LAYOUT_PRIV_E => array(
             'first' => '/AG-MEDAVI/',
             'last'  => '//'
         ),
-        self::LAYOUT_AGP_F => array(
+        self::LAYOUT_PRIV_F => array(
             'first' => '/FELLISTA REG\.KONTRL/',
             'last'  => '//'
         ),
-        self::LAYOUT_NEW_F => array(
+        self::LAYOUT_F => array(
             'first' => '/AVVISADE BET UPPDR/',
             'last'  => '//'
         ),
-        self::LAYOUT_AGP_G => array(
+        self::LAYOUT_PRIV_G => array(
             'first' => '/MAK\/ÄNDRINGSLISTA/',
             'last'  => '//'
         ),
-        self::LAYOUT_NEW_G => array(
+        self::LAYOUT_G => array(
             'first' => '/MAKULERING\/ÄNDRING/',
             'last'  => '//'
         ),
-        self::LAYOUT_AGP_H => array(
+        self::LAYOUT_H => array(
             'first' => '/AG-EMEDGIV/',
             'last'  => '//'
         ),
-        self::LAYOUT_NEW_I => array(
+        self::LAYOUT_I => array(
             'first' => '/BEVAKNINGSREG/',
             'last'  => '//'
         ),
-        self::LAYOUT_AGP_D => array(
+        self::LAYOUT_PRIV_D => array(
             'first' => '/AUTOGIRO/',
             'last'  => '/^09/'
         ),
-        self::LAYOUT_AGP_ABC => array(
+        self::LAYOUT_ABC => array(
             'first' => '/AUTOGIRO/',
             'last'  => '//'
         ),
-        self::LAYOUT_NEW_J => array(
+        self::LAYOUT_J => array(
             'first' => '/^([0-9]|\s)+$/',
             'last'  => '/^([0-9]|\s)+$/'
         ),

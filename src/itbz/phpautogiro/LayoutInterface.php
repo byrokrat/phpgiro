@@ -23,75 +23,65 @@ interface LayoutInterface
     /**
      * Layout ABC constant
      */
-    const LAYOUT_AGP_ABC = 1;
+    const LAYOUT_ABC = 1;
 
     /**
      * Layout D constant
      */
-    const LAYOUT_AGP_D = 2;
-
-    /**
-     * Layout E constant
-     */
-    const LAYOUT_AGP_E = 3;
-
-    /**
-     * Layout F constant
-     */
-    const LAYOUT_AGP_F = 4;
-
-    /**
-     * Layout G constant
-     */
-    const LAYOUT_AGP_G = 5;
-
-    /**
-     * Layout H constant
-     */
-    const LAYOUT_AGP_H = 6;
-
-    /**
-     * Layout D constant
-     */
-    const LAYOUT_NEW_D = 7;
+    const LAYOUT_D = 2;
 
     /**
      * Layout E-new constant
      */
-    const LAYOUT_NEW_E = 8;
+    const LAYOUT_E = 3;
 
     /**
      * Layout F-new constant
      */
-    const LAYOUT_NEW_F = 9;
+    const LAYOUT_F = 4;
 
     /**
      * Layout G-new constant
      */
-    const LAYOUT_NEW_G = 10;
+    const LAYOUT_G = 5;
 
     /**
      * Layout H-new constant
      */
-    const LAYOUT_NEW_H = 11;
+    const LAYOUT_H = 6;
 
     /**
      * Layout I constant
      */
-    const LAYOUT_NEW_I = 12;
+    const LAYOUT_I = 7;
 
     /**
      * Layout J constant
      */
-    const LAYOUT_NEW_J = 13;
+    const LAYOUT_J = 8;
 
     /**
      * Layout BGMAX constant
      */
-    const LAYOUT_BGMAX = 14;
+    const LAYOUT_BGMAX = 9;
 
     /**
-     * Layout ABC constant
+     * Layout PRIV_D constant
      */
-    const LAYOUT_NEW_ABC = 15;
+    const LAYOUT_PRIV_D = 10;
+
+    /**
+     * Layout PRIV_E constant
+     */
+    const LAYOUT_PRIV_E = 11;
+
+    /**
+     * Layout PRIV_F constant
+     */
+    const LAYOUT_PRIV_F = 12;
+
+    /**
+     * Layout PRIV_G constant
+     */
+    const LAYOUT_PRIV_G = 13;
 }
