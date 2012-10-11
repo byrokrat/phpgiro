@@ -13,8 +13,9 @@
 
 namespace itbz\phpautogiro;
 
+use Parser\Parser;
+use Parser\Strategy\LayoutH;
 use Exception\StrategyException;
-use ParserStrategy\LayoutH;
 
 /**
  * Create parsers for different AG file types

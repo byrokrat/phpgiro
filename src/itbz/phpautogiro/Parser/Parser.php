@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\phpautogiro\Parser
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\phpautogiro\Parser;
 
 use DOMDocument;
 
 /**
  * Parse AG files using designated strategy
  *
- * @package itbz\phpautogiro
+ * @package itbz\phpautogiro\Parser
  */
 class Parser
 {

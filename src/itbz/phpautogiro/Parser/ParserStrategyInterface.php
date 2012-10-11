@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\phpautogiro\Parser
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\phpautogiro\Parser;
 
 use itbz\Exception\ParserException;
 
 /**
  * Interface for parsing AG files
  *
- * @package itbz\phpautogiro
+ * @package itbz\phpautogiro\Parser
  */
 interface ParserStrategyInterface
 {
