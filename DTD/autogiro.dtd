@@ -1,0 +1,29 @@
+<!ELEMENT autogiro (h)>
+<!ATTLIST autogiro version (0.1.0) #REQUIRED>
+
+<!ELEMENT date (year,month,day)>
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT month (#PCDATA)>
+<!ELEMENT day (#PCDATA)>
+
+<!ELEMENT bg (#PCDATA)>
+<!ELEMENT payerId (#PCDATA)>
+<!ELEMENT personalId (#PCDATA)>
+<!ELEMENT corporateId (#PCDATA)>
+
+<!ELEMENT account (clearing,number)>
+<!ELEMENT clearing (#PCDATA)>
+<!ELEMENT number (#PCDATA)>
+
+<!ELEMENT address (line+,postcode,town)>
+<!ELEMENT line (#PCDATA)>
+<!ELEMENT postcode (#PCDATA)>
+<!ELEMENT town (#PCDATA)>
+
+<!ELEMENT message (id,text)>
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT text (#PCDATA)>
+
+<!ELEMENT h (date,bg,consent+)>
+<!ELEMENT consent (payerId,(personalId|corporateId),account,message,info,address)>
+<!ELEMENT info (#PCDATA)>
