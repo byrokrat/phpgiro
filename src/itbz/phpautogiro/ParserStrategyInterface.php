@@ -16,7 +16,7 @@ namespace itbz\phpautogiro;
 use itbz\Exception\ParserException;
 
 /**
- * Document interface
+ * Interface for parsing AG files
  *
  * @package itbz\phpautogiro
  */

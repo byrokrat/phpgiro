@@ -13,7 +13,7 @@
 
 namespace itbz\phpautogiro;
 
-use \DOMDocument;
+use DOMDocument;
 
 /**
  * Convert AG files to XML
