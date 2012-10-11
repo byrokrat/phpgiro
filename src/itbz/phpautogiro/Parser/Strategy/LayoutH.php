@@ -13,7 +13,7 @@
 
 namespace itbz\phpautogiro\Parser\Strategy;
 
-use itbz\phpautogiro\Parser\ParserStrategyInterface;
+use itbz\phpautogiro\Parser\StrategyInterface;
 use itbz\phpautogiro\Exception\ParserException;
 
 /**
@@ -21,7 +21,7 @@ use itbz\phpautogiro\Exception\ParserException;
  *
  * @package itbz\phpautogiro\Parser\Strategy
  */
-class LayoutH implements ParserStrategyInterface
+class LayoutH implements StrategyInterface
 {
     /**
      * {@inheritdoc}

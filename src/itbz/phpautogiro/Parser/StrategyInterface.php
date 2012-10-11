@@ -20,7 +20,7 @@ use itbz\Exception\ParserException;
  *
  * @package itbz\phpautogiro\Parser
  */
-interface ParserStrategyInterface
+interface StrategyInterface
 {
     /**
      * Reset internal state

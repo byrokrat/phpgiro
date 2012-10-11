@@ -25,16 +25,16 @@ class Parser
     /**
      * Parsing strategy
      *
-     * @var ParserStrategyInterface
+     * @var StrategyInterface
      */
     private $strategy;
 
     /**
      * Parse AG files using designated strategy
      *
-     * @param ParserStrategyInterface $strategy
+     * @param StrategyInterface $strategy
      */
-    public function __construct(ParserStrategyInterface $strategy)
+    public function __construct(StrategyInterface $strategy)
     {
         $this->strategy = $strategy;
     }
