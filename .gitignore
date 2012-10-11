@@ -5,3 +5,4 @@ composer.lock
 phpautogiro.sublime-project
 phpautogiro.sublime-workspace
 tests/data
+test.php
