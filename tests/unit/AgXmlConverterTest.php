@@ -66,7 +66,7 @@ class AgXmlConverterTest extends \PHPUnit_Framework_TestCase
             ->method('build')
             ->will($this->returnValue($parser));
 
-        // When parser recievd the data it should be trimmed
+        // When parser receives the data it should be trimmed
         $parser->expects($this->once())
             ->method('parse')
             ->with($trimedData);
