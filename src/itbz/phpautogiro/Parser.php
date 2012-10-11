@@ -13,7 +13,7 @@
 
 namespace itbz\phpautogiro;
 
-use \DOMDocument;
+use DOMDocument;
 
 /**
  * Parse AG files using designated strategy
@@ -53,10 +53,11 @@ class Parser
             $this->strategy->parse($line);
         }
 
-        $domDocument = $this->strategy->getDomDocument();
+        $xml = $this->strategy->getDomDocument();
 
+        // create DomDocument
         // Validate against DTD
 
-        return $domDocument;
+        return $xml;
     }
 }
