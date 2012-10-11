@@ -63,7 +63,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
 
         $lines = file(__DIR__ . '/samples/agp/AGPLayoutD.txt');
         $this->assertEquals(
-            Sniffer::LAYOUT_PRIV_D,
+            Sniffer::LAYOUT_OLD_D,
             $sniffer->sniff($lines),
             'Layout PRIV D should be identified from AGPLayoutD.txt'
         );
@@ -82,7 +82,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
 
         $lines = file(__DIR__ . '/samples/agp/AGPLayoutE.txt');
         $this->assertEquals(
-            Sniffer::LAYOUT_PRIV_E,
+            Sniffer::LAYOUT_OLD_E,
             $sniffer->sniff($lines),
             'Layout E should be identified from AGPLayoutE.txt'
         );
@@ -101,7 +101,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
 
         $lines = file(__DIR__ . '/samples/agp/AGPLayoutF.txt');
         $this->assertEquals(
-            Sniffer::LAYOUT_PRIV_F,
+            Sniffer::LAYOUT_OLD_F,
             $sniffer->sniff($lines),
             'Layout PRIV F should be identified from AGPLayoutF.txt'
         );
@@ -120,7 +120,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
 
         $lines = file(__DIR__ . '/samples/agp/AGPLayoutG.txt');
         $this->assertEquals(
-            Sniffer::LAYOUT_PRIV_G,
+            Sniffer::LAYOUT_OLD_G,
             $sniffer->sniff($lines),
             'Layout PRIV G should be identified from AGPLayoutG.txt'
         );

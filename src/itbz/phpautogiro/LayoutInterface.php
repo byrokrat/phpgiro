@@ -68,20 +68,20 @@ interface LayoutInterface
     /**
      * Layout PRIV_D constant
      */
-    const LAYOUT_PRIV_D = 10;
+    const LAYOUT_OLD_D = 10;
 
     /**
      * Layout PRIV_E constant
      */
-    const LAYOUT_PRIV_E = 11;
+    const LAYOUT_OLD_E = 11;
 
     /**
      * Layout PRIV_F constant
      */
-    const LAYOUT_PRIV_F = 12;
+    const LAYOUT_OLD_F = 12;
 
     /**
      * Layout PRIV_G constant
      */
-    const LAYOUT_PRIV_G = 13;
+    const LAYOUT_OLD_G = 13;
 }

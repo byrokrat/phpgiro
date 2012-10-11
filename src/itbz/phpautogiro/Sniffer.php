@@ -36,11 +36,11 @@ class Sniffer implements LayoutInterface
             'first' => '/AUTOGIRO.*AG-MEDAVI/',
             'last'  => '//'
         ),
-        self::LAYOUT_PRIV_E => array(
+        self::LAYOUT_OLD_E => array(
             'first' => '/AG-MEDAVI/',
             'last'  => '//'
         ),
-        self::LAYOUT_PRIV_F => array(
+        self::LAYOUT_OLD_F => array(
             'first' => '/FELLISTA REG\.KONTRL/',
             'last'  => '//'
         ),
@@ -48,7 +48,7 @@ class Sniffer implements LayoutInterface
             'first' => '/AVVISADE BET UPPDR/',
             'last'  => '//'
         ),
-        self::LAYOUT_PRIV_G => array(
+        self::LAYOUT_OLD_G => array(
             'first' => '/MAK\/ÄNDRINGSLISTA/',
             'last'  => '//'
         ),
@@ -64,7 +64,7 @@ class Sniffer implements LayoutInterface
             'first' => '/BEVAKNINGSREG/',
             'last'  => '//'
         ),
-        self::LAYOUT_PRIV_D => array(
+        self::LAYOUT_OLD_D => array(
             'first' => '/AUTOGIRO/',
             'last'  => '/^09/'
         ),
