@@ -13,9 +13,8 @@
 
 namespace itbz\phpautogiro;
 
-use Parser\Parser;
-use Parser\Strategy\LayoutH;
-use Exception\StrategyException;
+use itbz\phpautogiro\Parser\Parser;
+use itbz\phpautogiro\Exception\StrategyException;
 
 /**
  * Create parsers for different AG file types
@@ -24,6 +23,15 @@ use Exception\StrategyException;
  */
 class ParserFactory implements LayoutInterface
 {
+    /**
+     * Maps layout flags to class names
+     * 
+     * @var array
+     */
+    private static $classes = array(
+        self::LAYOUT_H => 'itbz\phpautogiro\Parser\Strategy\LayoutH'
+    );
+
     /**
      * Build a parser for AG file type denoted by flag
      *
@@ -35,15 +43,13 @@ class ParserFactory implements LayoutInterface
      */
     public function build($flag)
     {
-        assert('is_int($flag)');
-
-        if ($flag == self::LAYOUT_H) {
-            $strategy = new LayoutH;
-        } else {
+        if (!isset(self::$classes[$flag])) {
             $msg = _('Unable to create parsing strategy: layout unknown.');
             throw new StrategyException($msg);
         }
 
-        return new Parser($strategy);
+        $strategyClass = self::$classes[$flag];
+
+        return new Parser(new $strategyClass);
     }
 }

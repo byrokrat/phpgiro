@@ -38,7 +38,7 @@ interface StrategyInterface
      *
      * @throws ParserException if unable to parse line
      */
-    public function parse($line);
+    public function parseLine($line);
 
     /**
      * Get created xml as a raw string

@@ -39,7 +39,7 @@ class LayoutH implements StrategyInterface
      * @return void
      * @throws ParserException If unable to parse line
      */
-    public function parse($line)
+    public function parseLine($line)
     {
     }
 

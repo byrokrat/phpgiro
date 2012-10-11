@@ -40,6 +40,16 @@ class Parser
     }
 
     /**
+     * Get parsing strategy
+     *
+     * @return StrategyInterface
+     */
+    public function getStrategy()
+    {
+        return $this->strategy;
+    }
+
+    /**
      * Parse AG files using designated strategy
      * 
      * @param array $lines AG file contents
@@ -50,7 +60,7 @@ class Parser
     {
         $this->strategy->clear();
         foreach ($lines as $line) {
-            $this->strategy->parse($line);
+            $this->strategy->parseLine($line);
         }
 
         $xml = $this->strategy->getDomDocument();
