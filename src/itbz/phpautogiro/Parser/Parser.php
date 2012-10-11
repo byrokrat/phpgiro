@@ -13,6 +13,7 @@
 
 namespace itbz\phpautogiro\Parser;
 
+use itbz\phpautogiro\Exception\ParserException;
 use DOMDocument;
 
 /**
@@ -55,19 +56,30 @@ class Parser
      * @param array $lines AG file contents
      * 
      * @return DOMDocument
+     *
+     * @throws ParserException If generated XML is not valid
      */
     public function parse(array $lines)
     {
         $this->strategy->clear();
+
         foreach ($lines as $line) {
             $this->strategy->parseLine($line);
         }
 
-        $xml = $this->strategy->getDomDocument();
+        $xml = $this->strategy->getXml();
 
-        // create DomDocument
-        // Validate against DTD
+        $domDocument = new DOMDocument;
+        if (!@$domDocument->loadXML($xml) || !@$domDocument->validate()) {
+            $libxmlError = libxml_get_last_error();
+            if ($libxmlError) {
+                $msg = $libxmlError->message;
+            } else {
+                $msg = _("Parsing empty file?");
+            }
+            throw new ParserException(_('XML validation error: ') . $msg);
+        }
 
-        return $xml;
+        return $domDocument;
     }
 }
