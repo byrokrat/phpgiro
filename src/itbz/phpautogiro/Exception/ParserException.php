@@ -16,7 +16,7 @@ namespace itbz\phpautogiro\Exception;
 use itbz\phpautogiro\Exception;
 
 /**
- * Exception thrown when a parser strategy fails to parse a line
+ * Exception thrown when AG to XML parsing fails
  *
  * @package itbz\phpautogiro\Exception
  */
