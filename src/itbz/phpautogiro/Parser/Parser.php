@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the swegiro package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
