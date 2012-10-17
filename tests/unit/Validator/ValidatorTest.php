@@ -1,5 +1,5 @@
 <?php
-namespace itbz\phpautogiro\Validator;
+namespace itbz\swegiro\Validator;
 
 use DOMDocument;
 

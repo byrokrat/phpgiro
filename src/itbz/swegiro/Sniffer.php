@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
-use itbz\phpautogiro\Exception\SniffException;
+use itbz\swegiro\Exception\SniffException;
 
 /**
  * Sniff the layout type of a autogiro file
  *
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 class Sniffer implements LayoutInterface
 {

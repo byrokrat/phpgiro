@@ -1,5 +1,5 @@
 <?php
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
 class SnifferTest extends \PHPUnit_Framework_TestCase
 {
@@ -180,7 +180,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\phpautogiro\Exception\SniffException
+     * @expectedException itbz\swegiro\Exception\SniffException
      */
     public function testNoMatch()
     {

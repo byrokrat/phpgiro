@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
 use DOMDocument;
 
 /**
  * Convert AG files to XML
  *
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 class AgXmlConverter
 {

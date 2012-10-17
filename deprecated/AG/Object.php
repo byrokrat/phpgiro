@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\AG
+ * @package itbz\swegiro\AG
  */
 
-namespace itbz\phpautogiro\AG;
+namespace itbz\swegiro\AG;
 
-use itbz\phpautogiro\Char80;
+use itbz\swegiro\Char80;
 
 /**
  * Autogiro base class
  *
- * @package itbz\phpautogiro\AG
+ * @package itbz\swegiro\AG
  */
 abstract class Object extends Char80
 {

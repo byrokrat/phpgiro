@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\Validator
+ * @package itbz\swegiro\Validator
  */
 
-namespace itbz\phpautogiro\Validator;
+namespace itbz\swegiro\Validator;
 
-use itbz\phpautogiro\ValidatorInterface;
+use itbz\swegiro\ValidatorInterface;
 use DOMImplementation;
 use DOMDocumentType;
 use DOMDocument;
@@ -21,7 +21,7 @@ use DOMDocument;
 /**
  * Validate DOMDocuments using DTDs
  *
- * @package itbz\phpautogiro\Validator
+ * @package itbz\swegiro\Validator
  */
 class DtdValidator implements ValidatorInterface
 {

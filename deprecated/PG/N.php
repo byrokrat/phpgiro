@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\PG
+ * @package itbz\swegiro\PG
  */
 
-namespace itbz\phpautogiro\PG;
+namespace itbz\swegiro\PG;
 
-use itbz\phpautogiro\Char80;
+use itbz\swegiro\Char80;
 
 /**
  * PlusGiro file layout N
  *
- * @package itbz\phpautogiro\PG
+ * @package itbz\swegiro\PG
  */
 class N extends Char80
 {

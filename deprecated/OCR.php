@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
 /**
  * Contains static methods for creating and validating
  * ocr numbers and check digits.
  *
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 class OCR
 {

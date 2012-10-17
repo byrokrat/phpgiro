@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\AG\Nya
+ * @package itbz\swegiro\AG\Nya
  */
 
-namespace itbz\phpautogiro\AG\Nya;
+namespace itbz\swegiro\AG\Nya;
 
 /**
  * AG layout G, feedback on deletions and changes. New File layout.
  *
- * @package itbz\phpautogiro\AG\Nya
+ * @package itbz\swegiro\AG\Nya
  */
-class G extends \itbz\phpautogiro\AG\G
+class G extends \itbz\swegiro\AG\G
 {
     
     /**

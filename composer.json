@@ -1,8 +1,8 @@
 {
-    "name": "itbz/phpautogiro",
-    "description": "Create and parse files from the swedish banksystem Autogirot",
-    "keywords": ["autogiro"],
-    "homepage": "https://github.com/itbz/phpautogiro",
+    "name": "itbz/swegiro",
+    "description": "Create and parse files for swedish giro systems",
+    "keywords": ["autogiro", "plusgiro", "bankgiro"],
+    "homepage": "https://github.com/itbz/swegiro",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "itbz\\phpautogiro": "src/"
+            "itbz\\swegiro": "src/"
         }
     },
     "require": {

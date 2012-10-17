@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
 /**
  * Sniff the layout type of a AG-string
  *
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 interface LayoutInterface
 {

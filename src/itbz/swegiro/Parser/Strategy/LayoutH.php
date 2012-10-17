@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\Parser\Strategy
+ * @package itbz\swegiro\Parser\Strategy
  */
 
-namespace itbz\phpautogiro\Parser\Strategy;
+namespace itbz\swegiro\Parser\Strategy;
 
-use itbz\phpautogiro\Parser\StrategyInterface;
-use itbz\phpautogiro\Exception\ParserException;
+use itbz\swegiro\Parser\StrategyInterface;
+use itbz\swegiro\Exception\ParserException;
 
 /**
  * Parser for AG layout H (new electronic consents)
  *
- * @package itbz\phpautogiro\Parser\Strategy
+ * @package itbz\swegiro\Parser\Strategy
  */
 class LayoutH implements StrategyInterface
 {

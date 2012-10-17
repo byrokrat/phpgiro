@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\AG\Nya
+ * @package itbz\swegiro\AG\Nya
  */
 
-namespace itbz\phpautogiro\AG\Nya;
+namespace itbz\swegiro\AG\Nya;
 
 /**
  * AG layout J, list of consents registered with the bank. New file layout.
  *
- * @package itbz\phpautogiro\AG\Nya
+ * @package itbz\swegiro\AG\Nya
  */
-class J extends \itbz\phpautogiro\AG\J
+class J extends \itbz\swegiro\AG\J
 {
 
     /**

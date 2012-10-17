@@ -2,6 +2,6 @@ build
 vendor
 composer.phar
 composer.lock
-phpautogiro.sublime-project
-phpautogiro.sublime-workspace
+swegiro.sublime-project
+swegiro.sublime-workspace
 tests/data

@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
 /**
  * <h3>Supported file formats</h3>
@@ -57,7 +57,7 @@ namespace itbz\phpautogiro;
  *   NEW = nya autogiro with nwe layout
  * </pre>
  *
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 class Factory
 {

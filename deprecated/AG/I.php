@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\AG
+ * @package itbz\swegiro\AG
  */
 
-namespace itbz\phpautogiro\AG;
+namespace itbz\swegiro\AG;
 
 /**
  * AG layout I, list of transactions registered with the bank, but not processed.
@@ -30,7 +30,7 @@ namespace itbz\phpautogiro\AG;
  * [statusMsg] => string message describing status code
  * </code>
  *
- * @package itbz\phpautogiro\AG
+ * @package itbz\swegiro\AG
  */
 class I extends Object
 {

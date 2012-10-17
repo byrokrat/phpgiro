@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\BB
+ * @package itbz\swegiro\BB
  */
 
-namespace itbz\phpautogiro\BG;
+namespace itbz\swegiro\BG;
 
-use itbz\phpautogiro\OCR;
+use itbz\swegiro\OCR;
 
 /**
  * Bankgiro advice class
  *
- * @package itbz\phpautogiro\BG
+ * @package itbz\swegiro\BG
  */
 class Advice extends OCR
 {

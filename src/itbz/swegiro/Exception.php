@@ -8,18 +8,16 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\Exception
+ * @package itbz\swegiro
  */
 
-namespace itbz\phpautogiro\Exception;
-
-use itbz\phpautogiro\Exception;
+namespace itbz\swegiro;
 
 /**
- * Exception thrown when sniffer is unable to guess AG file type
+ * Base exception
  *
- * @package itbz\phpautogiro\Exception
+ * @package itbz\swegiro
  */
-class SniffException extends Exception
+class Exception extends \Exception
 {
 }

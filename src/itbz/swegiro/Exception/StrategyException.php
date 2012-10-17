@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\Exception
+ * @package itbz\swegiro\Exception
  */
 
-namespace itbz\phpautogiro\Exception;
+namespace itbz\swegiro\Exception;
 
-use itbz\phpautogiro\Exception;
+use itbz\swegiro\Exception;
 
 /**
- * Exception thrown when validator fails
+ * Exception thrown when parsing strategy could not be created
  *
- * @package itbz\phpautogiro\Exception
+ * @package itbz\swegiro\Exception
  */
-class ValidatorException extends Exception
+class StrategyException extends Exception
 {
 }

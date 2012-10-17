@@ -8,20 +8,20 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\Parser
+ * @package itbz\swegiro\Parser
  */
 
-namespace itbz\phpautogiro\Parser;
+namespace itbz\swegiro\Parser;
 
-use itbz\phpautogiro\Exception\ParserException;
-use itbz\phpautogiro\Exception\ValidatorException;
-use itbz\phpautogiro\ValidatorInterface;
+use itbz\swegiro\Exception\ParserException;
+use itbz\swegiro\Exception\ValidatorException;
+use itbz\swegiro\ValidatorInterface;
 use DOMDocument;
 
 /**
  * Parse AG files using designated strategy
  *
- * @package itbz\phpautogiro\Parser
+ * @package itbz\swegiro\Parser
  */
 class Parser
 {

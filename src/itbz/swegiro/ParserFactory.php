@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
-use itbz\phpautogiro\Parser\Parser;
-use itbz\phpautogiro\Exception\StrategyException;
-use itbz\phpautogiro\Validator\DtdValidator;
+use itbz\swegiro\Parser\Parser;
+use itbz\swegiro\Exception\StrategyException;
+use itbz\swegiro\Validator\DtdValidator;
 
 /**
  * Create parsers for different AG file types
  *
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 class ParserFactory implements LayoutInterface
 {
@@ -30,7 +30,7 @@ class ParserFactory implements LayoutInterface
      * @var array
      */
     private static $classes = array(
-        self::LAYOUT_H => 'itbz\phpautogiro\Parser\Strategy\LayoutH'
+        self::LAYOUT_H => 'itbz\swegiro\Parser\Strategy\LayoutH'
     );
 
     /**

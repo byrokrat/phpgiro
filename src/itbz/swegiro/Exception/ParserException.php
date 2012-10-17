@@ -8,16 +8,18 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\swegiro\Exception
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\swegiro\Exception;
+
+use itbz\swegiro\Exception;
 
 /**
- * Base exception
+ * Exception thrown when AG to XML parsing fails
  *
- * @package itbz\phpautogiro
+ * @package itbz\swegiro\Exception
  */
-class Exception extends \Exception
+class ParserException extends Exception
 {
 }

@@ -1,10 +1,10 @@
 <?php
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
 class ParserFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException itbz\phpautogiro\Exception\StrategyException
+     * @expectedException itbz\swegiro\Exception\StrategyException
      */
     public function testInvalidFlag()
     {
@@ -18,12 +18,12 @@ class ParserFactoryTest extends \PHPUnit_Framework_TestCase
         $parser = $factory->build(ParserFactory::LAYOUT_H);
 
         $this->assertInstanceOf(
-            'itbz\phpautogiro\Parser\Parser',
+            'itbz\swegiro\Parser\Parser',
             $parser
         );
 
         $this->assertInstanceOf(
-            'itbz\phpautogiro\Parser\Strategy\LayoutH',
+            'itbz\swegiro\Parser\Strategy\LayoutH',
             $parser->getStrategy()
         );
     }

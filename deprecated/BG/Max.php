@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\BB
+ * @package itbz\swegiro\BB
  */
 
-namespace itbz\phpautogiro\BG;
+namespace itbz\swegiro\BG;
 
-use itbz\phpautogiro\Char80;
+use itbz\swegiro\Char80;
 
 /**
  * BgMax file format parser.
  *
- * @package itbz\phpautogiro\Bg
+ * @package itbz\swegiro\Bg
  */
 class Max extends Char80
 {

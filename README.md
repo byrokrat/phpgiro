@@ -1,7 +1,7 @@
-phpautogiro
-===========
+swegiro
+=======
 
-Create and parse files from the swedish banksystem Autogirot
+Create and parse files for swedish giro systems.
 
 This project is a stub and not currently usable.
 

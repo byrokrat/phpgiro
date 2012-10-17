@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
 /**
  * The 80 character layout lets each line in a txt file be max 80 characters long
@@ -29,7 +29,7 @@ namespace itbz\phpautogiro;
  *
  * For a live example se the BgMax file format available in this package.
  *
- * @package itbz\phpautogiro
+ * @package itbz\swegiro
  */
 abstract class Char80
 {

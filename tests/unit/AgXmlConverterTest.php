@@ -1,20 +1,20 @@
 <?php
-namespace itbz\phpautogiro;
+namespace itbz\swegiro;
 
 class AgXmlConverterTest extends \PHPUnit_Framework_TestCase
 {
     public function testConvert()
     {
-        $sniffer = $this->getMock('itbz\phpautogiro\Sniffer');
+        $sniffer = $this->getMock('itbz\swegiro\Sniffer');
 
         $sniffer->expects($this->once())
             ->method('sniff')
             ->will($this->returnValue(LayoutInterface::LAYOUT_H));
 
-        $parserFactory = $this->getMock('itbz\phpautogiro\ParserFactory');
+        $parserFactory = $this->getMock('itbz\swegiro\ParserFactory');
 
         $parser = $this->getMock(
-            'itbz\phpautogiro\Parser\Parser',
+            'itbz\swegiro\Parser\Parser',
             array(),
             array(),
             '',
@@ -51,11 +51,11 @@ class AgXmlConverterTest extends \PHPUnit_Framework_TestCase
             'e' => "bar",
         );
 
-        $sniffer = $this->getMock('itbz\phpautogiro\Sniffer');
-        $parserFactory = $this->getMock('itbz\phpautogiro\ParserFactory');
+        $sniffer = $this->getMock('itbz\swegiro\Sniffer');
+        $parserFactory = $this->getMock('itbz\swegiro\ParserFactory');
 
         $parser = $this->getMock(
-            'itbz\phpautogiro\Parser\Parser',
+            'itbz\swegiro\Parser\Parser',
             array(),
             array(),
             '',

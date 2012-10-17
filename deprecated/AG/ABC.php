@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\AG
+ * @package itbz\swegiro\AG
  */
 
-namespace itbz\phpautogiro\AG;
+namespace itbz\swegiro\AG;
 
 /**
  * Parse and create autogiro files layouts A, B and C (information sent to BGC).
@@ -66,7 +66,7 @@ namespace itbz\phpautogiro\AG;
  * See AgLayoutABC_new::addBgConsent()
  * and AgLayoutABC_new::changeBetNr()
  *
- * @package itbz\phpautogiro\AG
+ * @package itbz\swegiro\AG
  */
 class ABC extends Object
 {

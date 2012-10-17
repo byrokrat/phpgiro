@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\AG
+ * @package itbz\swegiro\AG
  */
 
-namespace itbz\phpautogiro\AG;
+namespace itbz\swegiro\AG;
 
 /**
  * AG layout D, feedback on completed transactions.
  *
- * @package itbz\phpautogiro\AG
+ * @package itbz\swegiro\AG
  */
 class D extends Object
 {

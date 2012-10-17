@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\phpautogiro\Exception
+ * @package itbz\swegiro\Exception
  */
 
-namespace itbz\phpautogiro\Exception;
+namespace itbz\swegiro\Exception;
 
-use itbz\phpautogiro\Exception;
+use itbz\swegiro\Exception;
 
 /**
- * Exception thrown when parsing strategy could not be created
+ * Exception thrown when sniffer is unable to guess AG file type
  *
- * @package itbz\phpautogiro\Exception
+ * @package itbz\swegiro\Exception
  */
-class StrategyException extends Exception
+class SniffException extends Exception
 {
 }
