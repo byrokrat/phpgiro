@@ -14,6 +14,8 @@
 namespace itbz\phpautogiro\Parser;
 
 use itbz\phpautogiro\Exception\ParserException;
+use itbz\phpautogiro\Exception\ValidatorException;
+use itbz\phpautogiro\ValidatorInterface;
 use DOMDocument;
 
 /**
@@ -31,13 +33,24 @@ class Parser
     private $strategy;
 
     /**
+     * DomDocument validator object
+     *
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    /**
      * Parse AG files using designated strategy
      *
      * @param StrategyInterface $strategy
+     * @param ValidatorInterface $validator
      */
-    public function __construct(StrategyInterface $strategy)
-    {
+    public function __construct(
+        StrategyInterface $strategy,
+        ValidatorInterface $validator
+    ) {
         $this->strategy = $strategy;
+        $this->validator = $validator;
     }
 
     /**
@@ -58,6 +71,7 @@ class Parser
      * @return DOMDocument
      *
      * @throws ParserException If generated XML is not valid
+     * @throws ValidatorException If validation fails
      */
     public function parse(array $lines)
     {
@@ -70,7 +84,7 @@ class Parser
         $xml = $this->strategy->getXml();
 
         $domDocument = new DOMDocument;
-        if (!@$domDocument->loadXML($xml) || !@$domDocument->validate()) {
+        if (!@$domDocument->loadXML($xml)) {
             $libxmlError = libxml_get_last_error();
             if ($libxmlError) {
                 $msg = $libxmlError->message;
@@ -78,6 +92,10 @@ class Parser
                 $msg = _("Parsing empty file?");
             }
             throw new ParserException(_('XML validation error: ') . $msg);
+        }
+
+        if (!$this->validator->isValid($domDocument)) {
+            throw new ValidatorException($this->validator->getError());
         }
 
         return $domDocument;

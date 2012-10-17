@@ -25,11 +25,11 @@ interface ValidatorInterface
     /**
      * Check if document is valid
      *
-     * @param DOMDocument $xml Document to validate
+     * @param DOMDocument $doc Document to validate
      *
      * @return boolean True if document is valid, false otherwise
      */
-    public function isValid(DOMDocument $xml);
+    public function isValid(DOMDocument $doc);
 
     /**
      * Get string describing the last validation error

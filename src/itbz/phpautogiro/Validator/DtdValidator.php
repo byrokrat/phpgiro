@@ -26,11 +26,18 @@ use DOMDocument;
 class DtdValidator implements ValidatorInterface
 {
     /**
+     * Last error message
+     *
+     * @var string
+     */
+    private $error = '';
+
+    /**
      * XML qualified name
      *
      * @var string
      */
-    private $name;
+    private $rootName;
 
     /**
      * DOM creator resource
@@ -42,19 +49,19 @@ class DtdValidator implements ValidatorInterface
     /**
      * Validate DOMDocuments using DTDs
      *
-     * @param string $name XML qualified name
+     * @param string $rootName Name of the document root node
      * @param string $dtd
      */
-    public function __construct($name, $dtd)
+    public function __construct($rootName, $dtd)
     {
-        assert('is_string($name)');
+        assert('is_string($rootName) && !empty($rootName)');
         assert('is_string($dtd)');
 
-        $this->name = $name;
+        $this->rootName = $rootName;
 
         $this->creator = new DOMImplementation;
         $this->doctype = $this->creator->createDocumentType(
-            $this->name,
+            $this->rootName,
             null,
             'data://text/plain;base64,'.base64_encode($dtd)
         );
@@ -63,23 +70,40 @@ class DtdValidator implements ValidatorInterface
     /**
      * {@inheritdoc}
      *
-     * @param DOMDocument $xml Document to validate
+     * @param DOMDocument $doc Document to validate
      *
      * @return boolean True if document is valid, false otherwise
      */
-    public function isValid(DOMDocument $xml)
+    public function isValid(DOMDocument $doc)
     {
         $newDocument = $this->creator->createDocument(null, null, $this->doctype);
-        $newDocument->encoding = $xml->encoding ? $xml->encoding : 'utf-8';
+        $newDocument->encoding = $doc->encoding ? $doc->encoding : 'utf-8';
+
+        $rootNode = $doc->getElementsByTagName($this->rootName)->item(0);
+
+        if (!$rootNode) {
+            $this->error = _('Unable to extract root node from document');
+
+            return false;
+        }
 
         $newDocument->appendChild(
             $newDocument->importNode(
-                $xml->getElementsByTagName($this->name)->item(0),
+                $rootNode,
                 true
-            );
+            )
         );
 
-        return @$newDocument->validate();
+        if (@$newDocument->validate()) {
+            $this->error = '';
+
+            return true;
+        } else {
+            $libxmlError = libxml_get_last_error();
+            $this->error = $libxmlError->message;
+
+            return false;
+        }
     }
 
     /**
@@ -89,13 +113,6 @@ class DtdValidator implements ValidatorInterface
      */
     public function getError()
     {
-        $libxmlError = libxml_get_last_error();
-        if ($libxmlError) {
-
-            return $libxmlError->message;
-        } else {
-
-            return '';
-        }
+        return $this->error;
     }
 }

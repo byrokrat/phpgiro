@@ -9,53 +9,63 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testEmtpyXmlException()
     {
         $strategy = $this->getMock('itbz\phpautogiro\Parser\StrategyInterface');
-        $parser = new Parser($strategy);
+        $validator = $this->getMock('itbz\phpautogiro\ValidatorInterface');
+        $parser = new Parser($strategy, $validator);
         $parser->parse(array());
     }
 
     /**
      * @expectedException itbz\phpautogiro\Exception\ParserException
      */
-    public function testInvalidXmlException()
+    public function testNotWellFormedXMLException()
     {
         $strategy = $this->getMock('itbz\phpautogiro\Parser\StrategyInterface');
-
         $strategy->expects($this->once())
             ->method('getXML')
             ->will($this->returnValue('foobar'));
 
-        $parser = new Parser($strategy);
+        $validator = $this->getMock('itbz\phpautogiro\ValidatorInterface');
+
+        $parser = new Parser($strategy, $validator);
         $parser->parse(array());
     }
 
-    public function testDtdException()
+    /**
+     * @expectedException itbz\phpautogiro\Exception\ValidatorException
+     */
+    public function testValidatorException()
     {
-        /*
-            här ska jag testa hur det blir när DTD inte matchar dokument
+        $strategy = $this->getMock('itbz\phpautogiro\Parser\StrategyInterface');
+        $strategy->expects($this->once())
+            ->method('getXML')
+            ->will($this->returnValue('<foo></foo>'));
 
-            men jag har problemet med sökvägen till DTD kvar att lösa...
-         */
+        $validator = $this->getMock('itbz\phpautogiro\ValidatorInterface');
+        $validator->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(false));
+
+        $parser = new Parser($strategy, $validator);
+        $parser->parse(array());
     }
 
     public function testParse()
     {
         $strategy = $this->getMock('itbz\phpautogiro\Parser\StrategyInterface');
-
         $strategy->expects($this->once())
             ->method('clear');
-
         $strategy->expects($this->atLeastOnce())
             ->method('parseLine');
-
-        $xml = '<?xml version="1.0"?>';
-        $xml .= "\n<!DOCTYPE foo [<!ELEMENT foo (#PCDATA)>]>";
-        $xml .= "\n<foo></foo>";
-
         $strategy->expects($this->once())
             ->method('getXML')
-            ->will($this->returnValue($xml));
+            ->will($this->returnValue('<foo></foo>'));
 
-        $parser = new Parser($strategy);
+        $validator = $this->getMock('itbz\phpautogiro\ValidatorInterface');
+        $validator->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(true));
+
+        $parser = new Parser($strategy, $validator);
         $parser->parse(array(''));
     }
 }

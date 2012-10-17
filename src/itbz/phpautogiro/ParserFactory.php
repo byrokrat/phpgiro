@@ -15,6 +15,7 @@ namespace itbz\phpautogiro;
 
 use itbz\phpautogiro\Parser\Parser;
 use itbz\phpautogiro\Exception\StrategyException;
+use itbz\phpautogiro\Validator\DtdValidator;
 
 /**
  * Create parsers for different AG file types
@@ -33,7 +34,18 @@ class ParserFactory implements LayoutInterface
     );
 
     /**
+     * Name of DTD used
+     *
+     * NOTE: Could be dynamically choosen depending on strategy. This is a
+     * simple solution.
+     */
+    const DTD_NAME = 'autogiro.dtd';
+
+    /**
      * Build a parser for AG file type denoted by flag
+     *
+     * NOTE: The project basedir must be added to include path in order for
+     * DTD to be auto loaded
      *
      * @param int $flag One of the LayoutInterface flags
      *
@@ -50,6 +62,10 @@ class ParserFactory implements LayoutInterface
 
         $strategyClass = self::$classes[$flag];
 
-        return new Parser(new $strategyClass);
+        $dtd = file_get_contents(__DIR__ . '/../../../DTD/' . self::DTD_NAME);
+        // TODO root node name should not be hardcoded here
+        $validator = new DtdValidator('autogiro', $dtd);
+
+        return new Parser(new $strategyClass, $validator);
     }
 }
