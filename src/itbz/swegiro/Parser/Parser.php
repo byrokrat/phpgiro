@@ -71,7 +71,7 @@ class Parser
             $this->strategy->parseLine($line);
         }
 
-        $xml = $this->strategy->getXml();
+        $xml = $this->strategy->getXML();
 
         $domDocument = new DOMDocument;
         if (!@$domDocument->loadXML($xml)) {

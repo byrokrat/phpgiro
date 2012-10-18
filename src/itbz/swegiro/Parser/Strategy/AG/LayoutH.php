@@ -48,7 +48,7 @@ class LayoutH implements StrategyInterface
      * 
      * @return string
      */
-    public function getXml()
+    public function getXML()
     {
     }
 }

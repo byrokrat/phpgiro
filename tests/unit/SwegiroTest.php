@@ -13,7 +13,7 @@ class SwegiroTest extends \PHPUnit_Framework_TestCase
 
         $strategy = $this->getMock('\itbz\swegiro\Parser\StrategyInterface');
         $strategy->expects($this->once())
-            ->method('getXml')
+            ->method('getXML')
             ->will($this->returnValue('<?xml version="1.0"?><foo></foo>'));
 
         $factory->expects($this->once())
