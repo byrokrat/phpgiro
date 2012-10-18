@@ -23,65 +23,65 @@ interface LayoutInterface
     /**
      * Layout ABC constant
      */
-    const LAYOUT_ABC = 1;
+    const LAYOUT_AG_ABC = 1;
 
     /**
      * Layout D constant
      */
-    const LAYOUT_D = 2;
+    const LAYOUT_AG_D = 2;
 
     /**
      * Layout E constant
      */
-    const LAYOUT_E = 3;
+    const LAYOUT_AG_E = 3;
 
     /**
      * Layout F constant
      */
-    const LAYOUT_F = 4;
+    const LAYOUT_AG_F = 4;
 
     /**
      * Layout G constant
      */
-    const LAYOUT_G = 5;
+    const LAYOUT_AG_G = 5;
 
     /**
      * Layout H constant
      */
-    const LAYOUT_H = 6;
+    const LAYOUT_AG_H = 6;
 
     /**
      * Layout I constant
      */
-    const LAYOUT_I = 7;
+    const LAYOUT_AG_I = 7;
 
     /**
      * Layout J constant
      */
-    const LAYOUT_J = 8;
+    const LAYOUT_AG_J = 8;
 
     /**
      * Layout BGMAX constant
      */
-    const LAYOUT_BGMAX = 9;
+    const LAYOUT_AG_BGMAX = 9;
 
     /**
      * Layout PRIV_D constant
      */
-    const LAYOUT_OLD_D = 10;
+    const LAYOUT_AG_OLD_D = 10;
 
     /**
      * Layout PRIV_E constant
      */
-    const LAYOUT_OLD_E = 11;
+    const LAYOUT_AG_OLD_E = 11;
 
     /**
      * Layout PRIV_F constant
      */
-    const LAYOUT_OLD_F = 12;
+    const LAYOUT_AG_OLD_F = 12;
 
     /**
      * Layout PRIV_G constant
      */
-    const LAYOUT_OLD_G = 13;
+    const LAYOUT_AG_OLD_G = 13;
 }

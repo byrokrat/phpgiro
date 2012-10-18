@@ -15,7 +15,7 @@ class ParserFactoryTest extends \PHPUnit_Framework_TestCase
     public function testBuild()
     {
         $factory = new ParserFactory;
-        $parser = $factory->build(ParserFactory::LAYOUT_H);
+        $parser = $factory->build(ParserFactory::LAYOUT_AG_H);
 
         $this->assertInstanceOf(
             'itbz\swegiro\Parser\Parser',

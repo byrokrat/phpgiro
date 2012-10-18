@@ -9,7 +9,7 @@ class AgXmlConverterTest extends \PHPUnit_Framework_TestCase
 
         $sniffer->expects($this->once())
             ->method('sniff')
-            ->will($this->returnValue(LayoutInterface::LAYOUT_H));
+            ->will($this->returnValue(LayoutInterface::LAYOUT_AG_H));
 
         $parserFactory = $this->getMock('itbz\swegiro\ParserFactory');
 
@@ -24,7 +24,7 @@ class AgXmlConverterTest extends \PHPUnit_Framework_TestCase
         // Parser factory should build a parser using the sniffed layout id
         $parserFactory->expects($this->once())
             ->method('build')
-            ->with(LayoutInterface::LAYOUT_H)
+            ->with(LayoutInterface::LAYOUT_AG_H)
             ->will($this->returnValue($parser));
 
         // Parser should be called

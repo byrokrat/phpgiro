@@ -30,7 +30,7 @@ class ParserFactory implements LayoutInterface
      * @var array
      */
     private static $classes = array(
-        self::LAYOUT_H => 'itbz\swegiro\Parser\Strategy\LayoutH'
+        self::LAYOUT_AG_H => 'itbz\swegiro\Parser\Strategy\LayoutH'
     );
 
     /**

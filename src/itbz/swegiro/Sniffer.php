@@ -28,55 +28,55 @@ class Sniffer implements LayoutInterface
      * @var array
      */
     private static $identifiers = array(
-        self::LAYOUT_D => array(
+        self::LAYOUT_AG_D => array(
             'first' => '/BET\. SPEC & STOPP TK/',
             'last'  => '//'
         ),
-        self::LAYOUT_E => array(
+        self::LAYOUT_AG_E => array(
             'first' => '/AUTOGIRO.*AG-MEDAVI/',
             'last'  => '//'
         ),
-        self::LAYOUT_OLD_E => array(
+        self::LAYOUT_AG_OLD_E => array(
             'first' => '/AG-MEDAVI/',
             'last'  => '//'
         ),
-        self::LAYOUT_OLD_F => array(
+        self::LAYOUT_AG_OLD_F => array(
             'first' => '/FELLISTA REG\.KONTRL/',
             'last'  => '//'
         ),
-        self::LAYOUT_F => array(
+        self::LAYOUT_AG_F => array(
             'first' => '/AVVISADE BET UPPDR/',
             'last'  => '//'
         ),
-        self::LAYOUT_OLD_G => array(
+        self::LAYOUT_AG_OLD_G => array(
             'first' => '/MAK\/ÄNDRINGSLISTA/',
             'last'  => '//'
         ),
-        self::LAYOUT_G => array(
+        self::LAYOUT_AG_G => array(
             'first' => '/MAKULERING\/ÄNDRING/',
             'last'  => '//'
         ),
-        self::LAYOUT_H => array(
+        self::LAYOUT_AG_H => array(
             'first' => '/AG-EMEDGIV/',
             'last'  => '//'
         ),
-        self::LAYOUT_I => array(
+        self::LAYOUT_AG_I => array(
             'first' => '/BEVAKNINGSREG/',
             'last'  => '//'
         ),
-        self::LAYOUT_OLD_D => array(
+        self::LAYOUT_AG_OLD_D => array(
             'first' => '/AUTOGIRO/',
             'last'  => '/^09/'
         ),
-        self::LAYOUT_ABC => array(
+        self::LAYOUT_AG_ABC => array(
             'first' => '/AUTOGIRO/',
             'last'  => '//'
         ),
-        self::LAYOUT_J => array(
+        self::LAYOUT_AG_J => array(
             'first' => '/^([0-9]|\s)+$/',
             'last'  => '/^([0-9]|\s)+$/'
         ),
-        self::LAYOUT_BGMAX => array(
+        self::LAYOUT_AG_BGMAX => array(
             'first' => '/BGMAX/',
             'last'  => '//'
         )
