@@ -62,7 +62,14 @@ class ParserFactory implements LayoutInterface
 
         $strategyClass = self::$classes[$flag];
 
-        $dtd = file_get_contents(__DIR__ . '/../../../DTD/' . self::DTD_NAME);
+        $dtd = file_get_contents(
+            __DIR__
+            . DIRECTORY_SEPARATOR
+            . 'DTD'
+            . DIRECTORY_SEPARATOR
+            . self::DTD_NAME
+        );
+
         // TODO root node name should not be hardcoded here
         $validator = new DtdValidator('autogiro', $dtd);
 
