@@ -16,10 +16,10 @@ namespace itbz\swegiro\Exception;
 use itbz\swegiro\Exception;
 
 /**
- * Exception thrown when sniffer is unable to guess AG file type
+ * Exception thrown when sniffer is unable to guess file type
  *
  * @package itbz\swegiro\Exception
  */
-class SniffException extends Exception
+class SnifferException extends Exception
 {
 }

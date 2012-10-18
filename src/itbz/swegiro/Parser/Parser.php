@@ -54,16 +54,6 @@ class Parser
     }
 
     /**
-     * Get parsing strategy
-     *
-     * @return StrategyInterface
-     */
-    public function getStrategy()
-    {
-        return $this->strategy;
-    }
-
-    /**
      * Parse AG files using designated strategy
      * 
      * @param array $lines AG file contents

@@ -16,7 +16,7 @@ namespace itbz\swegiro\Exception;
 use itbz\swegiro\Exception;
 
 /**
- * Exception thrown when AG to XML parsing fails
+ * Exception thrown when giro to XML parsing fails
  *
  * @package itbz\swegiro\Exception
  */

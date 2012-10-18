@@ -8,19 +8,20 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro
+ * @package itbz\swegiro\Sniffer
  */
 
-namespace itbz\swegiro;
+namespace itbz\swegiro\Sniffer;
 
-use itbz\swegiro\Exception\SniffException;
+use itbz\swegiro\Exception\SnifferException;
+use itbz\swegiro\SnifferInterface;
 
 /**
  * Sniff the layout type of a autogiro file
  *
- * @package itbz\swegiro
+ * @package itbz\swegiro\Sniffer
  */
-class Sniffer implements LayoutInterface
+class AgSniffer implements SnifferInterface
 {
     /**
      * Identifiers used when sniffing
@@ -111,6 +112,6 @@ class Sniffer implements LayoutInterface
         }
 
         $msg = _('Error sniffing file type: no matching type found.');
-        throw new SniffException($msg);
+        throw new SnifferException($msg);
     }
 }
