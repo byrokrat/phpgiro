@@ -23,7 +23,7 @@ class ParserFactoryTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertInstanceOf(
-            'itbz\swegiro\Parser\Strategy\LayoutH',
+            'itbz\swegiro\Parser\Strategy\AG\LayoutH',
             $parser->getStrategy()
         );
     }

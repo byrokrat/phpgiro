@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Parser\Strategy
+ * @package itbz\swegiro\Parser\Strategy\AG
  */
 
-namespace itbz\swegiro\Parser\Strategy;
+namespace itbz\swegiro\Parser\Strategy\AG;
 
 use itbz\swegiro\Parser\StrategyInterface;
 use itbz\swegiro\Exception\ParserException;
@@ -19,7 +19,7 @@ use itbz\swegiro\Exception\ParserException;
 /**
  * Parser for AG layout H (new electronic consents)
  *
- * @package itbz\swegiro\Parser\Strategy
+ * @package itbz\swegiro\Parser\Strategy\AG
  */
 class LayoutH implements StrategyInterface
 {
