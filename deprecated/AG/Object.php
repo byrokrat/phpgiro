@@ -1,56 +1,42 @@
 <?php
-/**
- * This file is part of the STB package
- *
- * Copyright (c) 2011-12 Hannes Forsgård
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\AG
- */
-
 namespace itbz\swegiro\AG;
 
-use itbz\swegiro\Char80;
-
-/**
- * Autogiro base class
- *
- * @package itbz\swegiro\AG
- */
-abstract class Object extends Char80
+abstract class Object extends itbz\swegiro\Char80
 {
-
     /**
      * Each AgObject only works with one BGC customer number and
      * one BG account number. If you try to parse AG files intended for
      * other customer numbers or BG account numbers errors will be raised.
+     * 
      * @param string $customerNr
      * @param string $bg
      */
-    public function __construct($customerNr=false, $bg=false){
+    public function __construct($customerNr = false, $bg = false)
+    {
         $this->sectionClear();
-        if ( $customerNr ) {
-            if ( strlen($customerNr) > 6 ) $this->error(_("Customer number to long."));
+        if ($customerNr) {
+            if (strlen($customerNr) > 6) {
+                $this->error(_("Customer number to long."));
+            }
             $customerNr = str_pad($customerNr, 6, '0', STR_PAD_LEFT);
             $this->setValue('customerNr', $customerNr, true);
         }
-        if ( $bg ) {
-            if ( strlen($bg) > 10 ) $this->error(_("BG number to long."));
+        if ($bg) {
+            if (strlen($bg) > 10) {
+                $this->error(_("BG number to long."));
+            }
             $bg = str_pad($bg, 10, '0', STR_PAD_LEFT);
             $this->setValue('bg', $bg, true);
         }
     }
 
-
     /**
+     * Det här ska såklart göras av STB istället....
+     *
      * Validate bg number
-     * @param string $bg
-     * @return bool
      */
-    protected function validBg($bg){
+    protected function validBg($bg)
+    {
         $bg = ltrim($bg, '0');
         if ( $this->setValue('bg', $bg) ) {
             return true;
@@ -60,38 +46,42 @@ abstract class Object extends Char80
         }
     }
 
-
     /**
+     * Hur fungerar det här, kan jag ersätta med något??
+     * 
      * Validate customer number
      * @param string $nr
      * @return bool
      */
-    protected function validCustomerNr($nr){
+    protected function validCustomerNr($nr)
+    {
         $nr = ltrim($nr, '0');
-        if ( $this->setValue('customerNr', $nr) ) {
+        if ($this->setValue('customerNr', $nr)) {
+
             return true;
         } else {
             $this->error(_("Unvalid customer number"));
+
             return false;
         }
     }
-
 
     /**
      * Get date parsed file was created, YYYYMMDD
      * @return string
      */
-    public function getDate(){
+    public function getDate()
+    {
         return $this->getValue('date');
     }
-
 
     /**
      * Set date, YYYYMMDD
      * @param string $date
      * @return string Date set
      */
-    protected function setDate($date){
+    protected function setDate($date)
+    {
         if ( strlen($date) == 8 ) {
             $this->setValue('date', $date);
         }
@@ -104,7 +94,8 @@ abstract class Object extends Char80
      * @param string $date
      * @return bool
      */
-    protected function validDate($date){
+    protected function validDate($date)
+    {
         if ( $date != $this->values['date'] ) {
             $this->error(_("Unvalid creation date"));
             return false;
@@ -112,37 +103,6 @@ abstract class Object extends Char80
             return true;
         }
     }
-
-
-
-    /* SECTIONS */
-
-
-    /**
-     * Create a section object and store it. Clear internal representation
-     * @param string $layout
-     * @return void
-     */
-    protected function writeSection($layout=false){
-        if ( !$layout ) $layout = $this->layout;
-
-        $s = array(
-            'layout' => $layout,
-            'layoutName' => $this->layoutNames[$layout],
-        );
-
-        $s = array_merge($s, $this->values);
-
-        $s['errors'] = $this->getErrors();
-        $s['posts'] = $this->getStack();
-
-        //save section
-        array_push($this->sections, $s);
-
-        //clear for next section
-        $this->sectionClear();
-    }
-
 
 
     /* PARSING FUNCTIONS */
@@ -156,7 +116,8 @@ abstract class Object extends Char80
      * @param string $bg
      * @return false if $bg or $customerNr is not valid, true otherwise
      */
-    protected function parseHeadDateCustBg($date, $customerNr, $bg){
+    protected function parseHeadDateCustBg($date, $customerNr, $bg)
+    {
         if ( !$this->validBg($bg) ) return false;
         if ( !$this->validCustomerNr($customerNr) ) return false;
         $this->setDate($date);
@@ -171,7 +132,8 @@ abstract class Object extends Char80
      * @param string $bg
      * @return false if $bg is not valid, true otherwise
      */
-    protected function parseHeadDateBg($date, $bg){
+    protected function parseHeadDateBg($date, $bg)
+    {
         if ( !$this->validBg($bg) ) return false;
         $this->setDate($date);
         return true;
@@ -181,8 +143,8 @@ abstract class Object extends Char80
     /**
      * Parse transaction post.
      *
-     * <code>
-     * <b>Pushes an array to the stack with the following layout:</b>
+     * Pushes an array to the stack with the following layout:
+     *
      * [transType] => I=invoice, C=credit
      * [date] => date when BGC proccessed the transaction
      * [betNr] =>
@@ -193,7 +155,6 @@ abstract class Object extends Char80
      * [repetitions] => nr of repititions left, -1 means infinite
      * [status] => transaction code
      * [statusMsg] => string message describing status code
-     * </code>
      *
      * @param string $tc
      * @param string $date
@@ -206,7 +167,17 @@ abstract class Object extends Char80
      * @param string $status
      * @return bool true on success, false on error
      */
-    protected function parseTransaction($tc, $date, $period, $repetitions, $betNr, $amount, $bg=false, $ref=false, $status=false){
+    protected function parseTransaction(
+        $tc,
+        $date,
+        $period,
+        $repetitions,
+        $betNr,
+        $amount,
+        $bg = false,
+        $ref = false,
+        $status = false
+    ) {
         if ( $bg && !$this->validBg($bg) ) return false;
 
         if ( preg_match("/^\s*$/", $repetitions) ) {
@@ -235,7 +206,6 @@ abstract class Object extends Char80
         return true;
     }
 
-
     /**
      * Parse transaction footer. Validate date. Validate nr of posts,
      * and post sums. Write section.
@@ -246,7 +216,8 @@ abstract class Object extends Char80
      * @param string $sumInvoice
      * @return bool true on success, false on error
      */
-    protected function parseTransactionFoot($date, $sumCredit, $nrCredit, $nrInvoice, $sumInvoice){
+    protected function parseTransactionFoot($date, $sumCredit, $nrCredit, $nrInvoice, $sumInvoice)
+    {
         if ( !$this->validDate($date) ) return false;
         
         //Validate nr of posts
@@ -274,13 +245,12 @@ abstract class Object extends Char80
     }
 
 
-
     /* MESSAGES */
-
     
     /**
+     * Ska göras i XSL istället
+     *
      * Messages describing periodic transactions
-     * @var array $periodMsgs
      */
     protected $periodMsgs = array(
         0 => "En gång",
@@ -294,10 +264,10 @@ abstract class Object extends Char80
         8 => "En gång per år, på sista bankdagen i månaden.",
     );
 
-
     /**
+     * Ska göras i XSL istället
+     *
      * Messages describing transaction status
-     * @var array $statusMsgs
      */
     protected $statusMsgs = array(
         0 => "Godkänd, betalningen genomförd.",
@@ -306,10 +276,10 @@ abstract class Object extends Char80
         9 => "Förnyad täckning, betalningen har inte genomförts men nytt försök ska göras om avtal finns.",
     );
 
-
     /**
+     * Ska göras i XSL istället
+     *
      * Layout names
-     * @var array $layoutNames
      */
     protected $layoutNames = array(
         'A' => "Medgivandeunderlag",
@@ -324,10 +294,10 @@ abstract class Object extends Char80
         'J' => "Utdrag ur medgivanderegistret",
     );
 
-
     /**
+     * Ska göras i XSL istället
+     *
      * TC names
-     * @var array $tcNames
      */
     protected $tcNames = array(
         3 => "Makulerad på grund av borttaget medgivande.",
@@ -349,9 +319,7 @@ abstract class Object extends Char80
     );
 
 
-
     /* STATIC PARSER HELPERS */
-
 
     /**
      * Get account number. If account is filled with zeros $betNr is treated as
@@ -361,7 +329,8 @@ abstract class Object extends Char80
      * @param string $clearing
      * @param string $account
      */
-    protected static function buildAccountNr($betNr, $clearing, $account){
+    protected static function buildAccountNr($betNr, $clearing, $account)
+    {
         $betNr = ltrim($betNr, '0');
         $clearing = trim($clearing);
         $account = trim($account);
@@ -376,14 +345,14 @@ abstract class Object extends Char80
         return $account;
     }
 
-
     /**
      * Get state id nr, eg. swedish social security number, or
      * organizational number.
      * @param string $nr 
      * @param string $type Will contain either the string 'persNr' or the string 'orgNr'
      */
-    protected static function buildStateIdNr(&$nr, &$type){
+    protected static function buildStateIdNr(&$nr, &$type)
+    {
         if ( !empty($nr) ) {
             if ( preg_match("/^[09]{2}(\d{10})$/", $nr, $match) ) {
                 $type = "orgNr";
@@ -393,5 +362,4 @@ abstract class Object extends Char80
             }
         }
     }
-
 }

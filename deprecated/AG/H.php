@@ -1,23 +1,11 @@
 <?php
-/**
- * This file is part of the STB package
- *
- * Copyright (c) 2011-12 Hannes Forsgård
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\AG
- */
-
 namespace itbz\swegiro\AG;
 
 /**
  * AG layout H, new consents from the bank.
  *
- * <code>
- * <b>Produces stack items with the following layout:</b>
+ * Produces stack items with the following layout:
+ *
  * [betNr] =>
  * [account] => account nr, regular or BG
  * [orgNr/persNr] => swedish social security number, or arganizational number
@@ -25,17 +13,11 @@ namespace itbz\swegiro\AG;
  * [statusMsg] => string message describing status
  * [info] => array of addition info
  * [address] => array
- * </code>
- *
- * @package itbz\swegiro\AG
  */
 class H extends Object
 {
-
     /**
-     * Txt status messages
-     *
-     * @var array
+     * Ska göras i XSL istället..
      */
     protected $statusMsgs = array(
         0 => "Första meddelandet",
@@ -44,41 +26,23 @@ class H extends Object
     );
 
     /**
-     * Internal count of posts in section
-     *
-     * @var int
+     * Använd Validator istället för detta. Men följ upp hur den används..
+     */
+    protected $struct = "/^(51(52(5[3456])*)+59)+$/";
+
+    /**
+     * Används för att jämföra mot kontrollsumma i fil
      */
     private $nrOfPosts = 0;
 
-
     /**
      * Extend sectionClear() to also clear posts in section
-     *
-     * @return void
      */
     public function sectionClear()
     {
         $this->nrOfPosts = 0;
-
         return parent::sectionClear();
     }
-
-
-
-    /**
-     * Layout id
-     *
-     * @var string
-     */
-    protected $layout = 'H';
-
-
-    /**
-     * Regex represention a valid file structure
-     *
-     * @var string
-     */
-    protected $struct = "/^(51(52(5[3456])*)+59)+$/";
 
 
     /**
@@ -96,7 +60,6 @@ class H extends Object
         '59' => array("/^59(\d{8})9900(\d{7})/", 'parseFoot'),
     );
 
-
     /**
      * Parse info
      *
@@ -111,12 +74,10 @@ class H extends Object
         return true;
     }
 
-
     /**
      * Parse address
      *
      * @param string $addr1
-     *
      * @param string $addr2
      *
      * @return bool true on success, false on failure
@@ -133,20 +94,14 @@ class H extends Object
         return true;
     }
 
-
     /**
      * Parse new consent
      *
      * @param string $bg
-     *
      * @param string $betNr
-     *
      * @param string $clearing
-     *
      * @param string $account
-     *
      * @param string $orgNr
-     *
      * @param string $status
      *
      * @return bool true on success, false on failure
@@ -173,12 +128,10 @@ class H extends Object
         return true;
     }
 
- 
     /**
      * Parse foot
      *
      * @param string $date
-     *
      * @param string $nrPosts
      *
      * @return bool true on success, false on failure
@@ -194,5 +147,4 @@ class H extends Object
 
         return true;
     }
-
 }

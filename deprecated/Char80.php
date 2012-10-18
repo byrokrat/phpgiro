@@ -1,16 +1,4 @@
 <?php
-/**
- * This file is part of the STB package
- *
- * Copyright (c) 2011-12 Hannes Forsgård
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro
- */
-
 namespace itbz\swegiro;
 
 /**
@@ -26,8 +14,6 @@ namespace itbz\swegiro;
  *
  * To parse specific lines map transaction codes to parsing regular
  * expressions and functions in $this->map.
- *
- * For a live example se the BgMax file format available in this package.
  *
  * @package itbz\swegiro
  */
@@ -96,27 +82,11 @@ abstract class Char80
     protected $stdValues = array();    
 
     /**
-     * Layout name, to identfy different sections
-     * @var string $layout
-     */
-    protected $layout = "undef.";
-
-    /**
-     * Layout names
-     * @var array $layoutNames
-     */
-    protected $layoutNames = array();
-
-
-
-    /* CONSTRUCT */
-
-
-    /**
      * Set raw content from file or param
      * @param string $raw File name to read from or string content
      */
-    public function __construct($raw=false){
+    public function __construct($raw=false)
+    {
         if ( $raw ) {
             if ( !$this->readFile($raw) ) {
                 $this->setRawContent($raw);
@@ -124,13 +94,13 @@ abstract class Char80
         }
     }
 
-
     /**
      * Read file to parse
      * @param string $fname
      * @return bool true on success, false on failure
      */
-    public function readFile($fname){
+    public function readFile($fname)
+    {
         if ( is_readable($fname) ) {
             $this->fname = $fname;
             return $this->setRawContent(file_get_contents($fname));
@@ -138,7 +108,6 @@ abstract class Char80
             return false;
         }
     }
-
 
     /**
      * Set raw content to parse
@@ -155,7 +124,6 @@ abstract class Char80
         return is_array($raw) && $this->raw=$raw;
     }
 
-
     /**
      * Get raw content
      * @return array
@@ -165,9 +133,7 @@ abstract class Char80
     }
 
 
-
     /* CREATE NEW FILES */
-
 
     /**
      * Get file representation. Creates a file from current internal content.
@@ -515,17 +481,19 @@ abstract class Char80
 
     /* SECTIONS */
 
+    // Ska göras i XSL istället..
+    protected $layoutNames = array();
 
     /**
      * Create a section object and store it. Clear internal representation
-     * @param string $layout
-     * @return void
      */
     protected function writeSection($layout=false){
-        if ( !$layout ) $layout = $this->layout;
+        // $this->layout är ej längre verksam
+        //if ( !$layout ) $layout = $this->layout;
         
         $s = array(
             'layout' => $layout,
+            'layoutName' => ''
         );
 
         if ( array_key_exists($layout, $this->layoutNames) ) {

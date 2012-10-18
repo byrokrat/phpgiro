@@ -1,33 +1,8 @@
 <?php
-/**
- * This file is part of the STB package
- *
- * Copyright (c) 2011-12 Hannes Forsgård
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\PG
- */
-
 namespace itbz\swegiro\PG;
 
-use itbz\swegiro\Char80;
-
-/**
- * PlusGiro file layout N
- *
- * @package itbz\swegiro\PG
- */
-class N extends Char80
+class N extends itbz\swegiro\Char80
 {
-
-    /**
-     * Layout names
-     *
-     * @var array
-     */
     protected $layoutNames = array(
         'N' => "INBETALNINGSSERVICE - Sammanställning av Inkommande betalningar",
     );

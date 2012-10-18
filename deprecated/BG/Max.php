@@ -98,6 +98,7 @@ class Max extends Char80
      * @var string
      */
     protected $layout = 'BGMAX';
+    protected $layoutNames = array();
 
 
     /**
