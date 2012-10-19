@@ -14,8 +14,6 @@
 namespace itbz\swegiro\Parser;
 
 use itbz\swegiro\Exception\ParserException;
-use itbz\swegiro\Exception\ValidatorException;
-use itbz\swegiro\ValidatorInterface;
 use DOMDocument;
 
 /**
@@ -33,24 +31,13 @@ class Parser
     private $strategy;
 
     /**
-     * DomDocument validator object
-     *
-     * @var ValidatorInterface
-     */
-    private $validator;
-
-    /**
      * Parse AG files using designated strategy
      *
      * @param StrategyInterface $strategy
-     * @param ValidatorInterface $validator
      */
-    public function __construct(
-        StrategyInterface $strategy,
-        ValidatorInterface $validator
-    ) {
+    public function __construct(StrategyInterface $strategy)
+    {
         $this->strategy = $strategy;
-        $this->validator = $validator;
     }
 
     /**
@@ -61,7 +48,6 @@ class Parser
      * @return DOMDocument
      *
      * @throws ParserException If generated XML is not valid
-     * @throws ValidatorException If validation fails
      */
     public function parse(array $lines)
     {
@@ -82,10 +68,6 @@ class Parser
                 $msg = _("Parsing empty file?");
             }
             throw new ParserException(_('XML validation error: ') . $msg);
-        }
-
-        if (!$this->validator->isValid($domDocument)) {
-            throw new ValidatorException($this->validator->getError());
         }
 
         return $domDocument;
