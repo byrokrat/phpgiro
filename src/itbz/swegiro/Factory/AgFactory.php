@@ -17,6 +17,7 @@ use itbz\swegiro\FactoryInterface;
 use itbz\swegiro\Sniffer\AgSniffer;
 use itbz\swegiro\Validator\DtdValidator;
 use itbz\swegiro\Exception\StrategyException;
+use itbz\swegiro\Parser\Parser;
 
 /**
  * Autogiro factory class
@@ -71,11 +72,11 @@ class AgFactory implements FactoryInterface
      *
      * @param integer $flag One of the LayoutInterface flags
      *
-     * @return StrategyInterface
+     * @return Parser
      *
      * @throws StrategyException If flag is unknown
      */
-    public function createParserStrategy($flag)
+    public function createParser($flag)
     {
         if (!isset(self::$classes[$flag])) {
             $msg = _('Unable to create parsing strategy: layout unknown.');
@@ -84,6 +85,6 @@ class AgFactory implements FactoryInterface
 
         $strategyClass = self::$classes[$flag];
 
-        return new $strategyClass;
+        return new Parser(new $strategyClass);
     }
 }

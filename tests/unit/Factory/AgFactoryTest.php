@@ -27,15 +27,15 @@ class AgFactoryTest extends \PHPUnit_Framework_TestCase
     public function testInvalidFlag()
     {
         $factory = new AgFactory;
-        $factory->createParserStrategy('foobar');
+        $factory->createParser('foobar');
     }
 
-    public function testCreateParserStrategy()
+    public function testCreateParser()
     {
         $factory = new AgFactory;
         $this->assertInstanceOf(
-            'itbz\swegiro\Parser\Strategy\AG\LayoutH',
-            $factory->createParserStrategy(AgFactory::LAYOUT_AG_H)
+            'itbz\swegiro\Parser\Parser',
+            $factory->createParser(AgFactory::LAYOUT_AG_H)
         );
     }
 }

@@ -13,7 +13,7 @@
 
 namespace itbz\swegiro;
 
-use itbz\swegiro\Parser\StrategyInterface;
+use itbz\swegiro\Parser\Parser;
 
 /**
  * Abstract factory interface
@@ -37,13 +37,13 @@ interface FactoryInterface extends LayoutInterface
     public function createValidator();
 
     /**
-     * Build parsing strategy for file tpye
+     * Build parser for file tpye
      *
      * @param integer $flag One of the LayoutInterface flags
      *
-     * @return StrategyInterface
+     * @return Parser
      *
      * @throws StrategyException If flag is unknown
      */
-    public function createParserStrategy($flag);
+    public function createParser($flag);
 }
