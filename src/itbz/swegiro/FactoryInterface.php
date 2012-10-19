@@ -30,6 +30,13 @@ interface FactoryInterface extends LayoutInterface
     public function createSniffer();
 
     /**
+     * Build validator for file type
+     *
+     * @return ValidatorInterface
+     */
+    public function createValidator();
+
+    /**
      * Build parsing strategy for file tpye
      *
      * @param integer $flag One of the LayoutInterface flags
@@ -39,15 +46,4 @@ interface FactoryInterface extends LayoutInterface
      * @throws StrategyException If flag is unknown
      */
     public function createParserStrategy($flag);
-
-    /**
-     * Build validator for file type
-     *
-     * @param integer $flag One of the LayoutInterface flags
-     *
-     * @return ValidatorInterface
-     *
-     * @throws StrategyException If flag is unknown
-     */
-    public function createValidator($flag);
 }

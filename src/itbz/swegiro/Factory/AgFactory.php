@@ -47,6 +47,28 @@ class AgFactory implements FactoryInterface
     /**
      * {@inheritdoc}
      *
+     * @return ValidatorInterface
+     */
+    public function createValidator()
+    {
+        $dtd = file_get_contents(
+            implode(
+                DIRECTORY_SEPARATOR,
+                array(
+                    __DIR__,
+                    '..',
+                    'DTD',
+                    'autogiro.dtd'
+                )
+            )
+        );
+
+        return new DtdValidator('autogiro', $dtd);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @param integer $flag One of the LayoutInterface flags
      *
      * @return StrategyInterface
@@ -63,29 +85,5 @@ class AgFactory implements FactoryInterface
         $strategyClass = self::$classes[$flag];
 
         return new $strategyClass;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param integer $flag One of the LayoutInterface flags
-     *
-     * @return ValidatorInterface
-     */
-    public function createValidator($flag)
-    {
-        $dtd = file_get_contents(
-            implode(
-                DIRECTORY_SEPARATOR,
-                array(
-                    __DIR__,
-                    '..',
-                    'DTD',
-                    'autogiro.dtd'
-                )
-            )
-        );
-
-        return new DtdValidator('autogiro', $dtd);
     }
 }
