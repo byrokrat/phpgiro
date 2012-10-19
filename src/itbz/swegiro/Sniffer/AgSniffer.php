@@ -92,7 +92,7 @@ class AgSniffer implements SnifferInterface
      * 
      * @return integer One of the LayoutInterface flags
      */
-    public function sniff(array $lines)
+    public function sniffGiroType(array $lines)
     {
         $firstLine = current($lines);
         end($lines);

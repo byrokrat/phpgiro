@@ -31,5 +31,5 @@ interface SnifferInterface extends LayoutInterface
      *
      * @throws SnifferException If sniff fails
      */
-    public function sniff(array $lines);
+    public function sniffGiroType(array $lines);
 }

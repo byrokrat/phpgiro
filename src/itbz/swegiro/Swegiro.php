@@ -104,7 +104,7 @@ class Swegiro
         $lines = $this->trimLines($lines);
 
         $parser = $this->factory->createParser(
-            $this->sniffer->sniff($lines)
+            $this->sniffer->sniffGiroType($lines)
         );
 
         return $this->validateXML(
