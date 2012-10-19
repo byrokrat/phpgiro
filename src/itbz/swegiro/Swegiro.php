@@ -15,6 +15,7 @@ namespace itbz\swegiro;
 
 use DOMDocument;
 use itbz\swegiro\Parser\Parser;
+use itbz\swegiro\Exception\ValidatorException;
 
 /**
  * Create and parse files for swedish giro systems
@@ -31,6 +32,20 @@ class Swegiro
     private $factory;
 
     /**
+     * Sniffer instance
+     *
+     * @var SnifferInterface
+     */
+    private $sniffer;
+
+    /**
+     * Validator instance
+     *
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    /**
      * Create and parse files for swedish giro systems
      *
      * @param FactoryInterface $factory
@@ -38,6 +53,43 @@ class Swegiro
     public function __construct(FactoryInterface $factory)
     {
         $this->factory = $factory;
+        $this->sniffer = $factory->createSniffer();
+        $this->validator = $factory->createValidator();
+    }
+
+    /**
+     * Remove empty lines from array
+     *
+     * @param array $lines Giro file contents
+     *
+     * @return array
+     */
+    public function trimLines(array $lines)
+    {
+        return array_filter(
+            $lines,
+            function ($line) {
+                return !!trim($line);
+            }
+        );
+    }
+
+    /**
+     * Check that XML is valid
+     *
+     * @param DOMDocument $doc
+     *
+     * @return DOMDocument The valid document
+     *
+     * @throws ValidatorException If validation fails
+     */
+    public function validateXML(DOMDocument $doc)
+    {
+        if (!$this->validator->isValid($doc)) {
+            throw new ValidatorException($this->validator->getError());
+        }
+
+        return $doc;
     }
 
     /**
@@ -49,22 +101,14 @@ class Swegiro
      */
     public function convertToXML(array $lines)
     {
-        // Remove empty lines
-        $lines = array_filter(
-            $lines,
-            function ($line) {
-                return !!trim($line);
-            }
+        $lines = $this->trimLines($lines);
+
+        $parser = $this->factory->createParser(
+            $this->sniffer->sniff($lines)
         );
 
-        $sniffer = $this->factory->createSniffer();
-        $layoutFlag = $sniffer->sniff($lines);
-
-        $parser = new Parser(
-            $this->factory->createParserStrategy($layoutFlag),
-            $this->factory->createValidator($layoutFlag)
+        return $this->validateXML(
+            $parser->parse($lines)
         );
-
-        return $parser->parse($lines);
     }
 }
