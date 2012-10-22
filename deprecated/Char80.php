@@ -1,62 +1,8 @@
 <?php
 namespace itbz\swegiro;
 
-/**
- * The 80 character layout lets each line in a txt file be max 80 characters long
- * and specify one piece of information. Usually the first two characters define
- * the type of information (transaction codes).
- *
- * If your file format does not use two character transaction codes,
- * set the correct number of characters to $this->$tcLength.
- *
- * To automatically validate file structure write a regexp describing
- * allowed combinations of transaction codes to $this->structure.
- *
- * To parse specific lines map transaction codes to parsing regular
- * expressions and functions in $this->map.
- *
- * @package itbz\swegiro
- */
 abstract class Char80
 {
-
-    /**
-     * Name of file being parsed.
-     * @var string
-     */
-    private $fname = "";
-
-    /**
-     * Raw contents of the file to be parsed
-     * @var array
-     */
-    private $raw;
-
-    /**
-     * Array of strings describing parsing errors
-     * @var array
-     */
-    private $errors = array();
-
-    /**
-     * Regexp describing a valid file structure
-     * @var string
-     */
-    protected $struct = "/.*/";
-
-    /**
-     * Transaction codes mapped to parsing regexp and function
-     * @var array $map
-     */
-    protected $map = array();
-
-    /**
-     * Transaction code caracter length. Set this if your file type
-     * does not use standard caracter length (2).
-     * @var int $tcLength
-     */
-    protected $tcLength = 2;
-
     /**
      * Stack for storing and traversing parsed content
      * @var array $stack
@@ -76,40 +22,6 @@ abstract class Char80
     protected $values = array();
 
     /**
-     * Array for storing standard values to us as reset values
-     * @var array $stdValues
-     */
-    protected $stdValues = array();    
-
-    /**
-     * Set raw content from file or param
-     * @param string $raw File name to read from or string content
-     */
-    public function __construct($raw=false)
-    {
-        if ( $raw ) {
-            if ( !$this->readFile($raw) ) {
-                $this->setRawContent($raw);
-            }
-        }
-    }
-
-    /**
-     * Read file to parse
-     * @param string $fname
-     * @return bool true on success, false on failure
-     */
-    public function readFile($fname)
-    {
-        if ( is_readable($fname) ) {
-            $this->fname = $fname;
-            return $this->setRawContent(file_get_contents($fname));
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Set raw content to parse
      * @param string|array $raw
      * @return bool true on success, false on failure
@@ -125,29 +37,13 @@ abstract class Char80
     }
 
     /**
-     * Get raw content
-     * @return array
-     */
-    public function getRawContent(){
-        return $this->raw;
-    }
-
-
-    /* CREATE NEW FILES */
-
-    /**
-     * Get file representation. Creates a file from current internal content.
-     * This might or might not be the same content as readFile returned, depending
-     * on if new lines have been added using addLine().
+     * Pads all lines to 80 characters. Add \r\n line ending. Content is returned as ASCII ISO8859-1.
      *
-     * Pads all lines to 80 characters. Add \r\n line ending. Validates file
-     * structure. Content is returned as ASCII ISO8859-1.
-     *
-     * @return string|bool false is file does not have a valid structure
+     * @return string|bool false is file is not valid
      */
-    public function getFile(){
+    public function getFile()
+    {
         $str = "";
-        $this->valid();
         if ( $this->hasError() ) return false;
         foreach ( $this->raw as $line ) {
             $line = iconv("UTF-8", "ISO-8859-1", $line);
@@ -160,65 +56,20 @@ abstract class Char80
         return $str;
     }
 
-
-    /**
-     * Write contents to filesystem
-     * @param string $fname
-     * @param string $dirname
-     * @return int Bytes written, false on failure.
-     */
-    public function writeFile($fname, $dirname=false){
-        if ( $dirname && is_dir($dirname) ) {
-            $fname = $dirname.DIRECTORY_SEPARATOR.$fname;
-        }
-        return file_put_contents($fname, $this->getFile());
-    }
-
-
-    /**
-     * Add a line to raw content. Must contain a $tc and valid structure
-     * @param string $line
-     * @return bool true on succes, false on failure
-     */
-    public function addLine($line){
-        $line = preg_replace("/\n/", "", $line);
-        $line = preg_replace("/\r/", "", $line);
-
-        $tc = $this->getTc($line);
-        if ( !$tc ) {
-            $this->error(_("Wrong post format"), 'addLine()');
-            return false;
-        }
-
-        list($regexp, $func) = $this->map[$tc];
-
-        if ( !preg_match($regexp, $line) ) {
-            $this->error(_("Wrong post format"), 'addLine()');
-            return false;
-        }
-
-        $this->raw[] = $line;
-        return true;
-    }
-
-
-
-    /* PARSE RAW CONTENT */
-    
-
     /**
      * Parse raw content to stack
      * @return bool true on success, false on failure
      */
-    public function parse(){
+    public function parse()
+    {
         $this->errors = array();
         
-        if ( !$this->valid() ) return false;
-        
         foreach ( $this->raw as $line ) {
+
+            // Gå igenom samtliga regexps i map istället
+            // om inget matchar är det error...
             $tc = $this->getTc($line);
             if ( $tc === false ) continue;
-
             list($regexp, $func) = $this->map[$tc];
             
             if ( preg_match($regexp, $line, $params) ) {
@@ -236,58 +87,11 @@ abstract class Char80
         return empty($this->errors);
     }
 
-
     /**
      * Parsing complete. Owerride to perform post parsing actions.
      * @return void
      */
     protected function parsingComplete(){}
-
-
-    /**
-     * Validate structure of parsed file
-     * @return bool true if file is valid, false otherwise
-     */
-    public function valid(){
-        $fstruct = "";
-
-        if ( !is_array($this->raw) ) {
-            $this->error("No file contents");
-            return false;
-        }
-
-        foreach ( $this->raw as $line ) {
-            $tc = $this->getTc($line);
-            if ( !$tc ) continue;
-            $fstruct .= $tc;
-        }
-        
-        if ( preg_match($this->struct, $fstruct) ) {
-            return true;
-        } else {
-            $this->error("Structural error, not a vaild file structure");
-            return false;
-        }
-    }
-
-
-
-    /* HELPERS */
-
-
-    /**
-     * Get transaction code from $line. Returns false if $line contains
-     * no transaction code, or if code is not known.
-     * @param string $line
-     * @return mixed
-     */
-    private function getTc($line){
-        $tc = substr($line, 0, $this->tcLength);
-        if ( preg_match('/^\s*$/', $tc) ) return false;
-        if ( !array_key_exists($tc, $this->map) ) return false;
-        return $tc;
-    }
-
 
 
     /* STACK */
@@ -478,27 +282,16 @@ abstract class Char80
     }
 
 
-
     /* SECTIONS */
-
-    // Ska göras i XSL istället..
-    protected $layoutNames = array();
 
     /**
      * Create a section object and store it. Clear internal representation
      */
-    protected function writeSection($layout=false){
-        // $this->layout är ej längre verksam
-        //if ( !$layout ) $layout = $this->layout;
-        
+    protected function writeSection($layout = '')
+    {
         $s = array(
             'layout' => $layout,
-            'layoutName' => ''
         );
-
-        if ( array_key_exists($layout, $this->layoutNames) ) {
-            $s['layoutName'] = $this->layoutNames[$layout];
-        }
 
         $s = array_merge($s, $this->values);
         
@@ -540,47 +333,7 @@ abstract class Char80
     }
 
 
-
-    /* ERRORS */
-
-
-    /**
-     * Do something when a parsing function triggers an error.
-     * @param string $msg The error message
-     * @param string $source
-     * @return void
-     */
-    protected function error($msg, $source=false){
-        if ( !$source ) $source = $this->fname;
-        $line = "";
-        if ( is_array($this->raw) ) $line = key($this->raw);
-        $msg = sprintf("%s <%s:%d>", $msg, $source, $line);
-        if ( !in_array($msg, $this->errors) ) {
-            $this->errors[] = $msg;
-        }
-    }
-
-
-    /**
-     * Get the array with parsed errors, false if no error occured.
-     * @return array
-     */
-    public function getErrors(){
-        return empty($this->errors) ? false : $this->errors;
-    }
-
-
-    /**
-     * Returns true if an error has occured, false otherwise
-     * @return bool
-     */
-    public function hasError(){
-        return !empty($this->errors);
-    }
-
-
     /* AMOUNTS */
-
 
     /**
      * Takes a numerical string and converse it to a float. The last two
@@ -589,27 +342,12 @@ abstract class Char80
      * If $amount is an empty string (whitespaces are considered empty)
      * the empty string is returned.
      *
-     * If $allowSignal==true and $amount ends in a letter it will be
-     * transformed to a negative amount accourding to this table:
-     * 
-     * <code>
-     * å: letter is transformed to 0
-     * J: 1
-     * K: 2
-     * L: 3
-     * M: 4
-     * N: 5
-     * O: 6
-     * P: 7
-     * Q: 8
-     * R: 9
-     * </code>
-     *
      * @param string $amount
      * @param bool $allowSignal
      * @return float|string
      */
-    protected function str2amount($amount, $allowSignal=true){
+    protected function str2amount($amount, $allowSignal = true)
+    {
         $sign = 1;
         if ( is_string($amount) ) {
             $amount = trim($amount);
@@ -659,8 +397,6 @@ abstract class Char80
         $amount = preg_replace("/(\d*)(\d\d)$/", "$1.$2", $amount, 1);
         return floatval($amount)*$sign;
     }
-
-
     
     /**
      * Takes an amount as integer, float or string. Returns a string with
@@ -671,7 +407,8 @@ abstract class Char80
      * siganal values (see str2amount() for description).
      * @return string
      */
-    protected function amount2str($amount, $signal=false){
+    protected function amount2str($amount, $signal = false)
+    {
         if ( !is_numeric($amount) ) {
             $this->error(_('Unvalid amount: not numerical.'));
             return false;
@@ -722,5 +459,4 @@ abstract class Char80
         $amount = "$unit$cent";        
         return $amount;
     }
-
 }

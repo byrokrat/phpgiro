@@ -1,30 +1,23 @@
 <?php
-/**
- * This file is part of the STB package
- *
- * Copyright (c) 2011-12 Hannes Forsgård
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\AG
- */
-
 namespace itbz\swegiro\AG;
 
 /**
- * AG layout E, feedback on new and removed consents.
+ * Feedback on new and removed consents.
  *
- * @package itbz\swegiro\AG
+ * Medgivandeavisering
  */
 class E extends Object
 {
+    protected $struct = "/^(01(73)*09)+$/";
+
+    protected $map = array(
+        '01' => array("/^01(\d{8})9900(\d{10})AG-MEDAVI\s*$/", 'parseHeadDateBg'),
+        '73' => array("/^73(\d{10})(\d{16})(.{4})(.{12})(.{12}).{5}(\d\d)(\d\d)(\d{8})(\d{0,6})\s*$/", 'parseConsentInfo'),
+        '09' => array("/^09(\d{8})9900(\d{7})\s*$/", 'parseFoot'),
+    );
 
     /**
      * Status descriptions
-     *
-     * @var array
      */
     protected $statusMsgs = array(
         2 => "Medgivandet är makulerat på initiativ av betalaren.",
@@ -44,53 +37,11 @@ class E extends Object
         98 => "Medgivandet är makulerat på grund av makulerat betalarnummer.",
     );
 
-
-    /* FILE STRUCTURE */
-
-
-    /**
-     * Layout id
-     * @var string $layout
-     */
-    protected $layout = 'E';
-
-
-    /**
-     * Regex represention a valid file structure
-     * @var string $struct
-     */
-    protected $struct = "/^(01(73)*09)+$/";
-
-
-    /**
-     * Map transaction codes (TC) to line-parsing regexp and receiving method
-     * @var array $map
-     */
-    protected $map = array(
-        '01' => array("/^01(\d{8})9900(\d{10})AG-MEDAVI\s*$/", 'parseHeadDateBg'),
-        '73' => array("/^73(\d{10})(\d{16})(.{4})(.{12})(.{12}).{5}(\d\d)(\d\d)(\d{8})(\d{0,6})\s*$/", 'parseConsentInfo'),
-        '09' => array("/^09(\d{8})9900(\d{7})\s*$/", 'parseFoot'),
-    );
-
-
-
-    /* PARSING FUNCTIONS */
-
-
     /**
      * TC == 73, register post
-     * @param string $bg
-     * @param string $betNr
-     * @param string $clearing
-     * @param string $account
-     * @param string $orgNr
-     * @param string $info
-     * @param string $status
-     * @param string $date
-     * @param string $validDate
-     * @return bool true on success, false on failure
      */
-    protected function parseConsentInfo($bg, $betNr, $clearing, $account, $orgNr, $info, $status, $date, $validDate=false){
+    protected function parseConsentInfo($bg, $betNr, $clearing, $account, $orgNr, $info, $status, $date, $validDate=false)
+    {
         if ( !$this->validBg($bg) ) return false;
         
         //Set action
@@ -140,14 +91,11 @@ class E extends Object
         return true;
     }
 
-
     /**
-     * TC == 09, footer layout E style
-     * @param string $date
-     * @param string $nrPosts
-     * @return bool true on success, false on failure
+     * TC == 09, footer E style
      */
-    protected function parseFoot($date, $nrPosts){
+    protected function parseFoot($date, $nrPosts)
+    {
         if ( !$this->validDate($date) ) return false;
         if ( (int)$nrPosts != $this->count() ) {
             $this->error(sprintf(_("Unvalid file content, wrong number of type '%s' posts"), "73"));
@@ -156,5 +104,4 @@ class E extends Object
         $this->writeSection();
         return true;
     }
-
 }

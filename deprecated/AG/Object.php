@@ -7,9 +7,6 @@ abstract class Object extends itbz\swegiro\Char80
      * Each AgObject only works with one BGC customer number and
      * one BG account number. If you try to parse AG files intended for
      * other customer numbers or BG account numbers errors will be raised.
-     * 
-     * @param string $customerNr
-     * @param string $bg
      */
     public function __construct($customerNr = false, $bg = false)
     {
@@ -31,51 +28,6 @@ abstract class Object extends itbz\swegiro\Char80
     }
 
     /**
-     * Det här ska såklart göras av STB istället....
-     *
-     * Validate bg number
-     */
-    protected function validBg($bg)
-    {
-        $bg = ltrim($bg, '0');
-        if ( $this->setValue('bg', $bg) ) {
-            return true;
-        } else {
-            $this->error(_("Unvalid BG number"));
-            return false;
-        }
-    }
-
-    /**
-     * Hur fungerar det här, kan jag ersätta med något??
-     * 
-     * Validate customer number
-     * @param string $nr
-     * @return bool
-     */
-    protected function validCustomerNr($nr)
-    {
-        $nr = ltrim($nr, '0');
-        if ($this->setValue('customerNr', $nr)) {
-
-            return true;
-        } else {
-            $this->error(_("Unvalid customer number"));
-
-            return false;
-        }
-    }
-
-    /**
-     * Get date parsed file was created, YYYYMMDD
-     * @return string
-     */
-    public function getDate()
-    {
-        return $this->getValue('date');
-    }
-
-    /**
      * Set date, YYYYMMDD
      * @param string $date
      * @return string Date set
@@ -88,12 +40,28 @@ abstract class Object extends itbz\swegiro\Char80
         return $this->getValue('date');
     }
 
-
-    /**
-     * Validate customer number
-     * @param string $date
-     * @return bool
-     */
+    // Dessa funktioner kontrollerar att variabeln är samma
+    // som det tidigare satta värdet... Flera likadana...
+    protected function validBg($bg)
+    {
+        $bg = ltrim($bg, '0');
+        if ( $this->setValue('bg', $bg) ) {
+            return true;
+        } else {
+            $this->error(_("Unvalid BG number"));
+            return false;
+        }
+    }
+    protected function validCustomerNr($nr)
+    {
+        $nr = ltrim($nr, '0');
+        if ($this->setValue('customerNr', $nr)) {
+            return true;
+        } else {
+            $this->error(_("Unvalid customer number"));
+            return false;
+        }
+    }
     protected function validDate($date)
     {
         if ( $date != $this->values['date'] ) {
@@ -105,8 +73,7 @@ abstract class Object extends itbz\swegiro\Char80
     }
 
 
-    /* PARSING FUNCTIONS */
-
+    /* PARSING */
 
     /**
      * Parse header post (TC == 01) containing file $date, $customerNr and
@@ -124,7 +91,6 @@ abstract class Object extends itbz\swegiro\Char80
         return true;
     }
 
-
     /**
      * Parse header post (TC == 01) containing file $date and
      * recieving $bg number. Validates $bg and sets $date.
@@ -139,11 +105,10 @@ abstract class Object extends itbz\swegiro\Char80
         return true;
     }
 
-
     /**
      * Parse transaction post.
      *
-     * Pushes an array to the stack with the following layout:
+     * Pushes an array to the stack with the following:
      *
      * [transType] => I=invoice, C=credit
      * [date] => date when BGC proccessed the transaction
@@ -274,24 +239,6 @@ abstract class Object extends itbz\swegiro\Char80
         1 => "Täckning saknas, betalningen har inte genomförts.",
         2 => "Koppling till Autogiro saknas (bankkontot avslutat), betalningen har inte genomförts.",
         9 => "Förnyad täckning, betalningen har inte genomförts men nytt försök ska göras om avtal finns.",
-    );
-
-    /**
-     * Ska göras i XSL istället
-     *
-     * Layout names
-     */
-    protected $layoutNames = array(
-        'A' => "Medgivandeunderlag",
-        'B' => "Betalningsunderlag",
-        'C' => "Makuleringar/ändringar av betalningsunderlag",
-        'D' => "Betalningsspecifikation",
-        'E' => "Medgivandeavisering",
-        'F' => "Avvisade betalningsuppdrag",
-        'G' => "Avisering makuleringar/ändringar",
-        'H' => "Medgivanden via Internetbanken",
-        'I' => "Utrag ur bevakningsregistret",
-        'J' => "Utdrag ur medgivanderegistret",
     );
 
     /**

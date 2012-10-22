@@ -2,9 +2,11 @@
 namespace itbz\swegiro\AG;
 
 /**
- * AG layout H, new consents from the bank.
+ * New consents from the bank.
  *
- * Produces stack items with the following layout:
+ * Medgivanden via Internetbanken
+ *
+ * Produces stack items with the following:
  *
  * [betNr] =>
  * [account] => account nr, regular or BG
@@ -16,19 +18,23 @@ namespace itbz\swegiro\AG;
  */
 class H extends Object
 {
-    /**
-     * Ska göras i XSL istället..
-     */
+    protected $struct = "/^(51(52(5[3456])*)+59)+$/";
+
+    protected $map = array(
+        '51' => array("/^51(\d{8})9900(\d{10})AG-EMEDGIV/", 'parseHeadDateBg'),
+        '52' => array("/^52(\d{10})(\d{16})(\d{4})(\d{12})(\d{12}).{5}(\d)/", 'parseNewConsent'),
+        '53' => array("/^53(.{0,36})/", 'parseInfo'),
+        '54' => array("/^54(.{0,36})(.{0,36})/", 'parseAddress'),
+        '55' => array("/^55(.{0,36})(.{0,36})/", 'parseAddress'),
+        '56' => array("/^56(.{0,5})(.{0,31})/", 'parseAddress'),
+        '59' => array("/^59(\d{8})9900(\d{7})/", 'parseFoot'),
+    );
+
     protected $statusMsgs = array(
         0 => "Första meddelandet",
         1 => "Påminnelse nummer ett",
         2 => "Påminnelse nummer två",
     );
-
-    /**
-     * Använd Validator istället för detta. Men följ upp hur den används..
-     */
-    protected $struct = "/^(51(52(5[3456])*)+59)+$/";
 
     /**
      * Används för att jämföra mot kontrollsumma i fil
@@ -44,29 +50,6 @@ class H extends Object
         return parent::sectionClear();
     }
 
-
-    /**
-     * Map transaction codes (TC) to line-parsing regexp and receiving method
-     *
-     * @var array
-     */
-    protected $map = array(
-        '51' => array("/^51(\d{8})9900(\d{10})AG-EMEDGIV/", 'parseHeadDateBg'),
-        '52' => array("/^52(\d{10})(\d{16})(\d{4})(\d{12})(\d{12}).{5}(\d)/", 'parseNewConsent'),
-        '53' => array("/^53(.{0,36})/", 'parseInfo'),
-        '54' => array("/^54(.{0,36})(.{0,36})/", 'parseAddress'),
-        '55' => array("/^55(.{0,36})(.{0,36})/", 'parseAddress'),
-        '56' => array("/^56(.{0,5})(.{0,31})/", 'parseAddress'),
-        '59' => array("/^59(\d{8})9900(\d{7})/", 'parseFoot'),
-    );
-
-    /**
-     * Parse info
-     *
-     * @param string $info
-     *
-     * @return bool true on success, false on failure
-     */
     protected function parseInfo($info){
         $this->nrOfPosts++;
         $info = trim(utf8_encode($info));
@@ -74,14 +57,6 @@ class H extends Object
         return true;
     }
 
-    /**
-     * Parse address
-     *
-     * @param string $addr1
-     * @param string $addr2
-     *
-     * @return bool true on success, false on failure
-     */
     protected function parseAddress($addr1, $addr2 = false)
     {
         $this->nrOfPosts++;
@@ -94,18 +69,6 @@ class H extends Object
         return true;
     }
 
-    /**
-     * Parse new consent
-     *
-     * @param string $bg
-     * @param string $betNr
-     * @param string $clearing
-     * @param string $account
-     * @param string $orgNr
-     * @param string $status
-     *
-     * @return bool true on success, false on failure
-     */
     protected function parseNewConsent($bg, $betNr, $clearing, $account, $orgNr, $status)
     {
         if ( !$this->validBg($bg) ) return false;
@@ -128,14 +91,6 @@ class H extends Object
         return true;
     }
 
-    /**
-     * Parse foot
-     *
-     * @param string $date
-     * @param string $nrPosts
-     *
-     * @return bool true on success, false on failure
-     */
     protected function parseFoot($date, $nrPosts)
     {
         if ( !$this->validDate($date) ) return false;

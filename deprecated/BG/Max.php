@@ -1,27 +1,25 @@
 <?php
-/**
- * This file is part of the STB package
- *
- * Copyright (c) 2011-12 Hannes Forsgård
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\BB
- */
-
 namespace itbz\swegiro\BG;
 
-use itbz\swegiro\Char80;
-
-/**
- * BgMax file format parser.
- *
- * @package itbz\swegiro\Bg
- */
-class Max extends Char80
+class Max extends \itbz\swegiro\Char80
 {
+    protected $struct = "/^01(05(2[01](2[235])*(26)?(27)?(28)?(29)?)+15)+70$/";
+
+    protected $map = array(
+        '01' => array('/^01BGMAX\s{15}(\d{2})(\d{20})(T|P)\s*$/', 'parseHead'),
+        '05' => array('/^05(\d{10})(.{10})((?:SEK)|(?:EUR))\s*$/', 'parseOpening'),
+        '20' => array('/^20(\d{10})(.{25})(\d{18})(\d)(\d)(.{0,12})(\d)?\s*$/', 'parseTransaction'),
+        '21' => array('/^21\d{10}(.{25})(\d{18})(\d)\d(.{12})(\d)(\d)\s*$/', 'parseDeduction'),
+        '22' => array('/^(22)(\d{10})(.{25})(\d{18})(\d)(\d)(.{12})(\d)\s*$/', 'extrarefpost'),
+        '23' => array('/^(23)(\d{10})(.{25})(\d{18})(\d)(\d)(.{12})(\d)\s*$/', 'extrarefpost'),
+        '25' => array('/^25(.{50})\s*$/', 'parseInfo'),
+        '26' => array('/^26(.{0,35})(.{0,35})\s*$/', 'parseAddress'),
+        '27' => array('/^27(.{0,35})(.{0,9})\s*$/', 'parseAddress'),
+        '28' => array('/^28(.{0,35})(.{0,35})(.{0,2})\s*$/', 'parseAddress'),
+        '29' => array('/^29(\d{12})\s*$/', 'parseOrgNr'),
+        '15' => array('/^15.{19}(\d{4})(\d{12})(\d{8})(\d{5})(\d{18})((?:SEK)|(?:EUR))(\d{8})(K|D|S|\s)?\s*$/', 'parseEnd'),
+        '70' => array('/^70(\d{8})(\d{8})(\d{8})(\d{8})\s*$/', 'parseFoot'),
+    );
 
     /**
      * Nr of transactions globaly in file
@@ -51,11 +49,8 @@ class Max extends Char80
      */
     private $deposits = 0;
 
-
     /**
      * Channel descriptions
-     *
-     * @var array
      */
     private $channels = array(
         1 => "Elektronisk betalning från bank.",
@@ -64,11 +59,8 @@ class Max extends Char80
         4 => "Elektronisk betalning fråm tjänsten Autogiro (AG).",
     );
 
-
     /**
      * Refenrece code descriptions
-     *
-     * @var array
      */
     private $refCodes = array(
         0 => "Ingen referens. Extra referensnummer kan förekomma.",
@@ -79,11 +71,8 @@ class Max extends Char80
         5 => "Felaktig referens.",
     );
 
-
     /**
      * Deuction code descriptions
-     *
-     * @var array
      */
     private $deductCodes = array(
         0 => "Helt avdrag, ingen rest.",
@@ -91,60 +80,9 @@ class Max extends Char80
         3 => "Slutligt avdrag där delavdrag förekommit, ingen rest.s",
     );
 
-
-    /**
-     * Layout id
-     *
-     * @var string
-     */
-    protected $layout = 'BGMAX';
-    protected $layoutNames = array();
-
-
-    /**
-     * Regex represention a valid file structure
-     *
-     * @var string
-     */
-    protected $struct = "/^01(05(2[01](2[235])*(26)?(27)?(28)?(29)?)+15)+70$/";
-
-
-    /**
-     * Map transaction codes (TC) to line-parsing regexp and receiving method
-     *
-     * @var array
-     */
-    protected $map = array(
-        '01' => array('/^01BGMAX\s{15}(\d{2})(\d{20})(T|P)\s*$/', 'parseHead'),
-        '05' => array('/^05(\d{10})(.{10})((?:SEK)|(?:EUR))\s*$/', 'parseOpening'),
-        '20' => array('/^20(\d{10})(.{25})(\d{18})(\d)(\d)(.{0,12})(\d)?\s*$/', 'parseTransaction'),
-        '21' => array('/^21\d{10}(.{25})(\d{18})(\d)\d(.{12})(\d)(\d)\s*$/', 'parseDeduction'),
-        '22' => array('/^(22)(\d{10})(.{25})(\d{18})(\d)(\d)(.{12})(\d)\s*$/', 'extrarefpost'),
-        '23' => array('/^(23)(\d{10})(.{25})(\d{18})(\d)(\d)(.{12})(\d)\s*$/', 'extrarefpost'),
-        '25' => array('/^25(.{50})\s*$/', 'parseInfo'),
-        '26' => array('/^26(.{0,35})(.{0,35})\s*$/', 'parseAddress'),
-        '27' => array('/^27(.{0,35})(.{0,9})\s*$/', 'parseAddress'),
-        '28' => array('/^28(.{0,35})(.{0,35})(.{0,2})\s*$/', 'parseAddress'),
-        '29' => array('/^29(\d{12})\s*$/', 'parseOrgNr'),
-        '15' => array('/^15.{19}(\d{4})(\d{12})(\d{8})(\d{5})(\d{18})((?:SEK)|(?:EUR))(\d{8})(K|D|S|\s)?\s*$/', 'parseEnd'),
-        '70' => array('/^70(\d{8})(\d{8})(\d{8})(\d{8})\s*$/', 'parseFoot'),
-    );
-
-
-    /**
-     * Parse head
-     *
-     * @param string $ver
-     *
-     * @param string $time
-     *
-     * @param string $test
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseHead($ver, $time, $test)
     {
-        $this->layout = "BGMAX ".(int)$ver;
+        // skriv version till xml på något sätt..
         $this->setValue('date', substr($time, 0, 8), true);
         $this->setValue('datetime', $time, true);
         if ( $test == 'T' ) $this->setValue('test', true);
@@ -152,18 +90,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Parse opening
-     *
-     * @param string $bgTo
-     *
-     * @param string $pgTo
-     *
-     * @param string $currency
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseOpening($bgTo, $pgTo, $currency)
     {
         $this->setValue('bgTo', ltrim($bgTo, '0'));
@@ -174,26 +100,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Parse transaction
-     *
-     * @param string $bgFrom
-     *
-     * @param string $ref
-     *
-     * @param string $amount
-     *
-     * @param string $refCode
-     *
-     * @param string $channel
-     *
-     * @param string $nr
-     *
-     * @param string $img
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseTransaction($bgFrom, $ref, $amount, $refCode, $channel, $nr = false, $img = false)
     {
         $this->transacts++;
@@ -213,24 +119,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Parse deduction
-     *
-     * @param string $ref
-     *
-     * @param string $amount
-     *
-     * @param string $refCode
-     *
-     * @param string $nr
-     *
-     * @param string $img
-     *
-     * @param string $deductCode
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseDeduction($ref, $amount, $refCode, $nr, $img, $deductCode)
     {
         $this->deducts++;
@@ -248,28 +136,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Extrarefpost
-     *
-     * @param string $tc
-     *
-     * @param string $bgFrom
-     *
-     * @param string $ref
-     *
-     * @param string $amount
-     *
-     * @param string $refCode
-     *
-     * @param string $channel
-     *
-     * @param string $nr
-     *
-     * @param string $img
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function extrarefpost($tc, $bgFrom, $ref, $amount, $refCode, $channel, $nr, $img)
     {
         $this->extRefs++;
@@ -294,14 +160,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Parse info
-     *
-     * @param string $msg
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseInfo($msg)
     {
         $this->pushTo('info', trim(utf8_encode($msg)));
@@ -309,12 +167,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Parse address
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseAddress()
     {
         foreach ( func_get_args() as $arg ) {
@@ -324,14 +176,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Parse org number
-     *
-     * @param string $orgNr
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseOrgNr($orgNr)
     {
         $t = $this->pop();
@@ -341,28 +185,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Parse end
-     *
-     * @param string $clearing
-     *
-     * @param string $account
-     *
-     * @param string $date
-     *
-     * @param string $nr
-     *
-     * @param string $sumTrans
-     *
-     * @param string $currency
-     *
-     * @param string $nrTrans
-     *
-     * @param string $type
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseEnd($clearing, $account, $date, $nr, $sumTrans, $currency, $nrTrans, $type = false)
     {
         $this->deposits++;
@@ -410,20 +232,6 @@ class Max extends Char80
         return true;
     }
 
-
-    /**
-     * Parse foot
-     *
-     * @param string $transacts
-     *
-     * @param string $deducts
-     *
-     * @param string $extRefs
-     *
-     * @param string $deposits
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseFoot($transacts, $deducts, $extRefs, $deposits)
     {
         if ( (int)$transacts != $this->transacts ) {
@@ -445,5 +253,4 @@ class Max extends Char80
 
         return true;
     }
-
 }

@@ -1,10 +1,19 @@
 <?php
 namespace itbz\swegiro\PG;
 
+// INBETALNINGSSERVICE - Sammanställning av Inkommande betalningar
 class N extends itbz\swegiro\Char80
 {
-    protected $layoutNames = array(
-        'N' => "INBETALNINGSSERVICE - Sammanställning av Inkommande betalningar",
+    protected $struct = "/^(0010(2030(40)+50)+90)+$/";
+
+    protected $map = array(
+        '00' => array("/^00(\d{6})(.{33})IS (.{4})N(\d{6}).{10}(J| )\s*$/", 'parseHead'),
+        '10' => array("/^10(\d{6})(.{32})\s*$/", 'parseCustomer'),
+        '20' => array("/^20(\d{6})(.{10})\s*$/", 'parseIS'),
+        '30' => array("/^30(\d{6})(.{10})(\d{6})\s*$/", 'parseDate'),
+        '40' => array("/^40(.{25})(\d{13}).{7}(\d)(\d{10})(\d{8})(J| )\s*$/", 'parseTransaction'),
+        '50' => array("/^50(\d{6})(.{10})(\d{6})(\d{7})(\d{15})\s*$/", "parseISfoot"),
+        '90' => array("/^90(\d{6}).{10}(\d{6})(\d{7})(\d{15})\s*$/", "parseFoot"),
     );
 
     /**
@@ -21,54 +30,6 @@ class N extends itbz\swegiro\Char80
      */
     private $postSum = 0;
 
-
-    /**
-     * Layout id
-     *
-     * @var string
-     */
-    protected $layout = 'N';
-
-
-    /**
-     * Regex represention a valid file structure
-     *
-     * @var string
-     */
-    protected $struct = "/^(0010(2030(40)+50)+90)+$/";
-
-
-    /**
-     * Map transaction codes (TC) to line-parsing regexp and receiving method
-     *
-     * @var array
-     */
-    protected $map = array(
-        '00' => array("/^00(\d{6})(.{33})IS (.{4})N(\d{6}).{10}(J| )\s*$/", 'parseHead'),
-        '10' => array("/^10(\d{6})(.{32})\s*$/", 'parseCustomer'),
-        '20' => array("/^20(\d{6})(.{10})\s*$/", 'parseIS'),
-        '30' => array("/^30(\d{6})(.{10})(\d{6})\s*$/", 'parseDate'),
-        '40' => array("/^40(.{25})(\d{13}).{7}(\d)(\d{10})(\d{8})(J| )\s*$/", 'parseTransaction'),
-        '50' => array("/^50(\d{6})(.{10})(\d{6})(\d{7})(\d{15})\s*$/", "parseISfoot"),
-        '90' => array("/^90(\d{6}).{10}(\d{6})(\d{7})(\d{15})\s*$/", "parseFoot"),
-    );
-
-
-    /**
-     * Parse head
-     *
-     * @param string $agencyNr
-     *
-     * @param string $agencyName
-     *
-     * @param string $accountingUnit
-     *
-     * @param string $date
-     *
-     * @param string $reject
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseHead($agencyNr, $agencyName, $accountingUnit, $date, $reject)
     {
         $this->clearValues();
@@ -81,16 +42,6 @@ class N extends itbz\swegiro\Char80
         return true;
     }
 
-
-    /**
-     * Parse customer
-     *
-     * @param string $customerNr
-     *
-     * @param string $customer
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseCustomer($customerNr, $customer)
     {
         if ( !$this->setValue('customer', trim(utf8_decode($customer)), true) ) {
@@ -102,16 +53,6 @@ class N extends itbz\swegiro\Char80
         return $this->setCustAndIs($customerNr);
     }
 
-
-    /**
-     * Parse IS
-     *
-     * @param string $customerNr
-     *
-     * @param string $ISnr
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseIS($customerNr, $ISnr)
     {
         if (!$this->setValue('account', trim($ISnr))) {
@@ -123,18 +64,6 @@ class N extends itbz\swegiro\Char80
         return $this->setCustAndIs($customerNr);
     }
 
-
-    /**
-     * Parse date
-     *
-     * @param string $customerNr
-     *
-     * @param string $ISnr
-     *
-     * @param string $date
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseDate($customerNr, $ISnr, $date)
     {
         if (!$this->setValue('transactionDate', $date)) {
@@ -146,24 +75,6 @@ class N extends itbz\swegiro\Char80
         return $this->setCustAndIs($customerNr, $ISnr);
     }
 
-
-    /**
-     * Parse transaction
-     *
-     * @param string $ref
-     *
-     * @param string $amount
-     *
-     * @param string $senderCode
-     *
-     * @param string $sender
-     *
-     * @param string $nr
-     *
-     * @param string $reject
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseTransaction($ref, $amount, $senderCode, $sender, $nr, $reject)
     {
         $t = array(
@@ -180,22 +91,6 @@ class N extends itbz\swegiro\Char80
         return true;
     }
 
-
-    /**
-     * Parse IS foot
-     *
-     * @param string $customerNr
-     *
-     * @param string $ISnr
-     *
-     * @param string $date
-     *
-     * @param string $nrTrans
-     *
-     * @param string $sumTrans
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseISfoot($customerNr, $ISnr, $date, $nrTrans, $sumTrans)
     {
         if (!$this->setCustAndIs($customerNr, $ISnr)) return false;
@@ -223,20 +118,6 @@ class N extends itbz\swegiro\Char80
         return true;
     }
 
-
-    /**
-     * Parse foot
-     *
-     * @param string $agencyNr
-     *
-     * @param string $date
-     *
-     * @param string $nrTrans
-     *
-     * @param string $sumTrans
-     *
-     * @return bool true if succesfull, false on failure
-     */
     protected function parseFoot($agencyNr, $date, $nrTrans, $sumTrans)
     {
         if (!$this->setValue('agency', $agencyNr)) {
@@ -261,15 +142,8 @@ class N extends itbz\swegiro\Char80
         return true;
     }
 
-
     /**
      * Set customer number and is number
-     *
-     * @param string $customerNr
-     *
-     * @param string $ISnr
-     *
-     * @return bool true on success, false if an error occured
      */
     private function setCustAndIs($customerNr, $ISnr = false)
     {
@@ -283,5 +157,4 @@ class N extends itbz\swegiro\Char80
         }
         return true;
     }
-
 }

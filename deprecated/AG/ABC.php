@@ -1,20 +1,10 @@
 <?php
-/**
- * This file is part of the STB package
- *
- * Copyright (c) 2011-12 Hannes Forsgård
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\AG
- */
-
 namespace itbz\swegiro\AG;
 
 /**
- * Parse and create autogiro files layouts A, B and C (information sent to BGC).
+ * 'A' => "Medgivandeunderlag",
+ * 'B' => "Betalningsunderlag",
+ * 'C' => "Makuleringar/ändringar av betalningsunderlag",
  *
  * Each AgLayoutABC object only works with one BGC customer number and
  * one BG account number. If you try to parse AG files intended for
@@ -22,18 +12,10 @@ namespace itbz\swegiro\AG;
  *
  * <h3>Creating files</h3>
  *
- * A file sent to BGC may contain independent sections with layout A, B and C posts.
- * When mixing layouts in one single file you must call addSection() before
- * changing layout. It is recommended not to have multiple sections with the
- * same layout, however no error will be raised if you do so.
- *
- * If given numbers are to long the post structure will not validate. In this case
- * it might not be obvious where the error is. Se BGC tecknical specifications
- * in this case. And please report bugs!
- *
- * If you do not specify BG account number and BGC customer number when creating
- * files the post structure will not validate. Set BG account and BGC customer
- * number when creating your object.
+ * A file sent to BGC may contain independent sections with A, B and C posts.
+ * When mixing in one single file you must call addSection() before
+ * changing. It is recommended not to have multiple sections with the
+ * same layut, however no error will be raised if you do so.
  *
  * <code>$toBgc = new AgLayoutABC('123456', '12345678');
  * $toBgc->addSection();
@@ -55,35 +37,11 @@ namespace itbz\swegiro\AG;
  * } else {
  *     print_r($toBgc->getErrors());
  * }</code>
- *
- * <h4>Creating files using the new layout</h4>
- *
- * If you are using Autogirot with the new file layout create your files using
- * <strong>AgLayoutABC_new</strong> instead. This allows you to register consents with BG account
- * numbers (previously only available with Autogriro företag, which is not
- * supported by PhpGiro) and to change payer number.
- *
- * See AgLayoutABC_new::addBgConsent()
- * and AgLayoutABC_new::changeBetNr()
- *
- * @package itbz\swegiro\AG
  */
 class ABC extends Object
 {
-
-    /**
-     * Regex represention a valid file structure
-     *
-     * @var string
-     */
     protected $struct = "/^((01(0[3-5])+)|(01([83]2)+)|(01(2[3-9])+))+$/";
 
-
-    /**
-     * Map transaction codes (TC) to line-parsing regexp and receiving method
-     *
-     * @var array
-     */
     protected $map = array(
         '01' => array("/^01(\d{8})AUTOGIRO.{44}(\d{6})(\d{10})\s*$/", 'parseHead'),
         // consents
@@ -104,11 +62,8 @@ class ABC extends Object
         '29' => array("/^(2[6-9])(\d{10})(.{16})(.{8})(.{12})(..)(\d{8})(.{0,16})\s*$/", 'parseModify'),
     );
 
-
     /**
      * Write section on parsing complete
-     *
-     * @return void
      */
     protected function parsingComplete()
     {
@@ -126,14 +81,6 @@ class ABC extends Object
         }
     }
 
-    
-    /**
-     * Parse head
-     * @param string $date
-     * @param string $customerNr
-     * @param string $bg
-     * @return bool true on success, false on failure
-     */
     protected function parseHead($date, $customerNr, $bg)
     {
         $this->parsingComplete();
@@ -146,12 +93,6 @@ class ABC extends Object
 
     /* consents */
 
-    /**
-     * Remove consent
-     * @param string $bg
-     * @param string $betNr
-     * @return bool true on success, false on failure
-     */
     protected function parseRemoveConsent($bg, $betNr)
     {
         if ( !$this->validBg($bg) ) return false;
@@ -164,17 +105,6 @@ class ABC extends Object
         return true;
     }
 
-
-    /**
-     * Add consent
-     * @param string $bg
-     * @param string $betNr
-     * @param string $clearing
-     * @param string $account
-     * @param string $orgNr
-     * @param string $reject
-     * @return bool true on success, false on failure
-     */
     protected function parseAddConsent(
         $bg,
         $betNr,
@@ -182,8 +112,7 @@ class ABC extends Object
         $account = false,
         $orgNr = false,
         $reject = false
-    )
-    {
+    ) {
         if ( !$this->validBg($bg) ) return false;
         $betNr = ltrim($betNr, '0');
 
@@ -205,14 +134,6 @@ class ABC extends Object
         return true;
     }
 
-
-    /**
-     * Change bet number
-     * @param string $bg
-     * @param string $oldBetNr
-     * @param string $newBetNr
-     * @return bool true on success, false on failure
-     */
     protected function parseChangeBetNr($bg, $oldBetNr, $newBetNr)
     {
         if ( !$this->validBg($bg) ) return false;
@@ -230,13 +151,6 @@ class ABC extends Object
 
     /* cancellations */
 
-
-    /**
-     * Cancel bet number
-     * @param string $bg
-     * @param string $betNr
-     * @return bool true on success, false on failure
-     */
     protected function parseCancelBetNr($bg, $betNr)
     {
         if ( !$this->validBg($bg) ) return false;
@@ -250,14 +164,6 @@ class ABC extends Object
         return true;
     }
 
-
-    /**
-     * Cancel bet number for date
-     * @param string $bg
-     * @param string $betNr
-     * @param string $date
-     * @return bool true on success, false on failure
-     */
     protected function parseCancelBetNrDate($bg, $betNr, $date){
         if ( !$this->validBg($bg) ) return false;
         $cancel = array(
@@ -270,17 +176,6 @@ class ABC extends Object
         return true;
     }
 
-
-    /**
-     * Cancel transaction
-     * @param string $bg
-     * @param string $betNr
-     * @param string $date
-     * @param string $amount
-     * @param string $code
-     * @param string $ref
-     * @return bool true on success, false on failure
-     */
     protected function parseCancelTransaction($bg, $betNr, $date, $amount, $code, $ref = "")
     {
         if ( !$this->validBg($bg) ) return false;
@@ -300,18 +195,6 @@ class ABC extends Object
 
     /* modifications */
 
-    /**
-     * Parse modify
-     * @param string $tc
-     * @param string $bg
-     * @param string $betNr
-     * @param string $oldDate
-     * @param string $amount
-     * @param string $code
-     * @param string $newDate
-     * @param string $ref
-     * @return bool true on success, false on failure
-     */
     protected function parseModify($tc, $bg, $betNr, $oldDate, $amount, $code, $newDate, $ref = "")
     {
         if ( !$this->validBg($bg) ) return false;
@@ -332,15 +215,10 @@ class ABC extends Object
     }
 
 
-
     /* FUNCTIONS TO CREATE FILES */
 
-
     /**
-     * Add a new section post (TC = 01). Read layout specifications for more
-     * information on when new sections must be added.
-     * @return void
-     * @api
+     * Add a new section post (TC = 01)
      */
     public function addSection()
     {
@@ -348,6 +226,8 @@ class ABC extends Object
         $AG = str_pad("AUTOGIRO", 52);
         $customerNr = str_pad($this->getValue('customerNr'), 6, '0', STR_PAD_LEFT);
         $bg = $this->getValue('bg');
+
+        // addLine() är borttagen, ska skapa XML istället
         $this->addLine("01$date$AG$customerNr$bg");
     }
 
@@ -362,8 +242,6 @@ class ABC extends Object
      * @param string $orgNr Swedish social security number, or organisation number
      * @param bool $reject Set to true if this is an answer to an online application
      * and you DECLINE the application. If in doubt, do not use.
-     * @return void
-     * @api
      */
     public function addConsent($betNr, $clearing, $account, $orgNr, $reject = false)
     {
@@ -376,20 +254,21 @@ class ABC extends Object
         $blank = str_pad("", 20);
         $reject = ($reject) ? "AV" : "  ";
         $bg = $this->getValue('bg');
+
+        // addLine() är borttagen, ska skapa XML istället
         $this->addLine("04$bg$betNr$clearing$account$orgNr$blank$reject");
     }
-
 
     /**
      * Write remove consent post to file
      * @param string $betNr Number to identify AG consent. Max 16 numbers.
-     * @return void
-     * @api
      */
     public function removeConsent($betNr)
     {
         $betNr = str_pad($betNr, 16, '0', STR_PAD_LEFT);
         $bg = $this->getValue('bg');
+
+        // addLine() är borttagen, ska skapa XML istället
         $this->addLine("03$bg$betNr");
     }
 
@@ -418,14 +297,11 @@ class ABC extends Object
      * @param string $ref
      * @param int $period Se table
      * @param int $repetitions Leve empty for $period==0 or no repetition limit
-     * @return void
-     * @api
      */
     public function addInvoice($betNr, $amount, $date, $ref = "", $period = 0, $repetitions = "   ")
     {
         return $this->addTransaction('82', $betNr, $amount, $date, $ref, $period, $repetitions);
     }
-
 
     /**
      * Write transaction post from your BG account to $betNr
@@ -435,14 +311,11 @@ class ABC extends Object
      * @param string $ref
      * @param int $period Se table in addInvoice() documentation.
      * @param int $repetitions Leve empty for $period==0 or no repetition limit
-     * @return void
-     * @api
      */
     public function addCredit($betNr, $amount, $date, $ref = "", $period = 0, $repetitions = "   ")
     {
         return $this->addTransaction('32', $betNr, $amount, $date, $ref, $period, $repetitions);
     }
-
 
     /**
      * Internal function to support addInvoice() and addCredit().
@@ -453,7 +326,6 @@ class ABC extends Object
      * @param string $ref
      * @param int $period Se table in addInvoice() documentation.
      * @param int $repetitions Leve empty for $period==0 or no repetition limit
-     * @return void
      */
     private function addTransaction($tc, $betNr, $amount, $date, $ref = "", $period = 0, $repetitions = "   ")
     {
@@ -463,6 +335,8 @@ class ABC extends Object
         $amount = str_pad($amount, 12, '0', STR_PAD_LEFT);
         $ref = str_pad($ref, 16);
         $bg = $this->getValue('bg');
+
+        // addLine() är borttagen, ska skapa XML istället
         $this->addLine("$tc$date$period$repetitions $betNr$amount$bg$ref");
     }
 
@@ -472,27 +346,21 @@ class ABC extends Object
     /**
      * Cancel all transactions involving $betNr
      * @param string $betNr Number to identify AG consent. Max 16 numbers.
-     * @return void
-     * @api
      */
     public function cancelBetNr($betNr)
     {
         return $this->cancel($betNr);
     }
 
-
     /**
      * Cancel all transactions involving $betNr on $date
      * @param string $betNr Number to identify AG consent. Max 16 numbers.
      * @param string $date YYYYMMDD
-     * @return void
-     * @api
      */
     public function cancelBetNrDate($betNr, $date)
     {
         return $this->cancel($betNr, $date);
     }
-
 
     /**
      * Cancel one transaction
@@ -501,14 +369,11 @@ class ABC extends Object
      * @param string|int|float $amount
      * @param string $ref
      * @param bool $credit true of transaction is a credit, false invoice.
-     * @return void
-     * @api
      */
     public function cancelTransaction($betNr, $date, $amount, $ref = false, $credit = false)
     {
         return $this->cancel($betNr, $date, $amount, $ref, $credit);
     }
-
 
     /**
      * Internal function to support cancelBetNr(), cancelBetNrDate() and cancelTransaction()
@@ -517,7 +382,6 @@ class ABC extends Object
      * @param string|int|float $amount
      * @param string $ref
      * @param bool $credit true of transaction is a credit, false invoice.
-     * @return void
      */
     private function cancel($betNr, $date = false, $amount = false, $ref = false, $credit = false)
     {
@@ -525,9 +389,13 @@ class ABC extends Object
         $bg = $this->getValue('bg');
         if ( !$date ) {
             //Only betNr, cancel all for this betNr
+
+            // addLine() är borttagen, ska skapa XML istället
             $this->addLine("23$bg$betNr");
         } elseif ( !$amount ) {
             //Cancel all for thir betNr and date
+
+            // addLine() är borttagen, ska skapa XML istället
             $this->addLine("24$bg$betNr$date");
         } else {
             //Cancel one transaction
@@ -535,6 +403,8 @@ class ABC extends Object
             $amount = str_pad($amount, 12, '0', STR_PAD_LEFT);
             $code = ( $credit ) ? '32' : '82';
             $ref = str_pad($ref, 16);
+
+            // addLine() är borttagen, ska skapa XML istället
             $this->addLine("25$bg$betNr$date$amount$code        $ref");
         }
     }
@@ -545,42 +415,33 @@ class ABC extends Object
     /**
      * Set new date for all transactions (use with caution).
      * @param string $newDate YYYYMMDD
-     * @return void
-     * @api
      */
     public function modifyAllNewDate($newDate)
     {
         return $this->modify("26", $newDate);
     }
 
-
     /**
      * Set new date for all transaction on $oldDate (use with caution).
      * @param string $oldDate YYYYMMDD
      * @param string $newDate YYYYMMDD
-     * @return void
-     * @api
      */
     public function modifyDateNewDate($oldDate, $newDate)
     {
         return $this->modify("27", $newDate, $oldDate);
     }
 
-
     /**
      * Set new date for all transactions involving $betNr on $oldDate
      * @param string $betNr Number to identify AG consent. Max 16 numbers.
      * @param string $oldDate YYYYMMDD
      * @param string $newDate YYYYMMDD
-     * @return void
-     * @api
      */
     public function modifyBetNrDate($betNr, $oldDate, $newDate)
     {
         $betNr = str_pad($betNr, 16, '0', STR_PAD_LEFT);
         return $this->modify("28", $newDate, $oldDate, $betNr);
     }
-
 
     /**
      * Set new date for a transaction
@@ -590,17 +451,15 @@ class ABC extends Object
      * @param string|int|float $amount
      * @param string $ref
      * @param bool $credit true of transaction is a credit, false invoice.
-     * @return void
-     * @api
      */
-    public function modifyTransaction($betNr, $oldDate, $newDate, $amount, $ref, $credit=false){
+    public function modifyTransaction($betNr, $oldDate, $newDate, $amount, $ref, $credit=false)
+    {
         $betNr = str_pad($betNr, 16, '0', STR_PAD_LEFT);
         $amount = $this->amount2str($amount);
         $amount = str_pad($amount, 12, '0', STR_PAD_LEFT);
         $code = ( $credit ) ? '32' : '82';
         return $this->modify("29", $newDate, $oldDate, $betNr, $amount, $code, $ref);
     }
-
 
     /**
      * Interal function to support modifyAllNewDate(), modifyDateNewDate(),
@@ -612,17 +471,17 @@ class ABC extends Object
      * @param string|int|float $amount
      * @param string $code
      * @param string $ref
-     * @return void
      */
-    private function modify($tc, $newDate, $oldDate="        ", $betNr="                ", $amount="            ", $code="  ", $ref=""){
+    private function modify($tc, $newDate, $oldDate="        ", $betNr="                ", $amount="            ", $code="  ", $ref="")
+    {
         $bg = $this->getValue('bg');
+
+        // addLine() är borttagen, ska skapa XML istället
         $this->addLine("$tc$bg$betNr$oldDate$amount$code$newDate$ref");
     }
 
 
-
     /* DATESETNAMN */
-
 
     /**
      * Get datesetname for contents.
@@ -636,16 +495,15 @@ class ABC extends Object
         return "BFEP.I$comm.K0$customerNr";
     }
 
-
     /**
      * Write contents to filesystem
      * @param string $comm See getDatesetname()
      * @param string $dirname
      * @return int Bytes written, false on failure.
      */
-    public function writeFile($comm="AGAG", $dirname=false){
+    public function writeFile($comm="AGAG", $dirname=false)
+    {
         $fname = $this->getDatesetname($comm);
         return parent::writeFile($fname, $dirname);
     }
-
 }
