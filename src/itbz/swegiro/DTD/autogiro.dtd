@@ -15,10 +15,8 @@
 <!ELEMENT clearing (#PCDATA)>
 <!ELEMENT number (#PCDATA)>
 
-<!ELEMENT address (line+,postcode,town)>
+<!ELEMENT address (line+)>
 <!ELEMENT line (#PCDATA)>
-<!ELEMENT postcode (#PCDATA)>
-<!ELEMENT town (#PCDATA)>
 
 <!ELEMENT message (id,text)>
 <!ELEMENT id (#PCDATA)>
