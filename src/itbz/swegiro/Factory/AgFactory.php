@@ -18,6 +18,7 @@ use itbz\swegiro\Sniffer\AgSniffer;
 use itbz\swegiro\Validator\DtdValidator;
 use itbz\swegiro\Exception\StrategyException;
 use itbz\swegiro\Parser\Parser;
+use itbz\swegiro\XMLWriter;
 
 /**
  * Autogiro factory class
@@ -85,6 +86,6 @@ class AgFactory implements FactoryInterface
 
         $strategyClass = self::$classes[$flag];
 
-        return new Parser(new $strategyClass);
+        return new Parser(new $strategyClass(new XMLWriter));
     }
 }

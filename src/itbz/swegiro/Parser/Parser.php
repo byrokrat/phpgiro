@@ -26,18 +26,26 @@ class Parser
     /**
      * Parsing strategy
      *
-     * @var StrategyInterface
+     * @var AbstractStrategy
      */
     private $strategy;
 
     /**
+     * Parsing regular expressions maped to parser methods
+     *
+     * @var array
+     */
+    private $regexpMap;
+
+    /**
      * Parse AG files using designated strategy
      *
-     * @param StrategyInterface $strategy
+     * @param AbstractStrategy $strategy
      */
-    public function __construct(StrategyInterface $strategy)
+    public function __construct(AbstractStrategy $strategy)
     {
         $this->strategy = $strategy;
+        $this->regexpMap = $strategy->getRegexpMap();
     }
 
     /**
@@ -46,18 +54,30 @@ class Parser
      * @param array $lines AG file contents
      * 
      * @return DOMDocument
-     *
-     * @throws ParserException If generated XML is not valid
      */
     public function parse(array $lines)
     {
         $this->strategy->clear();
 
         foreach ($lines as $line) {
-            $this->strategy->parseLine($line);
+            $this->parseLine($line);
         }
 
-        $xml = $this->strategy->getXML();
+        return $this->createDomDocument($this->strategy->getXML());
+    }
+
+    /**
+     * Create DOMDocument from raw xml
+     *
+     * @param string $xml
+     *
+     * @return DOMDocument
+     *
+     * @throws ParserException If generated XML is not valid
+     */
+    public function createDomDocument($xml)
+    {
+        assert('is_string($xml)');
 
         $domDocument = new DOMDocument;
         if (!@$domDocument->loadXML($xml)) {
@@ -71,5 +91,32 @@ class Parser
         }
 
         return $domDocument;
+    }
+
+    /**
+     * Parse one line
+     *
+     * @param string $line
+     *
+     * @return void
+     *
+     * @throws ParserException if unable to parse line
+     */
+    public function parseLine($line)
+    {
+        foreach ($this->regexpMap as $regexp => $fnName) {
+            if (preg_match($regexp, $line, $matches)) {
+                array_shift($matches);
+                call_user_func(
+                    array($this->strategy, $fnName),
+                    array_map('utf8_encode', $matches)
+                );
+
+                return;
+            }
+        }
+
+        $msg = sprintf(_("Unknown line '%s'"), $line);
+        throw new ParserException($msg);
     }
 }
