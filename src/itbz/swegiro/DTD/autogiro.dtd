@@ -23,5 +23,5 @@
 <!ELEMENT text (#PCDATA)>
 
 <!ELEMENT h (date,bg,consent+)>
-<!ELEMENT consent (payerId,(personalId|corporateId),account,message,info,address)>
+<!ELEMENT consent (payerId,(personalId|corporateId),account,message,info?,address?)>
 <!ELEMENT info (#PCDATA)>
