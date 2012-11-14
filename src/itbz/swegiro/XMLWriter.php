@@ -28,18 +28,33 @@ class XMLWriter extends \XMLWriter
     private $activeStack = array();
 
     /**
+     * XMLWriter extension
+     */
+    public function __construct()
+    {
+        $this->openMemory();
+        $this->startDocument('1.0', 'UTF-8');
+    }
+
+    /**
      * Clear writer and start a fresh document
      *
      * @return void
-     *
-     * @todo reset writer så att jag kan börja ett nytt dokument
      */
     public function clear()
     {
-        // såhär såg clear i Strategy ut förut...
-        // $this->xmlWriter = new XMLWriter;
-        // $this->xmlWriter->openMemory();
-        // $this->xmlWriter->startDocument('1.0', 'UTF-8');
+        $this->flush();
+        $this->startDocument('1.0', 'UTF-8');
+    }
+
+    /**
+     * Get generated xml
+     *
+     * @return string
+     */
+    public function getXml()
+    {
+        return $this->outputMemory(false);
     }
 
     /**
@@ -63,7 +78,7 @@ class XMLWriter extends \XMLWriter
      *
      * @param string $el name of element
      *
-     * @return ??????
+     * @return bool True on success, false on failure
      */
     public function startElement($el)
     {
@@ -74,7 +89,7 @@ class XMLWriter extends \XMLWriter
     /**
      * End current element
      *
-     * @return ????
+     * @return bool True on success, false on failure
      */
     public function endElement()
     {
