@@ -15,6 +15,7 @@ namespace itbz\swegiro\Parser\Strategy\AG;
 
 use itbz\swegiro\Parser\AbstractStrategy;
 use itbz\swegiro\Exception\ParserException;
+use itbz\swegiro\Exception\ContentException;
 
 /**
  * Parser strategy for AG layout H (new electronic consents)
@@ -60,36 +61,95 @@ class LayoutH extends AbstractStrategy
     }
 
     /**
+     * Get the current post count
+     *
+     * @return int
+     */
+    public function getPostCount()
+    {
+        return $this->postCount;
+    }
+
+    /**
      * Parse address
      *
-     * @param array $addrLines
+     * @param array $values
      *
      * @return void
      */
-    public function parseAddress(array $addrLines)
+    public function parseAddress(array $values)
     {
         $this->postCount++;
 
-        foreach ($addrLines as $addr) {
-            $addr = trim($addr);
-
-            // Det här fungerar inte därför att jag inte vet vilket element som
-            // är aktivt.....
-            //
-            // if ($this->xmlWriter->currentElement() != 'address') {
-            //      $this->xmlWriter->startElement('address');
-            // }
-            //
-            // räcker det för att hantera alla olika push to osv...??
-            //      ja jag tror det
-            //      det är några till meckiga grejer med sum osv. Men annars
-            //      ska allt vara med...
-            $this->xmlWriter->writeElement('line', $addr);
-
-            // Det här är den gamla koden
-            //$this->pushTo('address', $addr);
+        if ($this->xmlWriter->currentElement() != 'address') {
+            $this->xmlWriter->startElement('address');
         }
 
-        return true;
+        foreach ($values as $addr) {
+            $addr = trim($addr);
+            $this->xmlWriter->writeElement('line', $addr);
+        }
+    }
+
+    /**
+     * End address element if open
+     *
+     * @return void
+     */
+    private function endAddress()
+    {
+        if ($this->xmlWriter->currentElement() == "address") {
+            $this->xmlWriter->endElement();
+        }
+    }
+
+    /**
+     * Parse info
+     *
+     * @param array $values
+     *
+     * @return void
+     */
+    public function parseInfo(array $values)
+    {
+        list($info) = $values;
+        $this->postCount++;
+        $this->endAddress();
+        $this->xmlWriter->writeElement('info', trim($info));
+    }
+
+
+    /*
+        parseHeadDateBg till AbstractStrategy..
+        parseFoot måste portas till min nya kod
+        parseNewConsent har jag inte börjat med alls...
+     */
+
+
+    /**
+     * Parse file footer
+     *
+     * @param array $values
+     *
+     * @return void
+     */
+    public function parseFoot(array $values)
+    {
+        list($date, $nrPosts) = $values;
+        $this->endAddress();
+
+        if ((int)$nrPosts != $this->getPostCount()) {
+            $msg = _('Unvalid file content, wrong number of posts.');
+            throw new ContentException($msg);
+        }
+
+        // TODO Vad händer här? Måste vara samma datum som i header?
+        if (!$this->validDate($date)) {
+            return false;
+        }
+
+
+        // TODO Vad händer här??
+        $this->writeSection();
     }
 }

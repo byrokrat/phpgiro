@@ -2,8 +2,6 @@
 namespace itbz\swegiro\AG;
 
 /**
- * New consents from the bank.
- *
  * Medgivanden via Internetbanken
  *
  * Produces stack items with the following:
@@ -30,25 +28,13 @@ class H extends Object
         '59' => array("/^59(\d{8})9900(\d{7})/", 'parseFoot'),
     );
 
+    private $nrOfPosts = 0;
+
     protected $statusMsgs = array(
         0 => "Första meddelandet",
         1 => "Påminnelse nummer ett",
         2 => "Påminnelse nummer två",
     );
-
-    /**
-     * Används för att jämföra mot kontrollsumma i fil
-     */
-    private $nrOfPosts = 0;
-
-    /**
-     * Extend sectionClear() to also clear posts in section
-     */
-    public function sectionClear()
-    {
-        $this->nrOfPosts = 0;
-        return parent::sectionClear();
-    }
 
     protected function parseInfo($info){
         $this->nrOfPosts++;

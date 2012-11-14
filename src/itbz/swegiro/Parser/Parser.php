@@ -67,33 +67,6 @@ class Parser
     }
 
     /**
-     * Create DOMDocument from raw xml
-     *
-     * @param string $xml
-     *
-     * @return DOMDocument
-     *
-     * @throws ParserException If generated XML is not valid
-     */
-    public function createDomDocument($xml)
-    {
-        assert('is_string($xml)');
-
-        $domDocument = new DOMDocument;
-        if (!@$domDocument->loadXML($xml)) {
-            $libxmlError = libxml_get_last_error();
-            if ($libxmlError) {
-                $msg = $libxmlError->message;
-            } else {
-                $msg = _("Parsing empty file?");
-            }
-            throw new ParserException(_('XML validation error: ') . $msg);
-        }
-
-        return $domDocument;
-    }
-
-    /**
      * Parse one line
      *
      * @param string $line
@@ -118,5 +91,32 @@ class Parser
 
         $msg = sprintf(_("Unknown line '%s'"), $line);
         throw new ParserException($msg);
+    }
+
+    /**
+     * Create DOMDocument from raw xml
+     *
+     * @param string $xml
+     *
+     * @return DOMDocument
+     *
+     * @throws ParserException If generated XML is not valid
+     */
+    public function createDomDocument($xml)
+    {
+        assert('is_string($xml)');
+
+        $domDocument = new DOMDocument;
+        if (!@$domDocument->loadXML($xml)) {
+            $libxmlError = libxml_get_last_error();
+            if ($libxmlError) {
+                $msg = $libxmlError->message;
+            } else {
+                $msg = _("Parsing empty file?");
+            }
+            throw new ParserException(_('XML validation error: ') . $msg);
+        }
+
+        return $domDocument;
     }
 }
