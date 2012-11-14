@@ -61,8 +61,6 @@ abstract class AbstractStrategy
      * Get created xml as a raw string
      *
      * @return string
-     *
-     * @todo Kolla upp vad output funktionen heter för XMLWriter..
      */
     public function getXML()
     {
