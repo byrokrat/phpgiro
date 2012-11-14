@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Factory;
+ * @package itbz\swegiro\Factory
  */
 
 namespace itbz\swegiro\Factory;
