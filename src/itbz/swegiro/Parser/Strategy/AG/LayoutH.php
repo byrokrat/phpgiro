@@ -13,16 +13,18 @@
 
 namespace itbz\swegiro\Parser\Strategy\AG;
 
-use itbz\swegiro\Parser\AbstractStrategy;
 use itbz\swegiro\Exception\ParserException;
 use itbz\swegiro\Exception\ContentException;
+use itbz\stb\Banking\Bankgiro;
+use itbz\stb\ID\CorporateIdBuilder;
+use DateTime;
 
 /**
  * Parser strategy for AG layout H (new electronic consents)
  *
  * @package itbz\swegiro\Parser\Strategy\AG
  */
-class LayoutH extends AbstractStrategy
+class LayoutH extends AbstractAGStrategy
 {
     /**
      * Counter for number of parsed posts
@@ -39,8 +41,8 @@ class LayoutH extends AbstractStrategy
     public function getRegexpMap()
     {
         return array(
-            '/^51(\d{8})9900(\d{10})AG-EMEDGIV/' => 'parseHeadDateBg',
-            '/^52(\d{10})(\d{16})(\d{4})(\d{12})(\d{12}).{5}(\d)/' => 'parseNewConsent',
+            '/^51(\d{8})9900(\d{10})AG-EMEDGIV/' => 'parseHead',
+            '/^52(\d{10})(\d{16})(\d{4})(\d{12})(\d{12}).{5}(\d)/' => 'parseConsent',
             '/^53(.{0,36})/' => 'parseInfo',
             '/^54(.{0,36})(.{0,36})/' => 'parseAddress',
             '/^55(.{0,36})(.{0,36})/' => 'parseAddress',
@@ -68,6 +70,77 @@ class LayoutH extends AbstractStrategy
     public function getPostCount()
     {
         return $this->postCount;
+    }
+
+    /**
+     * Parse file header
+     *
+     * @param array $values
+     *
+     * @return void
+     */
+    public function parseHead(array $values)
+    {
+        list($date, $bg) = $values;
+        $this->setFileDate(new DateTime($date));
+        $this->setBgNr(new Bankgiro(ltrim($bg, '0')));
+    }
+
+    /**
+     * Parse new consent
+     *
+     * @param array $values 
+     *
+     * @return void
+     *
+     * @throws ContentException If BG does not match file header
+     */
+    public function parseConsent(array $values)
+    {
+        list($bg, $betNr, $clearing, $account, $orgNr, $status) = $values;
+        $this->postCount++;
+
+        if ($this->getBgNr() != new Bankgiro(ltrim($bg, '0'))) {
+            $msg = _('BG number in consent does not match BG number in file.');
+            throw new ContentException($msg);
+        }
+
+        return;
+
+        /*
+            Ska jag använda CorporateIdBuilder här?
+                kolla i dokumentationen vilka nummer som är möjliga här?
+                är det möjligt att personnummer anänds som organisationsnummer
+                i AG - filer??
+         */
+
+        self::buildStateIdNr($orgNr, $orgNrType);
+
+        $consent = array(
+            'tc' => '52',
+            'betNr' => ltrim($betNr, '0'),
+            'account' => self::buildAccountNr($betNr, $clearing, $account),
+            $orgNrType => $orgNr,
+            'status' => $status,
+            'statusMsg' => $this->statusMsgs[$status],
+        );
+
+        $this->push($consent);
+    }
+
+    /**
+     * Parse info
+     *
+     * @param array $values
+     *
+     * @return void
+     */
+    public function parseInfo(array $values)
+    {
+        list($info) = $values;
+        $this->postCount++;
+        $this->endAddress();
+        $this->xmlWriter->writeElement('info', trim($info));
     }
 
     /**
@@ -104,34 +177,13 @@ class LayoutH extends AbstractStrategy
     }
 
     /**
-     * Parse info
-     *
-     * @param array $values
-     *
-     * @return void
-     */
-    public function parseInfo(array $values)
-    {
-        list($info) = $values;
-        $this->postCount++;
-        $this->endAddress();
-        $this->xmlWriter->writeElement('info', trim($info));
-    }
-
-
-    /*
-        parseHeadDateBg till AbstractStrategy..
-        parseFoot måste portas till min nya kod
-        parseNewConsent har jag inte börjat med alls...
-     */
-
-
-    /**
      * Parse file footer
      *
      * @param array $values
      *
      * @return void
+     *
+     * @throws ContentException If expected content is missing
      */
     public function parseFoot(array $values)
     {
@@ -143,13 +195,9 @@ class LayoutH extends AbstractStrategy
             throw new ContentException($msg);
         }
 
-        // TODO Vad händer här? Måste vara samma datum som i header?
-        if (!$this->validDate($date)) {
-            return false;
+        if ($this->getFileDate() != new DateTime($date)) {
+            $msg = _('Footer date does not match header date.');
+            throw new ContentException($msg);
         }
-
-
-        // TODO Vad händer här??
-        $this->writeSection();
     }
 }
