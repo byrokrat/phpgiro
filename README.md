@@ -5,6 +5,8 @@ Create and parse files for swedish giro systems.
 
 This project is a stub and not currently usable.
 
+For detailed information se the [complete documentation](http://itbz.github.com/namespaces/itbz.swegiro.html).
+
 
 Supported file formats
 ----------------------
@@ -18,9 +20,6 @@ Bankgirot standard format BgMax
 
 [PlusGirot layout N (also known as 02P)]
 
-
-Supported AUTOGRIO formats
---------------------------
     +=============================+=====+=====+=====+
     | LAYOUT                      | PRI | OLD | NEW |
     +=============================+=====+=====+=====+
