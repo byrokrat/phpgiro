@@ -20,6 +20,9 @@ use itbz\swegiro\Exception\ValidatorException;
 /**
  * Create and parse files for swedish giro systems
  *
+ * Inject factory for the bank system under analysis. Se the Factory subpackage
+ * for possible choices. Se README.md for examples.
+ *
  * @package itbz\swegiro
  */
 class Swegiro
