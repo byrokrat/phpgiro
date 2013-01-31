@@ -23,10 +23,8 @@ interface SnifferInterface extends LayoutInterface
     /**
      * Sniff the layout type of a giro file
      *
-     * @param array $lines The file contents
-     * 
-     * @return integer One of the LayoutInterface flags
-     *
+     * @param  array            $lines The file contents
+     * @return integer          One of the LayoutInterface flags
      * @throws SnifferException If sniff fails
      */
     public function sniffGiroType(array $lines);

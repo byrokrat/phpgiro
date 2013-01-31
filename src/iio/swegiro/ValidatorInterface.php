@@ -23,9 +23,8 @@ interface ValidatorInterface
     /**
      * Check if document is valid
      *
-     * @param DOMDocument $doc Document to validate
-     *
-     * @return boolean True if document is valid, false otherwise
+     * @param  DOMDocument $doc Document to validate
+     * @return boolean     True if document is valid, false otherwise
      */
     public function isValid(DOMDocument $doc);
 

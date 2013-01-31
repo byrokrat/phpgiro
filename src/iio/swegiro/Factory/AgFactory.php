@@ -26,9 +26,7 @@ use iio\swegiro\XMLWriter;
 class AgFactory implements FactoryInterface
 {
     /**
-     * Maps layout flags to class names
-     * 
-     * @var array
+     * @var array Maps layout flags to class names
      */
     private static $classes = array(
         self::LAYOUT_AG_H => 'iio\swegiro\Parser\Strategy\AG\LayoutH'
@@ -69,10 +67,8 @@ class AgFactory implements FactoryInterface
     /**
      * {@inheritdoc}
      *
-     * @param integer $flag One of the LayoutInterface flags
-     *
+     * @param  integer           $flag One of the LayoutInterface flags
      * @return Parser
-     *
      * @throws StrategyException If flag is unknown
      */
     public function createParser($flag)

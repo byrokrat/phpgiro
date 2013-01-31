@@ -22,9 +22,7 @@ use iio\swegiro\SnifferInterface;
 class AgSniffer implements SnifferInterface
 {
     /**
-     * Identifiers used when sniffing
-     * 
-     * @var array
+     * @var array Identifiers used when sniffing
      */
     private static $identifiers = array(
         self::LAYOUT_AG_D => array(
@@ -86,8 +84,7 @@ class AgSniffer implements SnifferInterface
      *
      * NOTE: The response is a *guess* and should not be depended upon.
      * 
-     * @param array $lines The file contents
-     * 
+     * @param  array   $lines The file contents
      * @return integer One of the LayoutInterface flags
      */
     public function sniffGiroType(array $lines)

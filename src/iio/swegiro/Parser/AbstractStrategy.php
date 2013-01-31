@@ -22,9 +22,7 @@ use iio\swegiro\XMLWriter;
 abstract class AbstractStrategy
 {
     /**
-     * XMLWriter object
-     *
-     * @var XMLWriter
+     * @var XMLWriter XMLWriter object
      */
     protected $xmlWriter;
 
@@ -36,7 +34,7 @@ abstract class AbstractStrategy
     abstract public function getRegexpMap();
 
     /**
-     * Inject xml writer object
+     * Constructor
      *
      * @param XMLWriter $xmlWriter
      */

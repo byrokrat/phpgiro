@@ -23,23 +23,17 @@ use DateTime;
 abstract class AbstractAGStrategy extends AbstractStrategy
 {
     /**
-     * Receiving bankgiro account number
-     *
-     * @var Bankgiro
+     * @var Bankgiro Receiving bankgiro account number
      */
     private $bgNr;
 
     /**
-     * BGC customer number
-     *
-     * @var string
+     * @var string BGC customer number
      */
     private $customerNr;
 
     /**
-     * Date of parsed file
-     *
-     * @var DateTime
+     * @var DateTime Date of parsed file
      */
     private $fileDate;
 
@@ -56,8 +50,7 @@ abstract class AbstractAGStrategy extends AbstractStrategy
     /**
      * Set receiving bankgiro account number
      *
-     * @param Bankgiro $bgNr
-     *
+     * @param  Bankgiro $bgNr
      * @return void
      */
     public function setBgNr(Bankgiro $bgNr)
@@ -78,8 +71,7 @@ abstract class AbstractAGStrategy extends AbstractStrategy
     /**
      * Set BGC customer number
      *
-     * @param string $customerNr
-     *
+     * @param  string $customerNr
      * @return void
      */
     public function setCustomerNr($customerNr)
@@ -101,8 +93,7 @@ abstract class AbstractAGStrategy extends AbstractStrategy
     /**
      * Set date of parsed file
      *
-     * @param DateTime $fileDate
-     *
+     * @param  DateTime $fileDate
      * @return void
      */
     public function setFileDate(DateTime $fileDate)

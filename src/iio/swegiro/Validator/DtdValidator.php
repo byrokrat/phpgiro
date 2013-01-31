@@ -24,28 +24,22 @@ use DOMDocument;
 class DtdValidator implements ValidatorInterface
 {
     /**
-     * Last error message
-     *
-     * @var string
+     * @var string Last error message
      */
     private $error = '';
 
     /**
-     * XML qualified name
-     *
-     * @var string
+     * @var string XML qualified name
      */
     private $rootName;
 
     /**
-     * DOM creator resource
-     *
-     * @var DOMImplementation
+     * @var DOMImplementation DOM creator resource
      */
     private $creator;
 
     /**
-     * Validate DOMDocuments using DTDs
+     * Constructor
      *
      * @param string $rootName Name of the document root node
      * @param string $dtd
@@ -68,9 +62,8 @@ class DtdValidator implements ValidatorInterface
     /**
      * {@inheritdoc}
      *
-     * @param DOMDocument $doc Document to validate
-     *
-     * @return boolean True if document is valid, false otherwise
+     * @param  DOMDocument $doc Document to validate
+     * @return boolean     True if document is valid, false otherwise
      */
     public function isValid(DOMDocument $doc)
     {

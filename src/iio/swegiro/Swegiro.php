@@ -26,28 +26,22 @@ use iio\swegiro\Exception\ValidatorException;
 class Swegiro
 {
     /**
-     * Concrete factory
-     *
-     * @var FactoryInterface
+     * @var FactoryInterface Concrete factory
      */
     private $factory;
 
     /**
-     * Sniffer instance
-     *
-     * @var SnifferInterface
+     * @var SnifferInterface Sniffer instance
      */
     private $sniffer;
 
     /**
-     * Validator instance
-     *
-     * @var ValidatorInterface
+     * @var ValidatorInterface Validator instance
      */
     private $validator;
 
     /**
-     * Create and parse files for swedish giro systems
+     * Constructor
      *
      * @param FactoryInterface $factory
      */
@@ -61,8 +55,7 @@ class Swegiro
     /**
      * Remove empty lines from array
      *
-     * @param array $lines Giro file contents
-     *
+     * @param  array $lines Giro file contents
      * @return array
      */
     public function trimLines(array $lines)
@@ -78,10 +71,8 @@ class Swegiro
     /**
      * Check that XML is valid
      *
-     * @param DOMDocument $doc
-     *
-     * @return DOMDocument The valid document
-     *
+     * @param  DOMDocument        $doc
+     * @return DOMDocument        The valid document
      * @throws ValidatorException If validation fails
      */
     public function validateXML(DOMDocument $doc)
@@ -96,8 +87,7 @@ class Swegiro
     /**
      * Convert giro files to XML
      * 
-     * @param array $lines Giro file contents
-     * 
+     * @param  array       $lines Giro file contents
      * @return DOMDocument
      */
     public function convertToXML(array $lines)

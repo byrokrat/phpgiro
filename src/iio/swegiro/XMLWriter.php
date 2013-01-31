@@ -19,14 +19,12 @@ namespace iio\swegiro;
 class XMLWriter extends \XMLWriter
 {
     /**
-     * Stack of active element names
-     *
-     * @var array
+     * @var array Stack of active element names
      */
     private $activeStack = array();
 
     /**
-     * XMLWriter extension
+     * Constructor
      */
     public function __construct()
     {
@@ -74,9 +72,8 @@ class XMLWriter extends \XMLWriter
     /**
      * Start a new element
      *
-     * @param string $el name of element
-     *
-     * @return bool True on success, false on failure
+     * @param  string $el name of element
+     * @return bool   True on success, false on failure
      */
     public function startElement($el)
     {

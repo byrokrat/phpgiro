@@ -25,9 +25,7 @@ use DateTime;
 class LayoutH extends AbstractAGStrategy
 {
     /**
-     * Counter for number of parsed posts
-     *
-     * @var integer
+     * @var integer Counter for number of parsed posts
      */
     private $postCount;
 
@@ -73,8 +71,7 @@ class LayoutH extends AbstractAGStrategy
     /**
      * Parse file header
      *
-     * @param array $values
-     *
+     * @param  array $values
      * @return void
      */
     public function parseHead(array $values)
@@ -87,10 +84,8 @@ class LayoutH extends AbstractAGStrategy
     /**
      * Parse new consent
      *
-     * @param array $values 
-     *
+     * @param  array            $values 
      * @return void
-     *
      * @throws ContentException If BG does not match file header
      */
     public function parseConsent(array $values)
@@ -129,8 +124,7 @@ class LayoutH extends AbstractAGStrategy
     /**
      * Parse info
      *
-     * @param array $values
-     *
+     * @param  array $values
      * @return void
      */
     public function parseInfo(array $values)
@@ -144,8 +138,7 @@ class LayoutH extends AbstractAGStrategy
     /**
      * Parse address
      *
-     * @param array $values
-     *
+     * @param  array $values
      * @return void
      */
     public function parseAddress(array $values)
@@ -177,10 +170,8 @@ class LayoutH extends AbstractAGStrategy
     /**
      * Parse file footer
      *
-     * @param array $values
-     *
+     * @param  array            $values
      * @return void
-     *
      * @throws ContentException If expected content is missing
      */
     public function parseFoot(array $values)

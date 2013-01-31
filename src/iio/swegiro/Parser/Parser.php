@@ -22,16 +22,12 @@ use DOMDocument;
 class Parser
 {
     /**
-     * Parsing strategy
-     *
-     * @var AbstractStrategy
+     * @var AbstractStrategy Parsing strategy
      */
     private $strategy;
 
     /**
-     * Parsing regular expressions maped to parser methods
-     *
-     * @var array
+     * @var array Parsing regular expressions maped to parser methods
      */
     private $regexpMap;
 
@@ -49,8 +45,7 @@ class Parser
     /**
      * Parse AG files using designated strategy
      * 
-     * @param array $lines AG file contents
-     * 
+     * @param  array       $lines AG file contents
      * @return DOMDocument
      */
     public function parse(array $lines)
@@ -67,11 +62,9 @@ class Parser
     /**
      * Parse one line
      *
-     * @param string $line
-     *
+     * @param  string          $line
      * @return void
-     *
-     * @throws ParserException if unable to parse line
+     * @throws ParserException If unable to parse line
      */
     public function parseLine($line)
     {
@@ -94,10 +87,8 @@ class Parser
     /**
      * Create DOMDocument from raw xml
      *
-     * @param string $xml
-     *
+     * @param  string          $xml
      * @return DOMDocument
-     *
      * @throws ParserException If generated XML is not valid
      */
     public function createDomDocument($xml)
