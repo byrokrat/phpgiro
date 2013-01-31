@@ -1,8 +1,8 @@
 {
-    "name": "itbz/swegiro",
+    "name": "iio/swegiro",
     "description": "Create and parse files for swedish giro systems",
     "keywords": ["autogiro", "plusgiro", "bankgiro"],
-    "homepage": "https://github.com/itbz/swegiro",
+    "homepage": "https://github.com/iio/swegiro",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -13,11 +13,11 @@
     ],
     "autoload": {
         "psr-0": {
-            "itbz\\swegiro": "src/"
+            "iio\\swegiro": "src/"
         }
     },
     "require": {
         "php": ">=5.3.0",
-        "itbz/stb": "dev-master"
+        "iio/stb": "dev-master"
     }
 }

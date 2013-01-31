@@ -1,5 +1,5 @@
 <?php
-namespace itbz\swegiro\AG;
+namespace iio\swegiro\AG;
 
 /**
  * List of transactions registered with the bank, but not processed.

@@ -1,12 +1,12 @@
 <?php
-namespace itbz\swegiro\AG\Nya;
+namespace iio\swegiro\AG\Nya;
 
 /**
  * Added functinality for creating A, B or C files
  * 
  * This class is not needed for parsing new A, B or C files.
  */
-class ABC extends \itbz\swegiro\AG\ABC
+class ABC extends \iio\swegiro\AG\ABC
 {
     /**
      * Write consent post for BG accout to file. When dealing with BG accounts

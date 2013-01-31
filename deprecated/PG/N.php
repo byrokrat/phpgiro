@@ -1,8 +1,8 @@
 <?php
-namespace itbz\swegiro\PG;
+namespace iio\swegiro\PG;
 
 // INBETALNINGSSERVICE - Sammanställning av Inkommande betalningar
-class N extends itbz\swegiro\Char80
+class N extends iio\swegiro\Char80
 {
     protected $struct = "/^(0010(2030(40)+50)+90)+$/";
 

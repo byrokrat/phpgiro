@@ -6,21 +6,19 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Parser\Strategy\AG
  */
 
-namespace itbz\swegiro\Parser\Strategy\AG;
+namespace iio\swegiro\Parser\Strategy\AG;
 
-use itbz\swegiro\Parser\AbstractStrategy;
-use itbz\stb\Banking\Bankgiro;
+use iio\swegiro\Parser\AbstractStrategy;
+use iio\stb\Banking\Bankgiro;
 use DateTime;
 
 /**
  * Abstract autogiro strategy class
  *
- * @package itbz\swegiro\Parser\Strategy\AG
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
 abstract class AbstractAGStrategy extends AbstractStrategy
 {

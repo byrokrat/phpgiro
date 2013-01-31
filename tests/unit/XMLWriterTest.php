@@ -1,5 +1,5 @@
 <?php
-namespace itbz\swegiro;
+namespace iio\swegiro;
 
 class XMLWriterTest extends \PHPUnit_Framework_TestCase
 {

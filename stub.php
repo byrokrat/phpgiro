@@ -1,8 +1,8 @@
 <?php
 
-namespace itbz\swegiro;
+namespace iio\swegiro;
 
-use itbz\swegiro\Factory\AgFactory;
+use iio\swegiro\Factory\AgFactory;
 
 include "vendor/autoload.php";
 header('Content-Type: text/plain');

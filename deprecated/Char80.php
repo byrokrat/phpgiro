@@ -1,5 +1,5 @@
 <?php
-namespace itbz\swegiro;
+namespace iio\swegiro;
 
 abstract class Char80
 {

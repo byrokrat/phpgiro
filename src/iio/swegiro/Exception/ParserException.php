@@ -6,18 +6,18 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro
  */
 
-namespace itbz\swegiro;
+namespace iio\swegiro\Exception;
+
+use iio\swegiro\Exception;
 
 /**
- * Base exception
+ * Exception thrown when giro to XML parsing fails
  *
- * @package itbz\swegiro
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
-class Exception extends \Exception
+class ParserException extends Exception
 {
 }

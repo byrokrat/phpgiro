@@ -1,5 +1,5 @@
 <?php
-namespace itbz\swegiro\Sniffer;
+namespace iio\swegiro\Sniffer;
 
 class AgSnifferTest extends \PHPUnit_Framework_TestCase
 {
@@ -180,7 +180,7 @@ class AgSnifferTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\swegiro\Exception\SnifferException
+     * @expectedException iio\swegiro\Exception\SnifferException
      */
     public function testNoMatch()
     {

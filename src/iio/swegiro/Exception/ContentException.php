@@ -6,19 +6,17 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Exception
  */
 
-namespace itbz\swegiro\Exception;
+namespace iio\swegiro\Exception;
 
-use itbz\swegiro\Exception;
+use iio\swegiro\Exception;
 
 /**
  * Exception thrown when loaded content does not match a predefined rule
  *
- * @package itbz\swegiro\Exception
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
 class ContentException extends Exception
 {

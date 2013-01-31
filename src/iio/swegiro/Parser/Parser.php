@@ -6,20 +6,18 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Parser
  */
 
-namespace itbz\swegiro\Parser;
+namespace iio\swegiro\Parser;
 
-use itbz\swegiro\Exception\ParserException;
+use iio\swegiro\Exception\ParserException;
 use DOMDocument;
 
 /**
  * Parse AG files using designated strategy
  *
- * @package itbz\swegiro\Parser
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
 class Parser
 {

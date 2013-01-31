@@ -5,11 +5,10 @@ Create and parse files for swedish giro systems.
 
 This project is a stub and not currently usable.
 
-For detailed information se the [complete documentation](http://itbz.github.com/namespaces/itbz.swegiro.html).
 
 ## Parsing files from autogirot
 
-    $giro = new itbz\swegiro\Swegiro(new itbz\swegiro\Factory\AgFactory);
+    $giro = new iio\swegiro\Swegiro(new iio\swegiro\Factory\AgFactory);
     $file = file('tests/unit/samples/new/nya-medgivanden-internetbank.txt');
     $dom = $giro->convertToXML($file);
 

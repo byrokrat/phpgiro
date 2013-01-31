@@ -6,16 +6,13 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro
  */
 
-namespace itbz\swegiro;
+namespace iio\swegiro;
 
 use DOMDocument;
-use itbz\swegiro\Parser\Parser;
-use itbz\swegiro\Exception\ValidatorException;
+use iio\swegiro\Parser\Parser;
+use iio\swegiro\Exception\ValidatorException;
 
 /**
  * Create and parse files for swedish giro systems
@@ -23,7 +20,8 @@ use itbz\swegiro\Exception\ValidatorException;
  * Inject factory for the bank system under analysis. Se the Factory subpackage
  * for possible choices. Se README.md for examples.
  *
- * @package itbz\swegiro
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
 class Swegiro
 {

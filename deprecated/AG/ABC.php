@@ -1,5 +1,5 @@
 <?php
-namespace itbz\swegiro\AG;
+namespace iio\swegiro\AG;
 
 /**
  * 'A' => "Medgivandeunderlag",

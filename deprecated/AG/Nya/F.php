@@ -1,7 +1,7 @@
 <?php
-namespace itbz\swegiro\AG\Nya;
+namespace iio\swegiro\AG\Nya;
 
-class F extends \itbz\swegiro\AG\F
+class F extends \iio\swegiro\AG\F
 {
     public function __construct($customerNr = false, $bg = false)
     {

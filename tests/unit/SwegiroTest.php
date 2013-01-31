@@ -1,12 +1,12 @@
 <?php
-namespace itbz\swegiro;
+namespace iio\swegiro;
 
 class SwegiroTest extends \PHPUnit_Framework_TestCase
 {
     public function testTrimLines()
     {
         $swegiro = $this->getMock(
-            '\itbz\swegiro\Swegiro',
+            '\iio\swegiro\Swegiro',
             array('convertToXML'),
             array(),
             '',
@@ -29,12 +29,12 @@ class SwegiroTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\swegiro\Exception\ValidatorException
+     * @expectedException iio\swegiro\Exception\ValidatorException
      */
     public function testUnvalidXML()
     {
-        $factory = $this->getMock('\itbz\swegiro\FactoryInterface');
-        $validator = $this->getMock('\itbz\swegiro\ValidatorInterface');
+        $factory = $this->getMock('\iio\swegiro\FactoryInterface');
+        $validator = $this->getMock('\iio\swegiro\ValidatorInterface');
 
         $validator->expects($this->once())
             ->method('isValid')
@@ -50,14 +50,14 @@ class SwegiroTest extends \PHPUnit_Framework_TestCase
 
     public function testConvertToXML()
     {
-        $factory = $this->getMock('\itbz\swegiro\FactoryInterface');
+        $factory = $this->getMock('\iio\swegiro\FactoryInterface');
 
         $factory->expects($this->once())
             ->method('createSniffer')
-            ->will($this->returnValue($this->getMock('\itbz\swegiro\SnifferInterface')));
+            ->will($this->returnValue($this->getMock('\iio\swegiro\SnifferInterface')));
 
         $parser = $this->getMock(
-            '\itbz\swegiro\Parser\Parser',
+            '\iio\swegiro\Parser\Parser',
             array(),
             array(),
             '',
@@ -72,7 +72,7 @@ class SwegiroTest extends \PHPUnit_Framework_TestCase
             ->method('createParser')
             ->will($this->returnValue($parser));
 
-        $validator = $this->getMock('\itbz\swegiro\ValidatorInterface');
+        $validator = $this->getMock('\iio\swegiro\ValidatorInterface');
         $validator->expects($this->once())
             ->method('isValid')
             ->will($this->returnValue(true));

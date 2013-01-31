@@ -6,23 +6,21 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Parser\Strategy\AG
  */
 
-namespace itbz\swegiro\Parser\Strategy\AG;
+namespace iio\swegiro\Parser\Strategy\AG;
 
-use itbz\swegiro\Exception\ParserException;
-use itbz\swegiro\Exception\ContentException;
-use itbz\stb\Banking\Bankgiro;
-use itbz\stb\ID\CorporateIdBuilder;
+use iio\swegiro\Exception\ParserException;
+use iio\swegiro\Exception\ContentException;
+use iio\stb\Banking\Bankgiro;
+use iio\stb\ID\CorporateIdBuilder;
 use DateTime;
 
 /**
  * Parser strategy for AG layout H (new electronic consents)
  *
- * @package itbz\swegiro\Parser\Strategy\AG
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
 class LayoutH extends AbstractAGStrategy
 {

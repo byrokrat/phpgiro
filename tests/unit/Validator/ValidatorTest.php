@@ -1,5 +1,5 @@
 <?php
-namespace itbz\swegiro\Validator;
+namespace iio\swegiro\Validator;
 
 use DOMDocument;
 

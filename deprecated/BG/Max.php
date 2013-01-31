@@ -1,7 +1,7 @@
 <?php
-namespace itbz\swegiro\BG;
+namespace iio\swegiro\BG;
 
-class Max extends \itbz\swegiro\Char80
+class Max extends \iio\swegiro\Char80
 {
     protected $struct = "/^01(05(2[01](2[235])*(26)?(27)?(28)?(29)?)+15)+70$/";
 

@@ -1,15 +1,15 @@
 <?php
-namespace itbz\swegiro\Parser;
+namespace iio\swegiro\Parser;
 
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException itbz\swegiro\Exception\ParserException
+     * @expectedException iio\swegiro\Exception\ParserException
      */
     public function testEmtpyXmlException()
     {
         $strategy = $this->getMock(
-            'itbz\swegiro\Parser\AbstractStrategy',
+            'iio\swegiro\Parser\AbstractStrategy',
             array(),
             array(),
             '',
@@ -20,12 +20,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\swegiro\Exception\ParserException
+     * @expectedException iio\swegiro\Exception\ParserException
      */
     public function testNotWellFormedXMLException()
     {
         $strategy = $this->getMock(
-            'itbz\swegiro\Parser\AbstractStrategy',
+            'iio\swegiro\Parser\AbstractStrategy',
             array(),
             array(),
             '',
@@ -36,12 +36,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\swegiro\Exception\ParserException
+     * @expectedException iio\swegiro\Exception\ParserException
      */
     public function testUnknownLineException()
     {
         $strategy = $this->getMock(
-            'itbz\swegiro\Parser\AbstractStrategy',
+            'iio\swegiro\Parser\AbstractStrategy',
             array(),
             array(),
             '',
@@ -58,7 +58,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testParserLine()
     {
         $strategy = $this->getMock(
-            'itbz\swegiro\Parser\AbstractStrategy',
+            'iio\swegiro\Parser\AbstractStrategy',
             array(),
             array(),
             '',
@@ -79,7 +79,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testParse()
     {
         $strategy = $this->getMock(
-            'itbz\swegiro\Parser\AbstractStrategy',
+            'iio\swegiro\Parser\AbstractStrategy',
             array(),
             array(),
             '',

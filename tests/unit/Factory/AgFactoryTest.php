@@ -1,5 +1,5 @@
 <?php
-namespace itbz\swegiro\Factory;
+namespace iio\swegiro\Factory;
 
 class AgFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -7,7 +7,7 @@ class AgFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new AgFactory;
         $this->assertInstanceOf(
-            '\itbz\swegiro\Sniffer\AgSniffer',
+            '\iio\swegiro\Sniffer\AgSniffer',
             $factory->createSniffer()
         );
     }
@@ -16,13 +16,13 @@ class AgFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new AgFactory;
         $this->assertInstanceOf(
-            '\itbz\swegiro\Validator\DtdValidator',
+            '\iio\swegiro\Validator\DtdValidator',
             $factory->createValidator()
         );
     }
 
     /**
-     * @expectedException itbz\swegiro\Exception\StrategyException
+     * @expectedException iio\swegiro\Exception\StrategyException
      */
     public function testInvalidFlag()
     {
@@ -34,7 +34,7 @@ class AgFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new AgFactory;
         $this->assertInstanceOf(
-            'itbz\swegiro\Parser\Parser',
+            'iio\swegiro\Parser\Parser',
             $factory->createParser(AgFactory::LAYOUT_AG_H)
         );
     }

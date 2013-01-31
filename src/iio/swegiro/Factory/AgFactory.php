@@ -6,24 +6,22 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Factory
  */
 
-namespace itbz\swegiro\Factory;
+namespace iio\swegiro\Factory;
 
-use itbz\swegiro\FactoryInterface;
-use itbz\swegiro\Sniffer\AgSniffer;
-use itbz\swegiro\Validator\DtdValidator;
-use itbz\swegiro\Exception\StrategyException;
-use itbz\swegiro\Parser\Parser;
-use itbz\swegiro\XMLWriter;
+use iio\swegiro\FactoryInterface;
+use iio\swegiro\Sniffer\AgSniffer;
+use iio\swegiro\Validator\DtdValidator;
+use iio\swegiro\Exception\StrategyException;
+use iio\swegiro\Parser\Parser;
+use iio\swegiro\XMLWriter;
 
 /**
  * Autogiro factory class
  *
- * @package itbz\swegiro\Factory
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
 class AgFactory implements FactoryInterface
 {
@@ -33,7 +31,7 @@ class AgFactory implements FactoryInterface
      * @var array
      */
     private static $classes = array(
-        self::LAYOUT_AG_H => 'itbz\swegiro\Parser\Strategy\AG\LayoutH'
+        self::LAYOUT_AG_H => 'iio\swegiro\Parser\Strategy\AG\LayoutH'
     );
 
     /**

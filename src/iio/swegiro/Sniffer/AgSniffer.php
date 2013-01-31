@@ -6,20 +6,18 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Sniffer
  */
 
-namespace itbz\swegiro\Sniffer;
+namespace iio\swegiro\Sniffer;
 
-use itbz\swegiro\Exception\SnifferException;
-use itbz\swegiro\SnifferInterface;
+use iio\swegiro\Exception\SnifferException;
+use iio\swegiro\SnifferInterface;
 
 /**
  * Sniff the layout type of a autogiro file
  *
- * @package itbz\swegiro\Sniffer
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
 class AgSniffer implements SnifferInterface
 {

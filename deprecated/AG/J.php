@@ -1,5 +1,5 @@
 <?php
-namespace itbz\swegiro\AG;
+namespace iio\swegiro\AG;
 
 /**
  * List of consents registered with the bank.

@@ -1,7 +1,7 @@
 <?php
-namespace itbz\swegiro\AG;
+namespace iio\swegiro\AG;
 
-abstract class Object extends itbz\swegiro\Char80
+abstract class Object extends iio\swegiro\Char80
 {
     /**
      * Each AgObject only works with one BGC customer number and

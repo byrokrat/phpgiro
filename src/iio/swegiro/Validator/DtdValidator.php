@@ -6,14 +6,11 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package itbz\swegiro\Validator
  */
 
-namespace itbz\swegiro\Validator;
+namespace iio\swegiro\Validator;
 
-use itbz\swegiro\ValidatorInterface;
+use iio\swegiro\ValidatorInterface;
 use DOMImplementation;
 use DOMDocumentType;
 use DOMDocument;
@@ -21,7 +18,8 @@ use DOMDocument;
 /**
  * Validate DOMDocuments using DTDs
  *
- * @package itbz\swegiro\Validator
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package swegiro
  */
 class DtdValidator implements ValidatorInterface
 {
