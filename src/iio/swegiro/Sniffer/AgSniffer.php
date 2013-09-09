@@ -96,13 +96,11 @@ class AgSniffer implements SnifferInterface
         foreach (self::$identifiers as $flag => $regexes) {
             $firstLineRegex = utf8_decode($regexes['first']);
             $lastLineRegex = utf8_decode($regexes['last']);
-            if (
-                preg_match($firstLineRegex, $firstLine)
+            
+            if (preg_match($firstLineRegex, $firstLine)
                 && preg_match($lastLineRegex, $lastLine)
             ) {
-                // Match found
-
-                return $flag;
+                return $flag;   // Match found
             }
         }
 
