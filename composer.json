@@ -14,7 +14,10 @@
     "autoload": {
         "psr-0": {
             "iio\\swegiro": "src/"
-        }
+        },
+        "classmap": [
+            "PhpGiro/"
+        ]
     },
     "require": {
         "php": ">=5.3.0",
