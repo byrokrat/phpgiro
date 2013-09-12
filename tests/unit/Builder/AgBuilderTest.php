@@ -53,6 +53,24 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
 
         $a->addConsent($id, $account);
 
-        $a->getFile();
+        $a->getNative();
+    }
+
+    public function testGetXML()
+    {
+        $giro = $this->getMock(
+            '\iio\swegiro\Swegiro',
+            array('convertToXML'),
+            array(),
+            '',
+            false
+        );
+
+        $giro->expects($this->once())
+            ->method('convertToXML')
+            ->will($this->returnValue(''));
+
+        $builder = new AgBuilder($giro, new Organization());
+        $builder->getXML();
     }
 }

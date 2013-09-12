@@ -10,6 +10,7 @@
 
 namespace iio\swegiro\Builder;
 
+use DOMDocument;
 use iio\swegiro\Swegiro;
 use iio\swegiro\Organization;
 use iio\swegiro\ID\PersonalId;
@@ -39,6 +40,11 @@ class AgBuilder
     private $giro;
 
     /**
+     * @var Organization Current organization
+     */
+    private $org;
+
+    /**
       * @var integer Flag current writing section
      */
     private $currentSection = 0;
@@ -52,11 +58,7 @@ class AgBuilder
     public function __construct(Swegiro $giro, Organization $org)
     {
         $this->giro = $giro;
-        
-        $this->phpgiro = new \PhpGiro_AG_ABC(
-            $org->getAgCustomerNumber(),
-            str_replace('-', '', $org->getBankgiro())   // TODO Hack to get bankgiro without dash
-        );
+        $this->org = $org;
     }
 
     /**
@@ -68,6 +70,14 @@ class AgBuilder
      */
     public function addConsent(PersonalId $id, AbstractAccount $account)
     {
+        // TODO should load content and build everything at build instead
+        if (!isset($this->phpgiro)) {
+            $this->phpgiro = new \PhpGiro_AG_ABC(
+                $this->org->getAgCustomerNumber(),
+                str_replace('-', '', $this->org->getBankgiro())   // TODO Hack to get bankgiro without dash
+            );
+        }
+
         if ($this->currentSection != self::SECTION_CONSENT) {
             $this->phpgiro->addSection();
             $this->currentSection = self::SECTION_CONSENT;
@@ -84,12 +94,40 @@ class AgBuilder
     }
 
     /**
-     * Get generated file contents
+     * Get generated contents in ag native format
      *
      * @return string
      */
-    public function getFile()
+    public function getNative()
     {
+        $native = $this->build();
+        $this->giro->validateNative($this->buildArray($native));
+
+        return $native;
+    }
+
+    /**
+     * Get generated contents as XML
+     * 
+     * @return DOMDocument
+     */
+    public function getXML()
+    {
+        return $this->giro->convertToXML($this->buildArray());
+    }
+
+    /**
+     * Build native ag content
+     *
+     * @return string
+     */
+    private function build()
+    {
+        // hack until phpgiro transition, see above...
+        if (!isset($this->phpgiro)) {
+            return '';
+        }
+
         if ($txt = $this->phpgiro->getFile()) {
             return $txt;
         } else {
@@ -97,5 +135,20 @@ class AgBuilder
             print_r($this->phpgiro->getErrors());
             throw new \iio\swegiro\Exception('PhpGiro getFile error');
         }
+    }
+
+    /**
+     * Build native ag content to array
+     *
+     * @param  string $native If omitted a new build will be triggered
+     * @return aray
+     */
+    private function buildArray($native = '')
+    {
+        if (empty($native)) {
+            $native = $this->build();
+        }
+
+        return explode("\r\n", $native);
     }
 }
