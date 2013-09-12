@@ -69,7 +69,19 @@ class Swegiro
     }
 
     /**
-     * Check that XML is valid
+     * Validate native ag content
+     *
+     * @param  array              $lines Giro file contents
+     * @return DOMDocument        The valid document
+     * @throws ValidatorException If validation fails
+     */
+    public function validateNative(array $lines)
+    {
+        return $this->convertToXML($lines);
+    }
+
+    /**
+     * Validate XML content
      *
      * @param  DOMDocument        $doc
      * @return DOMDocument        The valid document
