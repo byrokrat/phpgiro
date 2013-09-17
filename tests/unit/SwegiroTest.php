@@ -89,24 +89,4 @@ class SwegiroTest extends \PHPUnit_Framework_TestCase
             $domDocument
         );
     }
-
-    public function testValidateNative()
-    {
-        $stub = $this->getMock(
-            '\iio\swegiro\Swegiro',
-            array('convertToXML'),
-            array(),
-            '',
-            false
-        );
-
-        $lines = array('a', 'b');
-
-        $stub->expects($this->once())
-            ->method('convertToXML')
-            ->with($lines)
-            ->will($this->returnValue(''));
-
-        $stub->validateNative($lines);
-    }
 }

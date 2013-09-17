@@ -6,21 +6,42 @@ use iio\stb\Banking\Bankgiro;
 
 class AgBuilderTest extends \PHPUnit_Framework_TestCase
 {
-    public function testAddConsent()
+    private function getConvertToXMLBuilder()
     {
         $giro = $this->getMock(
             '\iio\swegiro\Swegiro',
-            array(),
+            array('convertToXML'),
             array(),
             '',
             false
         );
 
-        $org = new Organization();
-        $org->setAgCustomerNumber('666666');
-        $org->setBankgiro(new Bankgiro('123-1232'));
+        $giro->expects($this->once())
+            ->method('convertToXML')
+            ->will($this->returnValue(''));
 
-        $a = new AgBuilder($giro, $org);
+        $org = new Organization();
+        $org->setAgCustomerNumber('123456');
+        $org->setBankgiro(new Bankgiro('111-1111'));
+
+        return new AgBuilder($giro, $org);
+    }
+
+    public function testGetNative()
+    {
+        $builder = $this->getConvertToXMLBuilder();
+        $builder->getNative();
+    }
+
+    public function testGetXML()
+    {
+        $builder = $this->getConvertToXMLBuilder();
+        $builder->getXML();
+    }
+
+    public function testAddConsent()
+    {
+        $builder = $this->getConvertToXMLBuilder();
 
         $id = $this->getMock(
             'iio\swegiro\ID\PersonalId',
@@ -51,26 +72,11 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
             ->method('getNumber')
             ->will($this->returnValue('2222222'));
 
-        $a->addConsent($id, $account);
+        $builder->addConsent($id, $account);
 
-        $a->getNative();
-    }
-
-    public function testGetXML()
-    {
-        $giro = $this->getMock(
-            '\iio\swegiro\Swegiro',
-            array('convertToXML'),
-            array(),
-            '',
-            false
-        );
-
-        $giro->expects($this->once())
-            ->method('convertToXML')
-            ->will($this->returnValue(''));
-
-        $builder = new AgBuilder($giro, new Organization());
-        $builder->getXML();
+        // TODO när jag har skrivit om AgBuilder så att jag inte använder
+        // PhpGiro längre så behöver jag bara testa att rätt delar av $id och $account
+        // anropas. De andra delarna destas i getNative osv..
+        $builder->getNative();
     }
 }

@@ -25,16 +25,6 @@ use iio\stb\Banking\AbstractAccount;
 class AgBuilder
 {
     /**
-     * Section consent flag
-     */
-    const SECTION_CONSENT = 1;
-
-    /**
-     * Section invoice flag
-     */
-    const SECTION_INVOICE = 2;
-
-    /**
      * @var Swegiro Swegiro instance
      */
     private $giro;
@@ -45,9 +35,14 @@ class AgBuilder
     private $org;
 
     /**
-      * @var integer Flag current writing section
+     * @var array List of new consents
      */
-    private $currentSection = 0;
+    private $addedConsents = array();
+
+    /**
+     * @var array List of consents to remove
+     */
+    private $removedConsents = array();
 
     /**
      * Build autogiro files
@@ -70,25 +65,7 @@ class AgBuilder
      */
     public function addConsent(PersonalId $id, AbstractAccount $account)
     {
-        // TODO should load content and build everything at build instead
-        if (!isset($this->phpgiro)) {
-            $this->phpgiro = new \PhpGiro_AG_ABC(
-                $this->org->getAgCustomerNumber(),
-                str_replace('-', '', $this->org->getBankgiro())   // TODO Hack to get bankgiro without dash
-            );
-        }
-
-        if ($this->currentSection != self::SECTION_CONSENT) {
-            $this->phpgiro->addSection();
-            $this->currentSection = self::SECTION_CONSENT;
-        }
-
-        $this->phpgiro->addConsent(
-            $id->getPayerNr(),
-            $account->getClearing(),
-            $account->getNumber(),
-            $id->getFullIdNoDelimiter()
-        );
+        $this->addedConsents[] = array($id, $account);
 
         return $this;
     }
@@ -101,9 +78,10 @@ class AgBuilder
     public function getNative()
     {
         $native = $this->build();
-        $this->giro->validateNative($this->buildArray($native));
+        $this->giro->convertToXML($native); // Validate native
 
-        return $native;
+        // TODO hack to make native return a string
+        return implode("\r\n", $native);
     }
 
     /**
@@ -113,7 +91,7 @@ class AgBuilder
      */
     public function getXML()
     {
-        return $this->giro->convertToXML($this->buildArray());
+        return $this->giro->convertToXML($this->build());
     }
 
     /**
@@ -123,32 +101,37 @@ class AgBuilder
      */
     private function build()
     {
-        // hack until phpgiro transition, see above...
-        if (!isset($this->phpgiro)) {
-            return '';
+        $phpgiro = new \PhpGiro_AG_ABC(
+            $this->org->getAgCustomerNumber(),
+            str_replace('-', '', $this->org->getBankgiro())   // TODO Hack to get bankgiro without dash
+        );
+
+        // Write new consents
+        // TODO let addConsent write the complete line instead..
+        // here only add arrays together...
+        if (!empty($this->addedConsents)) {
+            $phpgiro->addSection();
+            foreach ($this->addedConsents as $consent) {
+                list($id, $account) = $consent;
+                $phpgiro->addConsent(
+                    $id->getPayerNr(),
+                    $account->getClearing(),
+                    $account->getNumber(),
+                    $id->getFullIdNoDelimiter()
+                );
+            }
         }
 
-        if ($txt = $this->phpgiro->getFile()) {
-            return $txt;
+        $txt = $phpgiro->getFile();
+        // TODO hack so that build returns array
+        return explode("\r\n", $txt);
+
+        // During development, while PhpGiro is used...
+        if ($txt = $phpgiro->getFile()) {
+            return explode("\r\n", $txt);
         } else {
-            // TODO Global die on error. Should verify with Swegiro instead
-            print_r($this->phpgiro->getErrors());
-            throw new \iio\swegiro\Exception('PhpGiro getFile error');
+            print_r($phpgiro->getErrors());
+            throw new \iio\swegiro\Exception\ValidatorException('PhpGiro getFile error');
         }
-    }
-
-    /**
-     * Build native ag content to array
-     *
-     * @param  string $native If omitted a new build will be triggered
-     * @return aray
-     */
-    private function buildArray($native = '')
-    {
-        if (empty($native)) {
-            $native = $this->build();
-        }
-
-        return explode("\r\n", $native);
     }
 }
