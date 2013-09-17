@@ -13,7 +13,7 @@ namespace iio\swegiro\Exception;
 use iio\swegiro\Exception;
 
 /**
- * Exception thrown when validator fails
+ * Exception thrown when a validator fails
  *
  * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
  * @package swegiro

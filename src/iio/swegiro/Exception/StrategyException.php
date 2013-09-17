@@ -13,7 +13,7 @@ namespace iio\swegiro\Exception;
 use iio\swegiro\Exception;
 
 /**
- * Exception thrown when parsing strategy could not be created
+ * Exception thrown when a parsing strategy could not be created
  *
  * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
  * @package swegiro
