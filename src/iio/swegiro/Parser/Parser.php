@@ -16,8 +16,7 @@ use DOMDocument;
 /**
  * Parse AG files using designated strategy
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class Parser
 {

@@ -15,8 +15,7 @@ use iio\swegiro\Parser\Parser;
 /**
  * Abstract factory interface
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 interface FactoryInterface extends LayoutInterface
 {

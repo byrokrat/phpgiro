@@ -15,8 +15,7 @@ use iio\swegiro\Exception;
 /**
  * Exception thrown when loaded content does not match a predefined rule
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class ContentException extends Exception
 {

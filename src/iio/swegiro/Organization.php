@@ -16,8 +16,7 @@ use iio\stb\Banking\Bankgiro;
 /**
  * Organization data wrapper
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class Organization
 {

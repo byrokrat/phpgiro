@@ -20,8 +20,7 @@ use iio\swegiro\XMLWriter;
 /**
  * Autogiro factory class
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class AgFactory implements FactoryInterface
 {

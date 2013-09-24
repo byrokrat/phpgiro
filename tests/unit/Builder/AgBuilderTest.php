@@ -74,9 +74,6 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
 
         $builder->addConsent($id, $account);
 
-        // TODO när jag har skrivit om AgBuilder så att jag inte använder
-        // PhpGiro längre så behöver jag bara testa att rätt delar av $id och $account
-        // anropas. De andra delarna destas i getNative osv..
         $builder->getNative();
     }
 }

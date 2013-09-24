@@ -16,8 +16,7 @@ use iio\swegiro\XMLWriter;
 /**
  * Abstract parser strategy class
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 abstract class AbstractStrategy
 {

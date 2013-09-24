@@ -15,8 +15,7 @@ use iio\swegiro\Exception;
 /**
  * Exception thrown when giro to XML parsing fails
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class ParserException extends Exception
 {

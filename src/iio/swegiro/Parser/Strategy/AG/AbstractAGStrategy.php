@@ -17,8 +17,7 @@ use DateTime;
 /**
  * Abstract autogiro strategy class
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 abstract class AbstractAGStrategy extends AbstractStrategy
 {

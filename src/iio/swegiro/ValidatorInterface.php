@@ -15,8 +15,7 @@ use DOMDocument;
 /**
  * Interface for validating DOMDocuments
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 interface ValidatorInterface
 {

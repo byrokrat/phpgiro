@@ -15,8 +15,7 @@ use iio\swegiro\Exception;
 /**
  * Exception thrown when a parsing strategy could not be created
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class StrategyException extends Exception
 {

@@ -13,8 +13,7 @@ namespace iio\swegiro\ID;
 /**
  * Stb PersonalId extension
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class PersonalId extends \iio\stb\ID\PersonalId
 {

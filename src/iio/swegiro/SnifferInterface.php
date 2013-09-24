@@ -15,8 +15,7 @@ use iio\swegiro\Exception\SnifferException;
 /**
  * Sniff the layout type of a giro file
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 interface SnifferInterface extends LayoutInterface
 {

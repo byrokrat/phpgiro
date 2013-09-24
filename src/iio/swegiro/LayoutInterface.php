@@ -13,8 +13,7 @@ namespace iio\swegiro;
 /**
  * Sniff the layout type of a AG-string
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 interface LayoutInterface
 {

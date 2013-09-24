@@ -16,8 +16,7 @@ use iio\swegiro\SnifferInterface;
 /**
  * Sniff the layout type of a autogiro file
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class AgSniffer implements SnifferInterface
 {

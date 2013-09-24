@@ -18,8 +18,7 @@ use DOMDocument;
 /**
  * Validate DOMDocuments using DTDs
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class DtdValidator implements ValidatorInterface
 {

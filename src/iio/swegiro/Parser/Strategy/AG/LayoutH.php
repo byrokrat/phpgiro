@@ -19,8 +19,7 @@ use DateTime;
 /**
  * Parser strategy for AG layout H (new electronic consents)
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class LayoutH extends AbstractAGStrategy
 {

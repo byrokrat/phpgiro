@@ -13,8 +13,7 @@ namespace iio\swegiro;
 /**
  * XMLWriter extension
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class XMLWriter extends \XMLWriter
 {

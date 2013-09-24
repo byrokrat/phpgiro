@@ -15,8 +15,7 @@ use iio\swegiro\Exception;
 /**
  * Exception thrown when sniffer is unable to guess file type
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class SnifferException extends Exception
 {

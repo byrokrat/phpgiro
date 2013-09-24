@@ -20,8 +20,7 @@ use iio\swegiro\Exception\ValidatorException;
  * Inject factory for the bank system under analysis. Se the Factory subpackage
  * for possible choices. Se README.md for examples.
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package swegiro
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class Swegiro
 {
