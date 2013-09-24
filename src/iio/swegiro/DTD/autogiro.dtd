@@ -1,4 +1,4 @@
-<!ELEMENT autogiro (h)>
+<!ELEMENT autogiro (h?)>
 <!ATTLIST autogiro version (0.1.0) #REQUIRED>
 
 <!ELEMENT date (year,month,day)>

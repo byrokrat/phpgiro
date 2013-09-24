@@ -28,6 +28,7 @@ class AgFactory implements FactoryInterface
      * @var array Maps layout flags to class names
      */
     private static $classes = array(
+        self::LAYOUT_AG_ABC => 'iio\swegiro\Parser\Strategy\AG\LayoutABC',
         self::LAYOUT_AG_H => 'iio\swegiro\Parser\Strategy\AG\LayoutH'
     );
 
