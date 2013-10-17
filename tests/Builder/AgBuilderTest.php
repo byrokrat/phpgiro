@@ -1,79 +1,44 @@
 <?php
 namespace iio\swegiro\Builder;
 
-use iio\swegiro\Organization;
 use iio\stb\Banking\Bankgiro;
+use Mockery as m;
 
 class AgBuilderTest extends \PHPUnit_Framework_TestCase
 {
-    private function getConvertToXMLBuilder()
-    {
-        $giro = $this->getMock(
-            '\iio\swegiro\Swegiro',
-            array('convertToXML'),
-            array(),
-            '',
-            false
-        );
-
-        $giro->expects($this->once())
-            ->method('convertToXML')
-            ->will($this->returnValue(''));
-
-        $org = new Organization();
-        $org->setAgCustomerNumber('123456');
-        $org->setBankgiro(new Bankgiro('111-1111'));
-
-        return new AgBuilder($giro, $org);
-    }
-
-    public function testGetNative()
-    {
-        $builder = $this->getConvertToXMLBuilder();
-        $builder->getNative();
-    }
-
     public function testGetXML()
     {
-        $builder = $this->getConvertToXMLBuilder();
-        $builder->getXML();
+        $giro = m::mock('\iio\swegiro\Swegiro');
+        $giro->shouldReceive('convertToXML')->once()->andReturn('<xml>');
+        
+        $org = m::mock('iio\swegiro\Organization');
+        $org->shouldReceive('getAgCustomerNumber')->once();
+        $org->shouldReceive('getBankgiro')->once()->andReturn(new Bankgiro('111-1111'));
+
+        $builder = new AgBuilder($giro, $org);
+        $this->assertEquals('<xml>', $builder->getXML());
     }
 
     public function testAddConsent()
     {
-        $builder = $this->getConvertToXMLBuilder();
+        $giro = m::mock('\iio\swegiro\Swegiro');
+        $giro->shouldReceive('convertToXML')->once();
+        
+        $org = m::mock('iio\swegiro\Organization');
+        $org->shouldReceive('getAgCustomerNumber')->once();
+        $org->shouldReceive('getBankgiro')->once()->andReturn(new Bankgiro('111-1111'));
 
-        $id = $this->getMock(
-            'iio\swegiro\ID\PersonalId',
-            array('getPayerNr', 'getFullIdNoDelimiter')
-        );
+        $builder = new AgBuilder($giro, $org);
 
-        $id->expects($this->once())
-            ->method('getPayerNr')
-            ->will($this->returnValue('9999999999'));
-
-        $id->expects($this->once())
-            ->method('getFullIdNoDelimiter')
-            ->will($this->returnValue('888888888888'));
-
-        $account = $this->getMock(
-            'iio\stb\Banking\FakeAccount',
-            array('getClearing', 'getNumber'),
-            array(),
-            '',
-            false
-        );
-
-        $account->expects($this->once())
-            ->method('getClearing')
-            ->will($this->returnValue('1111'));
-
-        $account->expects($this->once())
-            ->method('getNumber')
-            ->will($this->returnValue('2222222'));
+        $id = m::mock('iio\swegiro\ID\PersonalId');
+        $id->shouldReceive('getPayerNr')->once();
+        $id->shouldReceive('getFullIdNoDelimiter')->once();
+        
+        $account = m::mock('iio\stb\Banking\AccountInterface');
+        $account->shouldReceive('getClearing')->andReturn('1111');
+        $account->shouldReceive('getNumber')->andReturn('2222222');
 
         $builder->addConsent($id, $account);
-
-        $builder->getNative();
+        $this->assertFalse($builder->getNative() == '');
     }
 }
