@@ -8,8 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro;
+namespace iio\swegiro\Sniffer;
 
+use iio\swegiro\LayoutInterface;
 use iio\swegiro\Exception\SnifferException;
 
 /**
@@ -23,7 +24,7 @@ interface SnifferInterface extends LayoutInterface
      * Sniff the layout type of a giro file
      *
      * @param  array            $lines The file contents
-     * @return integer          One of the LayoutInterface flags
+     * @return string           One of the LayoutInterface flags
      * @throws SnifferException If sniff fails
      */
     public function sniffGiroType(array $lines);

@@ -11,6 +11,9 @@
 namespace iio\swegiro;
 
 use DOMDocument;
+use iio\swegiro\Factory\FactoryInterface;
+use iio\swegiro\Sniffer\SnifferInterface;
+use iio\swegiro\Validator\ValidatorInterface;
 use iio\swegiro\Parser\Parser;
 use iio\swegiro\Exception\ValidatorException;
 

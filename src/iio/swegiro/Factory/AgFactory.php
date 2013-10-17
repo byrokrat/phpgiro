@@ -10,7 +10,6 @@
 
 namespace iio\swegiro\Factory;
 
-use iio\swegiro\FactoryInterface;
 use iio\swegiro\Sniffer\AgSniffer;
 use iio\swegiro\Validator\DtdValidator;
 use iio\swegiro\Exception\StrategyException;
@@ -18,7 +17,7 @@ use iio\swegiro\Parser\Parser;
 use iio\swegiro\XMLWriter;
 
 /**
- * Autogiro factory class
+ * Autogiro concrete factory
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
@@ -35,7 +34,7 @@ class AgFactory implements FactoryInterface
     /**
      * {@inheritdoc}
      *
-     * @return SnifferInterface
+     * @return AgSniffer
      */
     public function createSniffer()
     {
@@ -45,7 +44,7 @@ class AgFactory implements FactoryInterface
     /**
      * {@inheritdoc}
      *
-     * @return ValidatorInterface
+     * @return DtdValidator
      */
     public function createValidator()
     {

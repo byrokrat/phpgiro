@@ -33,8 +33,8 @@ class SwegiroTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnvalidXML()
     {
-        $factory = $this->getMock('\iio\swegiro\FactoryInterface');
-        $validator = $this->getMock('\iio\swegiro\ValidatorInterface');
+        $factory = $this->getMock('\iio\swegiro\Factory\FactoryInterface');
+        $validator = $this->getMock('\iio\swegiro\Validator\ValidatorInterface');
 
         $validator->expects($this->once())
             ->method('isValid')
@@ -50,11 +50,11 @@ class SwegiroTest extends \PHPUnit_Framework_TestCase
 
     public function testConvertToXML()
     {
-        $factory = $this->getMock('\iio\swegiro\FactoryInterface');
+        $factory = $this->getMock('\iio\swegiro\Factory\FactoryInterface');
 
         $factory->expects($this->once())
             ->method('createSniffer')
-            ->will($this->returnValue($this->getMock('\iio\swegiro\SnifferInterface')));
+            ->will($this->returnValue($this->getMock('\iio\swegiro\Sniffer\SnifferInterface')));
 
         $parser = $this->getMock(
             '\iio\swegiro\Parser\Parser',
@@ -72,7 +72,7 @@ class SwegiroTest extends \PHPUnit_Framework_TestCase
             ->method('createParser')
             ->will($this->returnValue($parser));
 
-        $validator = $this->getMock('\iio\swegiro\ValidatorInterface');
+        $validator = $this->getMock('\iio\swegiro\Validator\ValidatorInterface');
         $validator->expects($this->once())
             ->method('isValid')
             ->will($this->returnValue(true));

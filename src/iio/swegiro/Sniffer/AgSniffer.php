@@ -11,7 +11,6 @@
 namespace iio\swegiro\Sniffer;
 
 use iio\swegiro\Exception\SnifferException;
-use iio\swegiro\SnifferInterface;
 
 /**
  * Sniff the layout type of a autogiro file

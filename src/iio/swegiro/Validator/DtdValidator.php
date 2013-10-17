@@ -10,7 +10,6 @@
 
 namespace iio\swegiro\Validator;
 
-use iio\swegiro\ValidatorInterface;
 use DOMImplementation;
 use DOMDocumentType;
 use DOMDocument;
