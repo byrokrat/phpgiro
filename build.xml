@@ -32,7 +32,7 @@
     <target name="test" depends="install,createBuildDir">
         <exec
             command="phpunit --coverage-html ${BUILD_DIR}/test-coverage --coverage-text=${BUILD_DIR}/test-coverage.txt"
-            dir="${TEST_DIR}"
+            dir="${APP_ROOT}"
             checkreturn="true"
             passthru="true"
             />
