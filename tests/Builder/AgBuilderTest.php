@@ -41,4 +41,24 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
         $builder->addConsent($id, $account);
         $this->assertFalse($builder->getNative() == '');
     }
+
+    public function testClear()
+    {
+        $giro = m::mock('\iio\swegiro\Swegiro');
+        $giro->shouldReceive('convertToXML')->once();
+        
+        $org = m::mock('iio\swegiro\Organization');
+        $org->shouldReceive('getAgCustomerNumber')->once();
+        $org->shouldReceive('getBankgiro')->once();
+
+        $builder = new AgBuilder($giro, $org);
+
+        $builder->addConsent(
+            m::mock('iio\swegiro\ID\PersonalId'),
+            m::mock('iio\stb\Banking\AccountInterface')
+        );
+
+        $builder->clear();
+        $this->assertTrue($builder->getNative() == '');
+    }
 }

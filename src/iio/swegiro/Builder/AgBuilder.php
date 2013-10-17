@@ -14,7 +14,7 @@ use DOMDocument;
 use iio\swegiro\Swegiro;
 use iio\swegiro\Organization;
 use iio\swegiro\ID\PersonalId;
-use iio\stb\Banking\AbstractAccount;
+use iio\stb\Banking\AccountInterface;
 
 /**
  * Build autogiro files
@@ -56,17 +56,26 @@ class AgBuilder
     }
 
     /**
+     * Reset state
+     *
+     * @return void
+     */
+    public function clear()
+    {
+        $this->addedConsents = array();
+        $this->removedConsents = array();
+    }
+
+    /**
      * Write consent to file
      *
-     * @param  PersonalId      $id Id of added donor
-     * @param  AbstractAccount $account Account of added donor
-     * @return AgBuilder       instance for chaining
+     * @param  PersonalId       $id Id of added donor
+     * @param  AccountInterface $account Account of added donor
+     * @return void
      */
-    public function addConsent(PersonalId $id, AbstractAccount $account)
+    public function addConsent(PersonalId $id, AccountInterface $account)
     {
         $this->addedConsents[] = array($id, $account);
-
-        return $this;
     }
 
     /**
