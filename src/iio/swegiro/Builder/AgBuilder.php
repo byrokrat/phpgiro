@@ -15,6 +15,8 @@ use iio\swegiro\Swegiro;
 use iio\swegiro\Organization;
 use iio\swegiro\ID\PersonalId;
 use iio\stb\Banking\AccountInterface;
+use iio\stb\Utils\Amount;
+use DateTime;
 
 /**
  * Build autogiro files
@@ -34,14 +36,9 @@ class AgBuilder
     private $org;
 
     /**
-     * @var array List of new consents
+     * @var array Array of arrays, se clear()
      */
-    private $addedConsents = array();
-
-    /**
-     * @var array List of consents to remove
-     */
-    private $removedConsents = array();
+    private $data;
 
     /**
      * Build autogiro files
@@ -53,6 +50,7 @@ class AgBuilder
     {
         $this->giro = $giro;
         $this->org = $org;
+        $this->clear();
     }
 
     /**
@@ -62,8 +60,11 @@ class AgBuilder
      */
     public function clear()
     {
-        $this->addedConsents = array();
-        $this->removedConsents = array();
+        $this->data = array(
+            'addedConsents' => array(),
+            'removedConsents' => array(),
+            'bills' => array()
+        );
     }
 
     /**
@@ -75,7 +76,20 @@ class AgBuilder
      */
     public function addConsent(PersonalId $id, AccountInterface $account)
     {
-        $this->addedConsents[] = array($id, $account);
+        $this->data['addedConsents'][] = array($id, $account);
+    }
+
+    /**
+     * Bill donor once
+     *
+     * @param  PersonalId $id
+     * @param  Amount     $amount
+     * @param  DateTime   $date
+     * @return void
+     */
+    public function bill(PersonalId $id, Amount $amount, DateTime $date)
+    {
+        $this->data['bills'][] = array($id, $amount, $date);
     }
 
     /**
@@ -114,12 +128,12 @@ class AgBuilder
             str_replace('-', '', $this->org->getBankgiro())   // TODO Hack to get bankgiro without dash
         );
 
-        // Write new consents
         // TODO let addConsent write the complete line instead..
-        // here only add arrays together...
-        if (!empty($this->addedConsents)) {
+        if (!empty($this->data['addedConsents'])) {
             $phpgiro->addSection();
-            foreach ($this->addedConsents as $consent) {
+            foreach ($this->data['addedConsents'] as $consent) {
+                /** @var \iio\swegiro\ID\PersonalId $id */
+                /** @var \iio\stb\Banking\AccountInterface $account */
                 list($id, $account) = $consent;
                 $phpgiro->addConsent(
                     $id->getPayerNr(),
@@ -130,16 +144,22 @@ class AgBuilder
             }
         }
 
-        $txt = $phpgiro->getFile();
-        // TODO hack so that build returns array
-        return explode("\r\n", $txt);
-
-        // During development, while PhpGiro is used...
-        if ($txt = $phpgiro->getFile()) {
-            return explode("\r\n", $txt);
-        } else {
-            print_r($phpgiro->getErrors());
-            throw new \iio\swegiro\Exception\ValidatorException('PhpGiro getFile error');
+        if (!empty($this->data['bills'])) {
+            $phpgiro->addSection();
+            foreach ($this->data['bills'] as $bill) {
+                /** @var \iio\swegiro\ID\PersonalId $id */
+                /** @var \iio\stb\Utils\Amount $amount */
+                /** @var \DateTime $date */
+                list($id, $amount, $date) = $bill;
+                $phpgiro->addInvoice(
+                    $id->getPayerNr(),
+                    (string) $amount,
+                    $date->format('Ymd')
+                );
+            }
         }
+
+        // TODO hack so that build returns array
+        return explode("\r\n", $phpgiro->getFile());
     }
 }
