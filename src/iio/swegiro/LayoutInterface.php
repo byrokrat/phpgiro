@@ -11,74 +11,74 @@
 namespace iio\swegiro;
 
 /**
- * Sniff the layout type of a AG-string
+ * Layout to strategy identifiers
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 interface LayoutInterface
 {
     /**
-     * Layout ABC constant
+     * Autogiro layout ABC
      */
-    const LAYOUT_AG_ABC = 1;
+    const LAYOUT_AG_ABC = 'iio\swegiro\Parser\Strategy\AG\LayoutABC';
 
     /**
-     * Layout D constant
+     * Autogiro layout D
      */
-    const LAYOUT_AG_D = 2;
+    const LAYOUT_AG_D = 'iio\swegiro\Parser\Strategy\AG\LayoutD';
 
     /**
-     * Layout E constant
+     * Autogiro layout E
      */
-    const LAYOUT_AG_E = 3;
+    const LAYOUT_AG_E = 'iio\swegiro\Parser\Strategy\AG\LayoutE';
 
     /**
-     * Layout F constant
+     * Autogiro layout F
      */
-    const LAYOUT_AG_F = 4;
+    const LAYOUT_AG_F = 'iio\swegiro\Parser\Strategy\AG\LayoutF';
 
     /**
-     * Layout G constant
+     * Autogiro layout G
      */
-    const LAYOUT_AG_G = 5;
+    const LAYOUT_AG_G = 'iio\swegiro\Parser\Strategy\AG\LayoutG';
 
     /**
-     * Layout H constant
+     * Autogiro layout H
      */
-    const LAYOUT_AG_H = 6;
+    const LAYOUT_AG_H = 'iio\swegiro\Parser\Strategy\AG\LayoutH';
 
     /**
-     * Layout I constant
+     * Autogiro layout I
      */
-    const LAYOUT_AG_I = 7;
+    const LAYOUT_AG_I = 'iio\swegiro\Parser\Strategy\AG\LayoutI';
 
     /**
-     * Layout J constant
+     * Autogiro layout J
      */
-    const LAYOUT_AG_J = 8;
+    const LAYOUT_AG_J = 'iio\swegiro\Parser\Strategy\AG\LayoutJ';
 
     /**
-     * Layout BGMAX constant
+     * Autogiro layout BGMAX
      */
     const LAYOUT_AG_BGMAX = 9;
 
     /**
-     * Layout PRIV_D constant
+     * Autogiro layout PRIV_D
      */
     const LAYOUT_AG_OLD_D = 10;
 
     /**
-     * Layout PRIV_E constant
+     * Autogiro layout PRIV_E
      */
     const LAYOUT_AG_OLD_E = 11;
 
     /**
-     * Layout PRIV_F constant
+     * Autogiro layout PRIV_F
      */
     const LAYOUT_AG_OLD_F = 12;
 
     /**
-     * Layout PRIV_G constant
+     * Autogiro layout PRIV_G
      */
     const LAYOUT_AG_OLD_G = 13;
 }

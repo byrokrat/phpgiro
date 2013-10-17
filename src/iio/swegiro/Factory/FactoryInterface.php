@@ -42,9 +42,8 @@ interface FactoryInterface extends LayoutInterface
     /**
      * Build parser for file tpye
      *
-     * @param  string            $flag LayoutInterface flag
+     * @param  string $classname LayoutInterface flag
      * @return Parser
-     * @throws StrategyException If flag is unknown
      */
-    public function createParser($flag);
+    public function createParser($classname);
 }

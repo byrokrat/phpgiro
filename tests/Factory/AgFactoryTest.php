@@ -21,15 +21,6 @@ class AgFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException iio\swegiro\Exception\StrategyException
-     */
-    public function testInvalidFlag()
-    {
-        $factory = new AgFactory;
-        $factory->createParser('foobar');
-    }
-
     public function testCreateParser()
     {
         $factory = new AgFactory;

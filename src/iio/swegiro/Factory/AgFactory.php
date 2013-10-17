@@ -12,7 +12,6 @@ namespace iio\swegiro\Factory;
 
 use iio\swegiro\Sniffer\AgSniffer;
 use iio\swegiro\Validator\DtdValidator;
-use iio\swegiro\Exception\StrategyException;
 use iio\swegiro\Parser\Parser;
 use iio\swegiro\XMLWriter;
 
@@ -23,14 +22,6 @@ use iio\swegiro\XMLWriter;
  */
 class AgFactory implements FactoryInterface
 {
-    /**
-     * @var array Maps layout flags to class names
-     */
-    private static $classes = array(
-        self::LAYOUT_AG_ABC => 'iio\swegiro\Parser\Strategy\AG\LayoutABC',
-        self::LAYOUT_AG_H => 'iio\swegiro\Parser\Strategy\AG\LayoutH'
-    );
-
     /**
      * {@inheritdoc}
      *
@@ -66,19 +57,11 @@ class AgFactory implements FactoryInterface
     /**
      * {@inheritdoc}
      *
-     * @param  integer           $flag One of the LayoutInterface flags
+     * @param  string $classname LayoutInterface flag
      * @return Parser
-     * @throws StrategyException If flag is unknown
      */
-    public function createParser($flag)
+    public function createParser($classname)
     {
-        if (!isset(self::$classes[$flag])) {
-            $msg = _('Unable to create parsing strategy: layout unknown.');
-            throw new StrategyException($msg);
-        }
-
-        $strategyClass = self::$classes[$flag];
-
-        return new Parser(new $strategyClass(new XMLWriter));
+        return new Parser(new $classname(new XMLWriter));
     }
 }
