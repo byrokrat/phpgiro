@@ -10,6 +10,7 @@
 
 namespace iio\swegiro\Factory;
 
+use iio\swegiro\LayoutInterface;
 use iio\swegiro\Sniffer\AgSniffer;
 use iio\swegiro\Validator\DtdValidator;
 use iio\swegiro\Parser\Parser;
@@ -20,7 +21,7 @@ use iio\swegiro\XMLWriter;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class AgFactory implements FactoryInterface
+class AgFactory implements FactoryInterface, LayoutInterface
 {
     /**
      * {@inheritdoc}
@@ -35,9 +36,10 @@ class AgFactory implements FactoryInterface
     /**
      * {@inheritdoc}
      *
+     * @param  scalar       $giroType Layout identifier
      * @return DtdValidator
      */
-    public function createValidator()
+    public function createValidator($giroType = '')
     {
         $dtd = file_get_contents(
             implode(
@@ -57,11 +59,11 @@ class AgFactory implements FactoryInterface
     /**
      * {@inheritdoc}
      *
-     * @param  string $classname LayoutInterface flag
+     * @param  scalar $giroType Layout identifier
      * @return Parser
      */
-    public function createParser($classname)
+    public function createParser($giroType = '')
     {
-        return new Parser(new $classname(new XMLWriter));
+        return new Parser(new $giroType(new XMLWriter));
     }
 }

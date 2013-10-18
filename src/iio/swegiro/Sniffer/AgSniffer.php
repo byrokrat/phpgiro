@@ -10,6 +10,7 @@
 
 namespace iio\swegiro\Sniffer;
 
+use iio\swegiro\LayoutInterface;
 use iio\swegiro\Exception\SnifferException;
 
 /**
@@ -17,7 +18,7 @@ use iio\swegiro\Exception\SnifferException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class AgSniffer implements SnifferInterface
+class AgSniffer implements SnifferInterface, LayoutInterface
 {
     /**
      * @var array Identifiers used when sniffing
@@ -82,8 +83,8 @@ class AgSniffer implements SnifferInterface
      *
      * NOTE: The response is a *guess* and should not be depended upon.
      * 
-     * @param  array   $lines The file contents
-     * @return integer One of the LayoutInterface flags
+     * @param  array  $lines The file contents
+     * @return scalar Layout identifier
      */
     public function sniffGiroType(array $lines)
     {

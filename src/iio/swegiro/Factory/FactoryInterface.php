@@ -10,7 +10,6 @@
 
 namespace iio\swegiro\Factory;
 
-use iio\swegiro\LayoutInterface;
 use iio\swegiro\Sniffer\SnifferInterface;
 use iio\swegiro\Validator\ValidatorInterface;
 use iio\swegiro\Parser\Parser;
@@ -23,7 +22,7 @@ use iio\swegiro\Parser\Parser;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface FactoryInterface extends LayoutInterface
+interface FactoryInterface
 {
     /**
      * Build sniffer
@@ -35,15 +34,16 @@ interface FactoryInterface extends LayoutInterface
     /**
      * Build validator for file type
      *
+     * @param  scalar             $giroType Layout identifier
      * @return ValidatorInterface
      */
-    public function createValidator();
+    public function createValidator($giroType = '');
 
     /**
      * Build parser for file tpye
      *
-     * @param  string $classname LayoutInterface flag
+     * @param  scalar $giroType Layout identifier
      * @return Parser
      */
-    public function createParser($classname);
+    public function createParser($giroType = '');
 }

@@ -12,16 +12,13 @@ namespace iio\swegiro;
 
 use DOMDocument;
 use iio\swegiro\Factory\FactoryInterface;
-use iio\swegiro\Sniffer\SnifferInterface;
-use iio\swegiro\Validator\ValidatorInterface;
-use iio\swegiro\Parser\Parser;
 use iio\swegiro\Exception\ValidatorException;
 
 /**
  * Create and parse files for swedish giro systems
  *
- * Inject factory for the bank system under analysis. Se the Factory subpackage
- * for possible choices. Se README.md for examples.
+ * Swegiro is the application frontend. Inject concrete factory for the selected
+ * giro system. See readme for examples.
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
@@ -33,25 +30,61 @@ class Swegiro
     private $factory;
 
     /**
-     * @var SnifferInterface Sniffer instance
-     */
-    private $sniffer;
-
-    /**
-     * @var ValidatorInterface Validator instance
-     */
-    private $validator;
-
-    /**
      * Constructor
      *
-     * @param FactoryInterface $factory
+     * @param FactoryInterface $factory Concrete factory for giro system
      */
     public function __construct(FactoryInterface $factory)
     {
         $this->factory = $factory;
-        $this->sniffer = $factory->createSniffer();
-        $this->validator = $factory->createValidator();
+    }
+
+    /**
+     * Sniff layout type of file
+     *
+     * @param  array  $lines Giro file contents
+     * @return scalar Layout identifier returned by sniffer
+     */
+    public function sniffGiroType(array $lines)
+    {
+        return $this->factory->createSniffer()->sniffGiroType(
+            $this->trimLines($lines)
+        );
+    }
+
+    /**
+     * Validate XML content
+     *
+     * @param  DOMDocument        $doc
+     * @param  scalar             $giroType Layout identifier
+     * @return DOMDocument        The valid document
+     * @throws ValidatorException If validation fails
+     */
+    public function validateXML(DOMDocument $doc, $giroType = '')
+    {
+        $validator = $this->factory->createValidator($giroType);
+        if (!$validator->isValid($doc)) {
+            throw new ValidatorException($validator->getError());
+        }
+
+        return $doc;
+    }
+
+    /**
+     * Convert giro files to XML
+     * 
+     * @param  array       $lines Giro file contents
+     * @return DOMDocument
+     */
+    public function convertToXML(array $lines)
+    {
+        $lines = $this->trimLines($lines);
+        $giroType = $this->sniffGiroType($lines);
+
+        return $this->validateXML(
+            $this->factory->createParser($giroType)->parse($lines),
+            $giroType
+        );
     }
 
     /**
@@ -67,41 +100,6 @@ class Swegiro
             function ($line) {
                 return !!trim($line);
             }
-        );
-    }
-
-    /**
-     * Validate XML content
-     *
-     * @param  DOMDocument        $doc
-     * @return DOMDocument        The valid document
-     * @throws ValidatorException If validation fails
-     */
-    public function validateXML(DOMDocument $doc)
-    {
-        if (!$this->validator->isValid($doc)) {
-            throw new ValidatorException($this->validator->getError());
-        }
-
-        return $doc;
-    }
-
-    /**
-     * Convert giro files to XML
-     * 
-     * @param  array       $lines Giro file contents
-     * @return DOMDocument
-     */
-    public function convertToXML(array $lines)
-    {
-        $lines = $this->trimLines($lines);
-
-        $parser = $this->factory->createParser(
-            $this->sniffer->sniffGiroType($lines)
-        );
-
-        return $this->validateXML(
-            $parser->parse($lines)
         );
     }
 }

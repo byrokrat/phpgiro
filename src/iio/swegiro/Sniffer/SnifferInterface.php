@@ -10,7 +10,6 @@
 
 namespace iio\swegiro\Sniffer;
 
-use iio\swegiro\LayoutInterface;
 use iio\swegiro\Exception\SnifferException;
 
 /**
@@ -18,13 +17,13 @@ use iio\swegiro\Exception\SnifferException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface SnifferInterface extends LayoutInterface
+interface SnifferInterface
 {
     /**
      * Sniff the layout type of a giro file
      *
      * @param  array            $lines The file contents
-     * @return string           One of the LayoutInterface flags
+     * @return scalar           Layout identifier
      * @throws SnifferException If sniff fails
      */
     public function sniffGiroType(array $lines);
