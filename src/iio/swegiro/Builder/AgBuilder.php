@@ -13,7 +13,7 @@ namespace iio\swegiro\Builder;
 use DOMDocument;
 use iio\swegiro\Swegiro;
 use iio\swegiro\Organization;
-use iio\swegiro\ID\PersonalId;
+use iio\stb\ID\PersonalId;
 use iio\stb\Banking\AccountInterface;
 use iio\stb\Utils\Amount;
 use DateTime;
@@ -36,6 +36,11 @@ class AgBuilder
     private $org;
 
     /**
+     * @var AgConverter Converter for ag formats
+     */
+    private $converter;
+
+    /**
      * @var array Array of arrays, se clear()
      */
     private $data;
@@ -45,11 +50,13 @@ class AgBuilder
      *
      * @param Swegiro      $giro
      * @param Organization $org
+     * @param AgConverter  $converter
      */
-    public function __construct(Swegiro $giro, Organization $org)
+    public function __construct(Swegiro $giro, Organization $org, AgConverter $converter = null)
     {
         $this->giro = $giro;
         $this->org = $org;
+        $this->converter = $converter ?: new AgConverter;
         $this->clear();
     }
 
@@ -100,9 +107,11 @@ class AgBuilder
     public function getNative()
     {
         $native = $this->build();
-        $this->giro->convertToXML($native); // Validate native
+        
+        // Validate native
+        $this->giro->convertToXML($native);
 
-        // TODO hack to make native return a string
+        // Return string
         return implode("\r\n", $native);
     }
 
@@ -119,27 +128,27 @@ class AgBuilder
     /**
      * Build native ag content
      *
-     * @return string
+     * @return array
      */
     private function build()
     {
         $phpgiro = new \PhpGiro_AG_ABC(
             $this->org->getAgCustomerNumber(),
-            str_replace('-', '', $this->org->getBankgiro())   // TODO Hack to get bankgiro without dash
+            $this->converter->convertBankgiro($this->org->getBankgiro())
         );
 
         // TODO let addConsent write the complete line instead..
         if (!empty($this->data['addedConsents'])) {
             $phpgiro->addSection();
             foreach ($this->data['addedConsents'] as $consent) {
-                /** @var \iio\swegiro\ID\PersonalId $id */
+                /** @var \iio\stb\ID\PersonalId $id */
                 /** @var \iio\stb\Banking\AccountInterface $account */
                 list($id, $account) = $consent;
                 $phpgiro->addConsent(
-                    $id->getPayerNr(),
+                    $this->converter->convertPayerNr($id),
                     $account->getClearing(),
                     $account->getNumber(),
-                    $id->getFullIdNoDelimiter()
+                    $this->converter->convertId($id)
                 );
             }
         }
@@ -147,12 +156,12 @@ class AgBuilder
         if (!empty($this->data['bills'])) {
             $phpgiro->addSection();
             foreach ($this->data['bills'] as $bill) {
-                /** @var \iio\swegiro\ID\PersonalId $id */
+                /** @var \iio\stb\ID\PersonalId $id */
                 /** @var \iio\stb\Utils\Amount $amount */
                 /** @var \DateTime $date */
                 list($id, $amount, $date) = $bill;
                 $phpgiro->addInvoice(
-                    $id->getPayerNr(),
+                    $this->converter->convertPayerNr($id),
                     (string) $amount,
                     $date->format('Ymd')
                 );

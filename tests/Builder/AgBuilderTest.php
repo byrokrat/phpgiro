@@ -15,7 +15,10 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
         $org->shouldReceive('getAgCustomerNumber')->once();
         $org->shouldReceive('getBankgiro')->once()->andReturn(new Bankgiro('111-1111'));
 
-        $builder = new AgBuilder($giro, $org);
+        $converter = m::mock('iio\swegiro\Builder\AgConverter');
+        $converter->shouldReceive('convertBankgiro')->once();
+
+        $builder = new AgBuilder($giro, $org, $converter);
         $this->assertEquals('<xml>', $builder->getXML());
     }
 
@@ -28,11 +31,14 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
         $org->shouldReceive('getAgCustomerNumber')->once();
         $org->shouldReceive('getBankgiro')->once()->andReturn(new Bankgiro('111-1111'));
 
-        $builder = new AgBuilder($giro, $org);
+        $converter = m::mock('iio\swegiro\Builder\AgConverter');
+        $converter->shouldReceive('convertBankgiro')->once()->andReturn('12341234');
+        $converter->shouldReceive('convertPayerNr')->once()->andReturn('232323233');
+        $converter->shouldReceive('convertId')->once()->andReturn('191963231234');
 
-        $id = m::mock('iio\swegiro\ID\PersonalId');
-        $id->shouldReceive('getPayerNr')->once();
-        $id->shouldReceive('getFullIdNoDelimiter')->once();
+        $builder = new AgBuilder($giro, $org, $converter);
+
+        $id = m::mock('iio\stb\ID\PersonalId');
         
         $account = m::mock('iio\stb\Banking\AccountInterface');
         $account->shouldReceive('getClearing')->andReturn('1111');
@@ -49,12 +55,17 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
         
         $org = m::mock('iio\swegiro\Organization');
         $org->shouldReceive('getAgCustomerNumber')->once();
-        $org->shouldReceive('getBankgiro')->once();
+        $org->shouldReceive('getBankgiro')->once()->andReturn(
+            m::mock('iio\stb\Banking\Bankgiro')
+        );
 
-        $builder = new AgBuilder($giro, $org);
+        $converter = m::mock('iio\swegiro\Builder\AgConverter');
+        $converter->shouldReceive('convertBankgiro')->once();
+
+        $builder = new AgBuilder($giro, $org, $converter);
 
         $builder->addConsent(
-            m::mock('iio\swegiro\ID\PersonalId'),
+            m::mock('iio\stb\ID\PersonalId'),
             m::mock('iio\stb\Banking\AccountInterface')
         );
 
@@ -71,10 +82,13 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
         $org->shouldReceive('getAgCustomerNumber')->once();
         $org->shouldReceive('getBankgiro')->once()->andReturn(new Bankgiro('111-1111'));
 
-        $builder = new AgBuilder($giro, $org);
+        $converter = m::mock('iio\swegiro\Builder\AgConverter');
+        $converter->shouldReceive('convertBankgiro')->once()->andReturn('1234');
+        $converter->shouldReceive('convertPayerNr')->once()->andReturn('1234');
 
-        $id = m::mock('iio\swegiro\ID\PersonalId');
-        $id->shouldReceive('getPayerNr')->once();
+        $builder = new AgBuilder($giro, $org, $converter);
+
+        $id = m::mock('iio\stb\ID\PersonalId');
         
         $amount = m::mock('iio\stb\Utils\Amount');
         $amount->shouldReceive('__toString')->andReturn('999.99');
