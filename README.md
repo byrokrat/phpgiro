@@ -11,11 +11,29 @@ Please note that all exceptions thrown are subclasses of `iio\giro\Exception`.
 Parsing files from autogirot
 ----------------------------
     use iio\giro\Giro;
-    use iio\autogiro\ConcreteFactory;
+    use iio\autogiro\AutogiroFactory;
 
-    $giro = new Giro(new ConcreteFactory);
+    $giro = new Giro(new AutogiroFactory);
     $file = file('tests/samples/new/nya-medgivanden-internetbank.txt');
     $domDocument = $giro->convertToXML($file);
+
+
+Creating autogiro files
+-----------------------
+    use iio\autogiro\Builder\AgBuilder;
+    use iio\giro\Giro;
+    use iio\autogiro\AutogiroFactory;
+    use iio\autogiro\Organization;
+
+    $giro = new Giro(new AutogiroFactory);
+
+    $org = new Organization();
+    //... set organization data
+
+    $builder = new AgBuilder($giro, $org);
+
+    $builder->addConsent(...);
+    echo $builder->getNative();
 
 
 Supported file formats
