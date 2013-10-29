@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the swegiro package
+ * This file is part of the autogiro package
  *
  * Copyright (c) 2012-13 Hannes Forsgård
  *
@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro\Parser\Strategy\AG;
+namespace iio\autogiro\Strategy;
 
 /**
  * Parser strategy for AG layout ABC
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class LayoutABC extends AbstractAGStrategy
+class LayoutABC extends AbstractStrategy
 {
     /**
      * {@inheritdoc}

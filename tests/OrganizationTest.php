@@ -1,5 +1,5 @@
 <?php
-namespace iio\swegiro;
+namespace iio\autogiro;
 
 use iio\stb\Banking\PlusGiro;
 use iio\stb\Banking\Bankgiro;
@@ -7,7 +7,7 @@ use iio\stb\Banking\Bankgiro;
 class OrganizationTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException iio\swegiro\Exception
+     * @expectedException iio\giro\Exception
      */
     public function testNoBankgiroException()
     {
@@ -16,7 +16,7 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException iio\swegiro\Exception
+     * @expectedException iio\giro\Exception
      */
     public function testNoPlusgiroException()
     {
@@ -25,7 +25,7 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException iio\swegiro\Exception
+     * @expectedException iio\giro\Exception
      */
     public function testNoNameException()
     {
@@ -34,7 +34,7 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException iio\swegiro\Exception
+     * @expectedException iio\giro\Exception
      */
     public function testNoAgCustomerNumberException()
     {

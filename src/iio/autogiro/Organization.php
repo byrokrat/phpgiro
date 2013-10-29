@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the swegiro package
+ * This file is part of the autogiro package
  *
  * Copyright (c) 2012-13 Hannes Forsgård
  *
@@ -8,8 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro;
+namespace iio\autogiro;
 
+use iio\giro\Exception;
 use iio\stb\Banking\PlusGiro;
 use iio\stb\Banking\Bankgiro;
 

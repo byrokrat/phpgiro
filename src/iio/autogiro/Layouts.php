@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the swegiro package
+ * This file is part of the autogiro package
  *
  * Copyright (c) 2012-13 Hannes Forsgård
  *
@@ -8,54 +8,54 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro;
+namespace iio\autogiro;
 
 /**
  * Layout to strategy identifiers
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface LayoutInterface
+interface Layouts
 {
     /**
      * Autogiro layout ABC
      */
-    const LAYOUT_AG_ABC = 'iio\swegiro\Parser\Strategy\AG\LayoutABC';
+    const LAYOUT_AG_ABC = 'iio\autogiro\Strategy\LayoutABC';
 
     /**
      * Autogiro layout D
      */
-    const LAYOUT_AG_D = 'iio\swegiro\Parser\Strategy\AG\LayoutD';
+    const LAYOUT_AG_D = 'iio\autogiro\Strategy\LayoutD';
 
     /**
      * Autogiro layout E
      */
-    const LAYOUT_AG_E = 'iio\swegiro\Parser\Strategy\AG\LayoutE';
+    const LAYOUT_AG_E = 'iio\autogiro\Strategy\LayoutE';
 
     /**
      * Autogiro layout F
      */
-    const LAYOUT_AG_F = 'iio\swegiro\Parser\Strategy\AG\LayoutF';
+    const LAYOUT_AG_F = 'iio\autogiro\Strategy\LayoutF';
 
     /**
      * Autogiro layout G
      */
-    const LAYOUT_AG_G = 'iio\swegiro\Parser\Strategy\AG\LayoutG';
+    const LAYOUT_AG_G = 'iio\autogiro\Strategy\LayoutG';
 
     /**
      * Autogiro layout H
      */
-    const LAYOUT_AG_H = 'iio\swegiro\Parser\Strategy\AG\LayoutH';
+    const LAYOUT_AG_H = 'iio\autogiro\Strategy\LayoutH';
 
     /**
      * Autogiro layout I
      */
-    const LAYOUT_AG_I = 'iio\swegiro\Parser\Strategy\AG\LayoutI';
+    const LAYOUT_AG_I = 'iio\autogiro\Strategy\LayoutI';
 
     /**
      * Autogiro layout J
      */
-    const LAYOUT_AG_J = 'iio\swegiro\Parser\Strategy\AG\LayoutJ';
+    const LAYOUT_AG_J = 'iio\autogiro\Strategy\LayoutJ';
 
     /**
      * Autogiro layout BGMAX

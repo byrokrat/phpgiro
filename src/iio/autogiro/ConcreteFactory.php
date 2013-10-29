@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the swegiro package
+ * This file is part of the autogiro package
  *
  * Copyright (c) 2012-13 Hannes Forsgård
  *
@@ -8,29 +8,28 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro\Factory;
+namespace iio\autogiro;
 
-use iio\swegiro\LayoutInterface;
-use iio\swegiro\Sniffer\AgSniffer;
-use iio\swegiro\Validator\DtdValidator;
-use iio\swegiro\Parser\Parser;
-use iio\swegiro\XMLWriter;
+use iio\giro\FactoryInterface;
+use iio\giro\DtdValidator;
+use iio\giro\Parser;
+use iio\giro\XMLWriter;
 
 /**
  * Autogiro concrete factory
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class AgFactory implements FactoryInterface, LayoutInterface
+class ConcreteFactory implements FactoryInterface, Layouts
 {
     /**
      * {@inheritdoc}
      *
-     * @return AgSniffer
+     * @return Sniffer
      */
     public function createSniffer()
     {
-        return new AgSniffer;
+        return new Sniffer;
     }
 
     /**
@@ -46,7 +45,6 @@ class AgFactory implements FactoryInterface, LayoutInterface
                 DIRECTORY_SEPARATOR,
                 array(
                     __DIR__,
-                    '..',
                     'DTD',
                     'autogiro.dtd'
                 )

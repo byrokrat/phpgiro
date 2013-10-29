@@ -1,19 +1,25 @@
-swegiro
-=======
+autogiro
+========
 
-Create and parse files for swedish giro systems.
+Create and parse files for the swedish autogiro system.
 
-This project is a stub and not currently usable.
+Autogiro is a concrete implementation of [iio/giro](https://github.com/iio/giro).
+
+Please note that all exceptions thrown are subclasses of `iio\giro\Exception`.
 
 
-## Parsing files from autogirot
+Parsing files from autogirot
+----------------------------
+    use iio\giro\Giro;
+    use iio\autogiro\ConcreteFactory;
 
-    $giro = new iio\swegiro\Swegiro(new iio\swegiro\Factory\AgFactory);
-    $file = file('tests/unit/samples/new/nya-medgivanden-internetbank.txt');
-    $dom = $giro->convertToXML($file);
+    $giro = new Giro(new ConcreteFactory);
+    $file = file('tests/samples/new/nya-medgivanden-internetbank.txt');
+    $domDocument = $giro->convertToXML($file);
 
-## Supported file formats
 
+Supported file formats
+----------------------
 Layouts A - H in the legacy Autogiro Privat.
 
 Layouts A - C and E - J in new Autogiro (in use fall 2011). (Support for

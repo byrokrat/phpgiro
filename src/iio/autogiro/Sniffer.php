@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the swegiro package
+ * This file is part of the autogiro package
  *
  * Copyright (c) 2012-13 Hannes Forsgård
  *
@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro\Sniffer;
+namespace iio\autogiro;
 
-use iio\swegiro\LayoutInterface;
-use iio\swegiro\Exception\SnifferException;
+use iio\giro\SnifferInterface;
+use iio\giro\Exception\SnifferException;
 
 /**
  * Sniff the layout type of a autogiro file
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class AgSniffer implements SnifferInterface, LayoutInterface
+class Sniffer implements SnifferInterface, Layouts
 {
     /**
      * @var array Identifiers used when sniffing

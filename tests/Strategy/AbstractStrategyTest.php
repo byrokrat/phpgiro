@@ -1,14 +1,14 @@
 <?php
-namespace iio\swegiro\Parser;
+namespace iio\autogiro\Strategy;
 
-use iio\swegiro\Parser\Strategy\AG\LayoutH as Strategy;
+use iio\autogiro\Strategy\LayoutH as Strategy;
 
 class AbstractStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testClear()
     {
         $writer = $this->getMock(
-            'iio\swegiro\XMLWriter',
+            'iio\giro\XMLWriter',
             array()
         );
 
@@ -22,7 +22,7 @@ class AbstractStrategyTest extends \PHPUnit_Framework_TestCase
     public function testGetXML()
     {
         $writer = $this->getMock(
-            'iio\swegiro\XMLWriter',
+            'iio\giro\XMLWriter',
             array()
         );
 

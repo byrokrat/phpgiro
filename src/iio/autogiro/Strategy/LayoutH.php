@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the swegiro package
+ * This file is part of the autogiro package
  *
  * Copyright (c) 2012-13 Hannes Forsgård
  *
@@ -8,10 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro\Parser\Strategy\AG;
+namespace iio\autogiro\Strategy;
 
-use iio\swegiro\Exception\ParserException;
-use iio\swegiro\Exception\ContentException;
+use iio\giro\Exception\StrategyException;
 use iio\stb\Banking\Bankgiro;
 use iio\stb\ID\CorporateIdBuilder;
 use DateTime;
@@ -21,7 +20,7 @@ use DateTime;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class LayoutH extends AbstractAGStrategy
+class LayoutH extends AbstractStrategy
 {
     /**
      * @var integer Counter for number of parsed posts
@@ -83,9 +82,9 @@ class LayoutH extends AbstractAGStrategy
     /**
      * Parse new consent
      *
-     * @param  array            $values 
+     * @param  array             $values 
      * @return void
-     * @throws ContentException If BG does not match file header
+     * @throws StrategyException If BG does not match file header
      */
     public function parseConsent(array $values)
     {
@@ -93,8 +92,7 @@ class LayoutH extends AbstractAGStrategy
         $this->postCount++;
 
         if ($this->getBgNr() != new Bankgiro(ltrim($bg, '0'))) {
-            $msg = _('BG number in consent does not match BG number in file.');
-            throw new ContentException($msg);
+            throw new StrategyException('BG number in consent does not match BG number in file.');
         }
 
         return;
@@ -169,9 +167,9 @@ class LayoutH extends AbstractAGStrategy
     /**
      * Parse file footer
      *
-     * @param  array            $values
+     * @param  array             $values
      * @return void
-     * @throws ContentException If expected content is missing
+     * @throws StrategyException If expected content is missing
      */
     public function parseFoot(array $values)
     {
@@ -179,13 +177,11 @@ class LayoutH extends AbstractAGStrategy
         $this->endAddress();
 
         if ((int)$nrPosts != $this->getPostCount()) {
-            $msg = _('Unvalid file content, wrong number of posts.');
-            throw new ContentException($msg);
+            throw new StrategyException('Unvalid file content, wrong number of posts.');
         }
 
         if ($this->getFileDate() != new DateTime($date)) {
-            $msg = _('Footer date does not match header date.');
-            throw new ContentException($msg);
+            throw new StrategyException('Footer date does not match header date.');
         }
     }
 }

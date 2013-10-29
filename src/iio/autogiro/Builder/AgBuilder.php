@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the swegiro package
+ * This file is part of the autogiro package
  *
  * Copyright (c) 2012-13 Hannes Forsgård
  *
@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro\Builder;
+namespace iio\autogiro\Builder;
 
 use DOMDocument;
-use iio\swegiro\Swegiro;
-use iio\swegiro\Organization;
+use iio\giro\Giro;
+use iio\autogiro\Organization;
 use iio\stb\ID\PersonalId;
 use iio\stb\Banking\AccountInterface;
 use iio\stb\Utils\Amount;
@@ -26,7 +26,7 @@ use DateTime;
 class AgBuilder
 {
     /**
-     * @var Swegiro Swegiro instance
+     * @var Giro Giro instance
      */
     private $giro;
 
@@ -48,11 +48,11 @@ class AgBuilder
     /**
      * Build autogiro files
      *
-     * @param Swegiro      $giro
+     * @param Giro         $giro
      * @param Organization $org
      * @param AgConverter  $converter
      */
-    public function __construct(Swegiro $giro, Organization $org, AgConverter $converter = null)
+    public function __construct(Giro $giro, Organization $org, AgConverter $converter = null)
     {
         $this->giro = $giro;
         $this->org = $org;

@@ -1,7 +1,4 @@
-build
-vendor
-composer.phar
-composer.lock
-swegiro.sublime-project
-swegiro.sublime-workspace
-tests/data
+/build
+/vendor
+/composer.phar
+/composer.lock

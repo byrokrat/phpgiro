@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the swegiro package
+ * This file is part of the autogiro package
  *
  * Copyright (c) 2012-13 Hannes Forsgård
  *
@@ -8,9 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\swegiro\Parser\Strategy\AG;
+namespace iio\autogiro\Strategy;
 
-use iio\swegiro\Parser\AbstractStrategy;
+use iio\giro\StrategyInterface;
+use iio\giro\XMLWriter;
 use iio\stb\Banking\Bankgiro;
 use DateTime;
 
@@ -19,8 +20,13 @@ use DateTime;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-abstract class AbstractAGStrategy extends AbstractStrategy
+abstract class AbstractStrategy implements StrategyInterface
 {
+    /**
+     * @var XMLWriter XMLWriter object
+     */
+    protected $xmlWriter;
+
     /**
      * @var Bankgiro Receiving bankgiro account number
      */
@@ -35,6 +41,36 @@ abstract class AbstractAGStrategy extends AbstractStrategy
      * @var DateTime Date of parsed file
      */
     private $fileDate;
+
+    /**
+     * Constructor
+     *
+     * @param XMLWriter $xmlWriter
+     */
+    public function __construct(XMLWriter $xmlWriter)
+    {
+        $this->xmlWriter = $xmlWriter;
+    }
+
+    /**
+     * Reset internal state
+     * 
+     * @return void
+     */
+    public function clear()
+    {
+        $this->xmlWriter->clear();
+    }
+
+    /**
+     * Get created xml as a raw string
+     *
+     * @return string
+     */
+    public function getXML()
+    {
+        return $this->xmlWriter->getXml();
+    }
 
     /**
      * Get receiving bankgiro account number

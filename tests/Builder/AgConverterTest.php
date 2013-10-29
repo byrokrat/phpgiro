@@ -1,5 +1,5 @@
 <?php
-namespace iio\swegiro\Builder;
+namespace iio\autogiro\Builder;
 
 use iio\stb\Banking\Bankgiro;
 use iio\stb\ID\PersonalId;

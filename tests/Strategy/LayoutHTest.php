@@ -1,5 +1,5 @@
 <?php
-namespace iio\swegiro\Parser\Strategy\AG;
+namespace iio\autogiro\Strategy;
 
 use iio\stb\Banking\Bankgiro;
 use DateTime;
@@ -8,27 +8,27 @@ class LayoutHTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseHead()
     {
-        $writer = $this->getMock('iio\swegiro\XMLWriter');
+        $writer = $this->getMock('iio\giro\XMLWriter');
         $h = new LayoutH($writer);
         $h->parseHead(array('20121114', '111-1111'));
 
         $this->assertEquals(
-            $date = new DateTime('20121114'),
+            new DateTime('20121114'),
             $h->getFileDate()
         );
 
         $this->assertEquals(
-            $bg = new Bankgiro('111-1111'),
+            new Bankgiro('111-1111'),
             $h->getBgNr()
         );
     }
 
     /**
-     * @expectedException iio\swegiro\Exception\ContentException
+     * @expectedException iio\giro\Exception\StrategyException
      */
     public function testParseConsentBGException()
     {
-        $writer = $this->getMock('iio\swegiro\XMLWriter');
+        $writer = $this->getMock('iio\giro\XMLWriter');
         $h = new LayoutH($writer);
         $h->setBgNr(new Bankgiro('111-1111'));
         $h->parseConsent(
@@ -45,7 +45,7 @@ class LayoutHTest extends \PHPUnit_Framework_TestCase
 
     public function testParseInfo()
     {
-        $writer = $this->getMock('iio\swegiro\XMLWriter');
+        $writer = $this->getMock('iio\giro\XMLWriter');
 
         $writer->expects($this->once())
             ->method('writeElement')
@@ -57,7 +57,7 @@ class LayoutHTest extends \PHPUnit_Framework_TestCase
 
     public function testParseAddress()
     {
-        $writer = $this->getMock('iio\swegiro\XMLWriter');
+        $writer = $this->getMock('iio\giro\XMLWriter');
 
         $writer->expects($this->once())
             ->method('currentElement')
@@ -81,21 +81,21 @@ class LayoutHTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException iio\swegiro\Exception\ContentException
+     * @expectedException iio\giro\Exception\StrategyException
      */
     public function testParseFootNrPostsException()
     {
-        $writer = $this->getMock('iio\swegiro\XMLWriter');
+        $writer = $this->getMock('iio\giro\XMLWriter');
         $h = new LayoutH($writer);
         $h->parseFoot(array('20121114', '1'));
     }
 
     /**
-     * @expectedException iio\swegiro\Exception\ContentException
+     * @expectedException iio\giro\Exception\StrategyException
      */
     public function testParseFootDateException()
     {
-        $writer = $this->getMock('iio\swegiro\XMLWriter');
+        $writer = $this->getMock('iio\giro\XMLWriter');
         $h = new LayoutH($writer);
         $h->setFileDate(new DateTime('20120101'));
         $h->parseFoot(array('20121114', '0'));
@@ -103,7 +103,7 @@ class LayoutHTest extends \PHPUnit_Framework_TestCase
 
     public function testParseFoot()
     {
-        $writer = $this->getMock('iio\swegiro\XMLWriter');
+        $writer = $this->getMock('iio\giro\XMLWriter');
         $h = new LayoutH($writer);
         $h->setFileDate(new DateTime('20121114'));
         $h->parseFoot(array('20121114', '0'));
