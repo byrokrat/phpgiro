@@ -1,15 +1,16 @@
-autogiro
+AUTOGIRO
 ========
 
 Create and parse files for the swedish autogiro system.
 
 Autogiro is a concrete implementation of [iio/giro](https://github.com/iio/giro).
-
 Please note that all exceptions thrown are subclasses of `iio\giro\Exception`.
 
+Autogiro is still in beta stage.
 
-Parsing files from autogirot
-----------------------------
+
+Parsing autogiro files
+----------------------
     use iio\giro\Giro;
     use iio\autogiro\AutogiroFactory;
 
