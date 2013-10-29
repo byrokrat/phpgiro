@@ -1,6 +1,7 @@
 <?php
 namespace iio\autogiro\Builder;
 
+use iio\stb\ID\CorporateId;
 use iio\stb\Banking\Bankgiro;
 
 class OrganizationTest extends \PHPUnit_Framework_TestCase
@@ -9,6 +10,7 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
     {
         $o = new Organization(
             'foobar',
+            new CorporateId('777777-7777'),
             '123456',
             new Bankgiro('111-1111')
         );
@@ -16,6 +18,11 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'foobar',
             $o->getName()
+        );
+
+        $this->assertEquals(
+            '777777-7777',
+            (string)$o->getCorporateId()
         );
 
         $this->assertEquals(

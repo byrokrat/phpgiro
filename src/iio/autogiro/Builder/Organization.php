@@ -10,6 +10,7 @@
 
 namespace iio\autogiro\Builder;
 
+use iio\stb\ID\CorporateId;
 use iio\stb\Banking\Bankgiro;
 
 /**
@@ -25,6 +26,11 @@ class Organization
     private $name;
 
     /**
+     * @var CorporateId Organization state id
+     */
+    private $corporateId;
+
+    /**
      * @var string Autogiro customer number
      */
     private $customerNr;
@@ -36,15 +42,17 @@ class Organization
 
     /**
      * Organization data wrapper
-     * @param string   $name       Organization name
-     * @param string   $customerNr Autogiro customer number (6 digits)
-     * @param Bankgiro $bankgiro   Bankgiro account number
+     * @param string      $name        Organization name
+     * @param CorporateId $corporateId Organization state id
+     * @param string      $customerNr  Autogiro customer number (6 digits)
+     * @param Bankgiro    $bankgiro    Bankgiro account number
      */
-    public function __construct($name, $customerNr, Bankgiro $bankgiro)
+    public function __construct($name, CorporateId $corporateId, $customerNr, Bankgiro $bankgiro)
     {
         assert('is_string($name)');
         assert('is_numeric($customerNr) && 6==strlen($customerNr)');
         $this->name = $name;
+        $this->corporateId = $corporateId;
         $this->customerNr = $customerNr;
         $this->bankgiro = $bankgiro;
     }
@@ -57,6 +65,16 @@ class Organization
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get organization state id
+     *
+     * @return CorporateId
+     */
+    public function getCorporateId()
+    {
+        return $this->corporateId;
     }
 
     /**
