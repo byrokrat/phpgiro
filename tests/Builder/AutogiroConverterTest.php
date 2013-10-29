@@ -5,25 +5,25 @@ use iio\stb\Banking\Bankgiro;
 use iio\stb\ID\PersonalId;
 use Mockery as m;
 
-class AgConverterTest extends \PHPUnit_Framework_TestCase
+class AutogiroConverterTest extends \PHPUnit_Framework_TestCase
 {
     public function testConvertPayerNr()
     {
-        $converter = new AgConverter();
+        $converter = new AutogiroConverter();
         $id = new PersonalId('120101-0004');
         $this->assertEquals('1201010004', $converter->convertPayerNr($id));
     }
 
     public function testConvertId()
     {
-        $converter = new AgConverter();
+        $converter = new AutogiroConverter();
         $id = new PersonalId('120101-0004');
         $this->assertEquals('201201010004', $converter->convertId($id));
     }
 
     public function testConvertBankgiro()
     {
-        $converter = new AgConverter();
+        $converter = new AutogiroConverter();
         $bg = new Bankgiro('111-1111');
         $this->assertEquals('1111111', $converter->convertBankgiro($bg));
     }

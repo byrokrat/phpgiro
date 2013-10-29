@@ -12,7 +12,6 @@ namespace iio\autogiro\Builder;
 
 use DOMDocument;
 use iio\giro\Giro;
-use iio\autogiro\Organization;
 use iio\stb\ID\PersonalId;
 use iio\stb\Banking\AccountInterface;
 use iio\stb\Utils\Amount;
@@ -23,7 +22,7 @@ use DateTime;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class AgBuilder
+class AutogiroBuilder
 {
     /**
      * @var Giro Giro instance
@@ -36,7 +35,7 @@ class AgBuilder
     private $org;
 
     /**
-     * @var AgConverter Converter for ag formats
+     * @var AutogiroConverter Converter for ag formats
      */
     private $converter;
 
@@ -48,15 +47,15 @@ class AgBuilder
     /**
      * Build autogiro files
      *
-     * @param Giro         $giro
-     * @param Organization $org
-     * @param AgConverter  $converter
+     * @param Giro              $giro
+     * @param Organization      $org
+     * @param AutogiroConverter $converter
      */
-    public function __construct(Giro $giro, Organization $org, AgConverter $converter = null)
+    public function __construct(Giro $giro, Organization $org, AutogiroConverter $converter = null)
     {
         $this->giro = $giro;
         $this->org = $org;
-        $this->converter = $converter ?: new AgConverter;
+        $this->converter = $converter ?: new AutogiroConverter;
         $this->clear();
     }
 

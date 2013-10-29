@@ -21,17 +21,17 @@ Parsing autogiro files
 
 Creating autogiro files
 -----------------------
-    use iio\autogiro\Builder\AgBuilder;
+    use iio\autogiro\Builder\AutogiroBuilder;
+    use iio\autogiro\Builder\Organization;
     use iio\giro\Giro;
     use iio\autogiro\AutogiroFactory;
-    use iio\autogiro\Organization;
 
     $giro = new Giro(new AutogiroFactory);
 
     $org = new Organization();
     //... set organization data
 
-    $builder = new AgBuilder($giro, $org);
+    $builder = new AutogiroBuilder($giro, $org);
 
     $builder->addConsent(...);
     echo $builder->getNative();

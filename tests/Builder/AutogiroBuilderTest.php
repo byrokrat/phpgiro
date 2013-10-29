@@ -4,21 +4,21 @@ namespace iio\autogiro\Builder;
 use iio\stb\Banking\Bankgiro;
 use Mockery as m;
 
-class AgBuilderTest extends \PHPUnit_Framework_TestCase
+class AutogiroBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetXML()
     {
         $giro = m::mock('\iio\giro\Giro');
         $giro->shouldReceive('convertToXML')->once()->andReturn('<xml>');
         
-        $org = m::mock('iio\autogiro\Organization');
+        $org = m::mock('iio\autogiro\Builder\Organization');
         $org->shouldReceive('getAgCustomerNumber')->once();
         $org->shouldReceive('getBankgiro')->once()->andReturn(new Bankgiro('111-1111'));
 
-        $converter = m::mock('iio\autogiro\Builder\AgConverter');
+        $converter = m::mock('iio\autogiro\Builder\AutogiroConverter');
         $converter->shouldReceive('convertBankgiro')->once();
 
-        $builder = new AgBuilder($giro, $org, $converter);
+        $builder = new AutogiroBuilder($giro, $org, $converter);
         $this->assertEquals('<xml>', $builder->getXML());
     }
 
@@ -27,16 +27,16 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
         $giro = m::mock('\iio\giro\Giro');
         $giro->shouldReceive('convertToXML')->once();
         
-        $org = m::mock('iio\autogiro\Organization');
+        $org = m::mock('iio\autogiro\Builder\Organization');
         $org->shouldReceive('getAgCustomerNumber')->once();
         $org->shouldReceive('getBankgiro')->once()->andReturn(new Bankgiro('111-1111'));
 
-        $converter = m::mock('iio\autogiro\Builder\AgConverter');
+        $converter = m::mock('iio\autogiro\Builder\AutogiroConverter');
         $converter->shouldReceive('convertBankgiro')->once()->andReturn('12341234');
         $converter->shouldReceive('convertPayerNr')->once()->andReturn('232323233');
         $converter->shouldReceive('convertId')->once()->andReturn('191963231234');
 
-        $builder = new AgBuilder($giro, $org, $converter);
+        $builder = new AutogiroBuilder($giro, $org, $converter);
 
         $id = m::mock('iio\stb\ID\PersonalId');
         
@@ -53,16 +53,16 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
         $giro = m::mock('\iio\giro\Giro');
         $giro->shouldReceive('convertToXML')->once();
         
-        $org = m::mock('iio\autogiro\Organization');
+        $org = m::mock('iio\autogiro\Builder\Organization');
         $org->shouldReceive('getAgCustomerNumber')->once();
         $org->shouldReceive('getBankgiro')->once()->andReturn(
             m::mock('iio\stb\Banking\Bankgiro')
         );
 
-        $converter = m::mock('iio\autogiro\Builder\AgConverter');
+        $converter = m::mock('iio\autogiro\Builder\AutogiroConverter');
         $converter->shouldReceive('convertBankgiro')->once();
 
-        $builder = new AgBuilder($giro, $org, $converter);
+        $builder = new AutogiroBuilder($giro, $org, $converter);
 
         $builder->addConsent(
             m::mock('iio\stb\ID\PersonalId'),
@@ -78,15 +78,15 @@ class AgBuilderTest extends \PHPUnit_Framework_TestCase
         $giro = m::mock('\iio\giro\Giro');
         $giro->shouldReceive('convertToXML')->once();
         
-        $org = m::mock('iio\autogiro\Organization');
+        $org = m::mock('iio\autogiro\Builder\Organization');
         $org->shouldReceive('getAgCustomerNumber')->once();
         $org->shouldReceive('getBankgiro')->once()->andReturn(new Bankgiro('111-1111'));
 
-        $converter = m::mock('iio\autogiro\Builder\AgConverter');
+        $converter = m::mock('iio\autogiro\Builder\AutogiroConverter');
         $converter->shouldReceive('convertBankgiro')->once()->andReturn('1234');
         $converter->shouldReceive('convertPayerNr')->once()->andReturn('1234');
 
-        $builder = new AgBuilder($giro, $org, $converter);
+        $builder = new AutogiroBuilder($giro, $org, $converter);
 
         $id = m::mock('iio\stb\ID\PersonalId');
         

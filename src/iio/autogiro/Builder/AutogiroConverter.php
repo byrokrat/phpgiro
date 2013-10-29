@@ -18,7 +18,7 @@ use iio\stb\Banking\Bankgiro;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class AgConverter
+class AutogiroConverter
 {
     /**
      * Convert personal id to payer number
