@@ -20,7 +20,7 @@ use iio\giro\XMLWriter;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class ConcreteFactory implements FactoryInterface, Layouts
+class AutogiroFactory implements FactoryInterface, Layouts
 {
     /**
      * {@inheritdoc}

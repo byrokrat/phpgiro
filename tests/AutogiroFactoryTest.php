@@ -1,11 +1,11 @@
 <?php
 namespace iio\autogiro;
 
-class ConcreteFactoryTest extends \PHPUnit_Framework_TestCase
+class AutogiroFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateSniffer()
     {
-        $factory = new ConcreteFactory;
+        $factory = new AutogiroFactory;
         $this->assertInstanceOf(
             '\iio\autogiro\Sniffer',
             $factory->createSniffer()
@@ -14,7 +14,7 @@ class ConcreteFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateValidator()
     {
-        $factory = new ConcreteFactory;
+        $factory = new AutogiroFactory;
         $this->assertInstanceOf(
             '\iio\giro\DtdValidator',
             $factory->createValidator()
@@ -23,10 +23,10 @@ class ConcreteFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateParser()
     {
-        $factory = new ConcreteFactory;
+        $factory = new AutogiroFactory;
         $this->assertInstanceOf(
             'iio\giro\Parser',
-            $factory->createParser(ConcreteFactory::LAYOUT_AG_H)
+            $factory->createParser(AutogiroFactory::LAYOUT_AG_H)
         );
     }
 }
