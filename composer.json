@@ -14,18 +14,22 @@
     "autoload": {
         "psr-0": {
             "iio\\autogiro": "src/"
-        },
-        "classmap": [
-            "PhpGiro/"
-        ]
+        }
     },
     "require": {
         "php": ">=5.3.0",
         "iio/giro": "1.0.*",
-        "iio/stb": "dev-master"
+        "iio/stb": "dev-master",
+        "iio/phpgiro": "dev-master"
     },
     "minimum-stability": "RC",
     "require-dev": {
         "mockery/mockery": "dev-master@dev"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/iio/phpgiro"
+        }
+    ]
 }
