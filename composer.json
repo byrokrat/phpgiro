@@ -25,11 +25,5 @@
     "minimum-stability": "RC",
     "require-dev": {
         "mockery/mockery": "dev-master@dev"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/iio/phpgiro"
-        }
-    ]
+    }
 }
