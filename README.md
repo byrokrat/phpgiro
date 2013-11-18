@@ -85,8 +85,8 @@ Bankgirot standard format BgMax
 
 Run tests
 ---------
-Execute unit tests by typing `phpunit`. The unis tests requires FPDI to be
-installed using composer.
+Execute unit tests by typing `phpunit`. The unis tests requires that dependencies
+are installed using composer.
 
     $ curl -sS https://getcomposer.org/installer | php
     $ php composer.phar install
