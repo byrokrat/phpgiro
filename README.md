@@ -1,5 +1,6 @@
 autogiro
 ========
+[![Build Status](https://travis-ci.org/iio/autogiro.png?branch=master)](https://travis-ci.org/iio/autogiro)
 
 Create and parse files for the swedish autogiro system.
 
