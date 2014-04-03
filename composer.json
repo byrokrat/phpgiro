@@ -12,8 +12,8 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "ledgr\\autogiro": "src/"
+        "psr-4": {
+            "ledgr\\autogiro\\": "src/"
         }
     },
     "require": {
