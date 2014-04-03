@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro\Builder;
+namespace ledgr\autogiro\Builder;
 
-use iio\stb\ID\PersonalId;
-use iio\stb\Banking\Bankgiro;
+use ledgr\id\PersonalId;
+use ledgr\banking\Bankgiro;
 
 /**
  * Convert PersonalId and Bankgiro to autogiro formats

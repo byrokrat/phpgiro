@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro;
+namespace ledgr\autogiro;
 
-use iio\giro\FactoryInterface;
-use iio\giro\DtdValidator;
-use iio\giro\Parser;
-use iio\giro\XMLWriter;
+use ledgr\giro\FactoryInterface;
+use ledgr\giro\DtdValidator;
+use ledgr\giro\Parser;
+use ledgr\giro\XMLWriter;
 
 /**
  * Autogiro concrete factory

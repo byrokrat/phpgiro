@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro;
+namespace ledgr\autogiro;
 
 /**
  * Layout to strategy identifiers
@@ -20,42 +20,42 @@ interface Layouts
     /**
      * Autogiro layout ABC
      */
-    const LAYOUT_AG_ABC = 'iio\autogiro\Strategy\LayoutABC';
+    const LAYOUT_AG_ABC = 'ledgr\autogiro\Strategy\LayoutABC';
 
     /**
      * Autogiro layout D
      */
-    const LAYOUT_AG_D = 'iio\autogiro\Strategy\LayoutD';
+    const LAYOUT_AG_D = 'ledgr\autogiro\Strategy\LayoutD';
 
     /**
      * Autogiro layout E
      */
-    const LAYOUT_AG_E = 'iio\autogiro\Strategy\LayoutE';
+    const LAYOUT_AG_E = 'ledgr\autogiro\Strategy\LayoutE';
 
     /**
      * Autogiro layout F
      */
-    const LAYOUT_AG_F = 'iio\autogiro\Strategy\LayoutF';
+    const LAYOUT_AG_F = 'ledgr\autogiro\Strategy\LayoutF';
 
     /**
      * Autogiro layout G
      */
-    const LAYOUT_AG_G = 'iio\autogiro\Strategy\LayoutG';
+    const LAYOUT_AG_G = 'ledgr\autogiro\Strategy\LayoutG';
 
     /**
      * Autogiro layout H
      */
-    const LAYOUT_AG_H = 'iio\autogiro\Strategy\LayoutH';
+    const LAYOUT_AG_H = 'ledgr\autogiro\Strategy\LayoutH';
 
     /**
      * Autogiro layout I
      */
-    const LAYOUT_AG_I = 'iio\autogiro\Strategy\LayoutI';
+    const LAYOUT_AG_I = 'ledgr\autogiro\Strategy\LayoutI';
 
     /**
      * Autogiro layout J
      */
-    const LAYOUT_AG_J = 'iio\autogiro\Strategy\LayoutJ';
+    const LAYOUT_AG_J = 'ledgr\autogiro\Strategy\LayoutJ';
 
     /**
      * Autogiro layout BGMAX

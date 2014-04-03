@@ -1,5 +1,5 @@
 <?php
-namespace iio\autogiro;
+namespace ledgr\autogiro;
 
 class AutogiroFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -7,7 +7,7 @@ class AutogiroFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new AutogiroFactory;
         $this->assertInstanceOf(
-            '\iio\autogiro\Sniffer',
+            '\ledgr\autogiro\Sniffer',
             $factory->createSniffer()
         );
     }
@@ -16,7 +16,7 @@ class AutogiroFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new AutogiroFactory;
         $this->assertInstanceOf(
-            '\iio\giro\DtdValidator',
+            '\ledgr\giro\DtdValidator',
             $factory->createValidator()
         );
     }
@@ -25,7 +25,7 @@ class AutogiroFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new AutogiroFactory;
         $this->assertInstanceOf(
-            'iio\giro\Parser',
+            '\ledgr\giro\Parser',
             $factory->createParser(AutogiroFactory::LAYOUT_AG_H)
         );
     }

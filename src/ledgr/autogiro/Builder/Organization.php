@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro\Builder;
+namespace ledgr\autogiro\Builder;
 
-use iio\stb\ID\CorporateId;
-use iio\stb\Banking\Bankgiro;
+use ledgr\id\CorporateId;
+use ledgr\banking\Bankgiro;
 
 /**
  * Organization data wrapper

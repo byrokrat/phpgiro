@@ -1,5 +1,5 @@
 <?php
-namespace iio\autogiro;
+namespace ledgr\autogiro;
 
 class SnifferTest extends \PHPUnit_Framework_TestCase
 {
@@ -180,7 +180,7 @@ class SnifferTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException iio\giro\Exception\SnifferException
+     * @expectedException ledgr\giro\Exception\SnifferException
      */
     public function testNoMatch()
     {

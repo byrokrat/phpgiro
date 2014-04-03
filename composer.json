@@ -1,8 +1,8 @@
 {
-    "name": "iio/autogiro",
+    "name": "ledgr/autogiro",
     "description": "Create and parse files for swedish autogiro system",
     "keywords": ["autogiro"],
-    "homepage": "https://github.com/iio/autogiro",
+    "homepage": "https://github.com/ledgr/autogiro",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -13,16 +13,23 @@
     ],
     "autoload": {
         "psr-0": {
-            "iio\\autogiro": "src/"
+            "ledgr\\autogiro": "src/"
         }
     },
     "require": {
         "php": ">=5.3.0",
-        "iio/giro": "1.0.*",
-        "iio/stb": "dev-master",
+        "ledgr/giro": "1.*",
+        "ledgr/id": "1.*",
+        "ledgr/banking": "1.*",
+        "ledgr/amount": "1.*",
         "iio/phpgiro": "dev-master"
     },
-    "minimum-stability": "RC",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/iio/phpgiro"
+        }
+    ],
     "require-dev": {
         "mockery/mockery": "dev-master@dev"
     }

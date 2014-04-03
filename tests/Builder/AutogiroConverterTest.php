@@ -1,8 +1,8 @@
 <?php
-namespace iio\autogiro\Builder;
+namespace ledgr\autogiro\Builder;
 
-use iio\stb\Banking\Bankgiro;
-use iio\stb\ID\PersonalId;
+use ledgr\banking\Bankgiro;
+use ledgr\id\PersonalId;
 use Mockery as m;
 
 class AutogiroConverterTest extends \PHPUnit_Framework_TestCase

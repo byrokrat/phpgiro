@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro\Strategy;
+namespace ledgr\autogiro\Strategy;
 
-use iio\giro\Exception\StrategyException;
-use iio\stb\Banking\Bankgiro;
-use iio\stb\ID\CorporateIdBuilder;
+use ledgr\giro\Exception\StrategyException;
+use ledgr\banking\Bankgiro;
+use ledgr\id\CorporateIdBuilder;
 use DateTime;
 
 /**

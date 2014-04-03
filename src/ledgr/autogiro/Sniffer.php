@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro;
+namespace ledgr\autogiro;
 
-use iio\giro\SnifferInterface;
-use iio\giro\Exception\SnifferException;
+use ledgr\giro\SnifferInterface;
+use ledgr\giro\Exception\SnifferException;
 
 /**
  * Sniff the layout type of a autogiro file

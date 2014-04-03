@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro\Builder;
+namespace ledgr\autogiro\Builder;
 
 use DOMDocument;
-use iio\giro\Giro;
-use iio\stb\ID\PersonalId;
-use iio\stb\Banking\AccountInterface;
-use iio\stb\Utils\Amount;
+use ledgr\giro\Giro;
+use ledgr\id\PersonalId;
+use ledgr\banking\AccountInterface;
+use ledgr\amount\Amount;
 use DateTime;
 
 /**
@@ -140,8 +140,8 @@ class AutogiroBuilder
         if (!empty($this->data['addedConsents'])) {
             $phpgiro->addSection();
             foreach ($this->data['addedConsents'] as $consent) {
-                /** @var \iio\stb\ID\PersonalId $id */
-                /** @var \iio\stb\Banking\AccountInterface $account */
+                /** @var \ledgr\id\PersonalId $id */
+                /** @var \ledgr\banking\AccountInterface $account */
                 list($id, $account) = $consent;
                 $phpgiro->addConsent(
                     $this->converter->convertPayerNr($id),
@@ -155,8 +155,8 @@ class AutogiroBuilder
         if (!empty($this->data['bills'])) {
             $phpgiro->addSection();
             foreach ($this->data['bills'] as $bill) {
-                /** @var \iio\stb\ID\PersonalId $id */
-                /** @var \iio\stb\Utils\Amount $amount */
+                /** @var \ledgr\id\PersonalId $id */
+                /** @var \ledgr\amount\Amount $amount */
                 /** @var \DateTime $date */
                 list($id, $amount, $date) = $bill;
                 $phpgiro->addInvoice(

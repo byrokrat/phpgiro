@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro\Strategy;
+namespace ledgr\autogiro\Strategy;
 
-use iio\giro\StrategyInterface;
-use iio\giro\XMLWriter;
-use iio\stb\Banking\Bankgiro;
+use ledgr\giro\StrategyInterface;
+use ledgr\giro\XMLWriter;
+use ledgr\banking\Bankgiro;
 use DateTime;
 
 /**

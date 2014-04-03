@@ -1,8 +1,8 @@
 <?php
-namespace iio\autogiro\Builder;
+namespace ledgr\autogiro\Builder;
 
-use iio\stb\ID\CorporateId;
-use iio\stb\Banking\Bankgiro;
+use ledgr\id\CorporateId;
+use ledgr\banking\Bankgiro;
 
 class OrganizationTest extends \PHPUnit_Framework_TestCase
 {

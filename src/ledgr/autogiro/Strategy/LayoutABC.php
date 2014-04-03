@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace iio\autogiro\Strategy;
+namespace ledgr\autogiro\Strategy;
 
 /**
  * Parser strategy for AG layout ABC
