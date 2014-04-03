@@ -4,7 +4,7 @@
     "keywords": ["autogiro"],
     "homepage": "https://github.com/ledgr/autogiro",
     "type": "library",
-    "license": "MIT",
+    "license": "WTFPL",
     "authors": [
         {
             "name": "Hannes Forsgård",
