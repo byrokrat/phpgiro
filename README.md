@@ -1,4 +1,4 @@
-# ledgr/autogiro
+# ledgr/autogiro [![Build Status](https://travis-ci.org/ledgr/autogiro.svg?branch=master)](https://travis-ci.org/ledgr/autogiro) [![Code Coverage](https://scrutinizer-ci.com/g/ledgr/autogiro/badges/coverage.png?s=33c8ab5cc95b00f2e9f5493830116e96a4866ba5)](https://scrutinizer-ci.com/g/ledgr/autogiro/) [![Dependency Status](https://gemnasium.com/ledgr/autogiro.svg)](https://gemnasium.com/ledgr/autogiro)
 
 
 Create and parse files for the swedish autogiro system.
