@@ -21,7 +21,7 @@
         "ledgr/giro": "1.*",
         "ledgr/id": "1.*",
         "ledgr/banking": "1.*",
-        "ledgr/amount": "1.*",
+        "ledgr/billing": "1.*",
         "iio/phpgiro": "dev-master"
     },
     "repositories": [

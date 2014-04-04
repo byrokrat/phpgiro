@@ -25,18 +25,11 @@ Parsing autogiro files
 Creating autogiro files
 -----------------------
     use ledgr\autogiro\Builder\AutogiroBuilder;
-    use ledgr\autogiro\Builder\Organization;
-    use ledgr\giro\Giro;
-    use ledgr\autogiro\AutogiroFactory;
+    use ledgr\billing\LegalPerson;
 
-    $giro = new Giro(new AutogiroFactory);
-
-    $org = new Organization();
-    //... set organization data
-
-    $builder = new AutogiroBuilder($giro, $org);
-
-    $builder->addConsent(...);
+    $org = new LegalPerson(...);
+    $builder = new AutogiroBuilder($org);
+    $builder->addConsent(new LegalPerson(...));
     echo $builder->getNative();
 
 

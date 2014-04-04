@@ -11,12 +11,14 @@ namespace ledgr\autogiro\Builder;
 
 use DOMDocument;
 use ledgr\giro\Giro;
-use ledgr\id\PersonalId;
-use ledgr\banking\AccountInterface;
-use ledgr\amount\Amount;
+use ledgr\autogiro\AutogiroFactory;
+use ledgr\billing\Invoice;
+use ledgr\billing\LegalPerson;
 use DateTime;
 
 /**
+ * Build autogiro files
+ *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class AutogiroBuilder
@@ -27,7 +29,7 @@ class AutogiroBuilder
     private $giro;
 
     /**
-     * @var Organization Current organization
+     * @var LegalPerson Current organization
      */
     private $org;
 
@@ -41,58 +43,31 @@ class AutogiroBuilder
      */
     private $data;
 
-    /**
-     * Build autogiro files
-     *
-     * @param Giro              $giro
-     * @param Organization      $org
-     * @param AutogiroConverter $converter
-     */
-    public function __construct(Giro $giro, Organization $org, AutogiroConverter $converter = null)
+    public function __construct(LegalPerson $org, Giro $giro = null, AutogiroConverter $converter = null)
     {
-        $this->giro = $giro;
         $this->org = $org;
+        $this->giro = $giro ?: new Giro(new AutogiroFactory);
         $this->converter = $converter ?: new AutogiroConverter;
         $this->clear();
     }
 
-    /**
-     * Reset state
-     *
-     * @return void
-     */
     public function clear()
     {
         $this->data = array(
             'addedConsents' => array(),
             'removedConsents' => array(),
-            'bills' => array()
+            'invoices' => array()
         );
     }
 
-    /**
-     * Write consent to file
-     *
-     * @param  PersonalId       $id Id of added donor
-     * @param  AccountInterface $account Account of added donor
-     * @return void
-     */
-    public function addConsent(PersonalId $id, AccountInterface $account)
+    public function addConsent(LegalPerson $person)
     {
-        $this->data['addedConsents'][] = array($id, $account);
+        $this->data['addedConsents'][] = $person;
     }
 
-    /**
-     * Bill donor once
-     *
-     * @param  PersonalId $id
-     * @param  Amount     $amount
-     * @param  DateTime   $date
-     * @return void
-     */
-    public function bill(PersonalId $id, Amount $amount, DateTime $date)
+    public function addInvoice(Invoice $invoice)
     {
-        $this->data['bills'][] = array($id, $amount, $date);
+        $this->data['invoices'][] = $invoice;
     }
 
     /**
@@ -129,37 +104,33 @@ class AutogiroBuilder
     private function build()
     {
         $phpgiro = new \PhpGiro_AG_ABC(
-            $this->org->getAgCustomerNumber(),
-            $this->converter->convertBankgiro($this->org->getBankgiro())
+            $this->org->getCustomerNumber(),
+            $this->converter->convertBankgiro($this->org->getAccount())
         );
 
         // TODO let addConsent write the complete line instead..
         if (!empty($this->data['addedConsents'])) {
             $phpgiro->addSection();
-            foreach ($this->data['addedConsents'] as $consent) {
-                /** @var \ledgr\id\PersonalId $id */
-                /** @var \ledgr\banking\AccountInterface $account */
-                list($id, $account) = $consent;
+            /** @var \ledgr\billing\LegalPerson $person */
+            foreach ($this->data['addedConsents'] as $person) {
                 $phpgiro->addConsent(
-                    $this->converter->convertPayerNr($id),
-                    $account->getClearing(),
-                    $account->getNumber(),
-                    $this->converter->convertId($id)
+                    $this->converter->convertPayerNr($person->getId()),
+                    $person->getAccount()->getClearing(),
+                    $person->getAccount()->getNumber(),
+                    $this->converter->convertId($person->getId())
                 );
             }
         }
 
-        if (!empty($this->data['bills'])) {
+        if (!empty($this->data['invoices'])) {
             $phpgiro->addSection();
-            foreach ($this->data['bills'] as $bill) {
-                /** @var \ledgr\id\PersonalId $id */
-                /** @var \ledgr\amount\Amount $amount */
-                /** @var \DateTime $date */
-                list($id, $amount, $date) = $bill;
+            /** @var \ledgr\billing\Invoice $invoice */
+            foreach ($this->data['invoices'] as $invoice) {
+                // TODO validate that $invoice->getSeller() and $this->org are the same...
                 $phpgiro->addInvoice(
-                    $this->converter->convertPayerNr($id),
-                    (string) $amount,
-                    $date->format('Ymd')
+                    $this->converter->convertPayerNr($invoice->getBuyer()->getId()),
+                    (string) $invoice->getInvoiceTotal(),
+                    $invoice->getExpirationDate()->format('Ymd')
                 );
             }
         }
