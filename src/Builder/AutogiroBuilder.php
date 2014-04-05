@@ -62,13 +62,23 @@ class AutogiroBuilder
 
     public function addConsent(LegalPerson $person)
     {
+        // TODO use ConsentBuilder instead...
         $this->data['addedConsents'][] = $person;
     }
+
 
     public function addInvoice(Invoice $invoice)
     {
         $this->data['invoices'][] = $invoice;
     }
+
+    // TODO implement
+    public function removeConsent(LegalPerson $person){}
+    public function removeInvoice(Invoice $invoice){}
+    public function addPeriodic(){}
+    public function removePeriodic(){}
+    public function pausePeriodic(){}
+    public function updatePeriodic(){}
 
     /**
      * Get generated contents in ag native format
