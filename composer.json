@@ -31,6 +31,6 @@
         }
     ],
     "require-dev": {
-        "mockery/mockery": "dev-master@dev"
+        "mockery/mockery": "*"
     }
 }
