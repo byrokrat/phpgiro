@@ -27,10 +27,11 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/iio/phpgiro"
+            "url": "https://github.com/hanneskod/phpgiro"
         }
     ],
     "require-dev": {
+        "phpunit/phpunit": "*",
         "mockery/mockery": "*"
     }
 }

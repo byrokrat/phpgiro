@@ -25,7 +25,7 @@ class ConsentParser extends ConsentPostBuilder
         // (given that $raw is valid in the first place)
 
         // parse raw into LegalPerson
-        $person = ...
+        $person = '';
 
         parent::__construct($person);
     }
