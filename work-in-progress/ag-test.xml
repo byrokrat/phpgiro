@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE autogiro [
+    <!ELEMENT autogiro (h?)>
+    <!ATTLIST autogiro version (0.1.0) #REQUIRED>
+
+    <!ELEMENT date (year,month,day)>
+    <!ELEMENT year (#PCDATA)>
+    <!ELEMENT month (#PCDATA)>
+    <!ELEMENT day (#PCDATA)>
+
+    <!ELEMENT bg (#PCDATA)>
+    <!ELEMENT payerId (#PCDATA)>
+    <!ELEMENT personalId (#PCDATA)>
+    <!ELEMENT corporateId (#PCDATA)>
+
+    <!ELEMENT account (clearing,number)>
+    <!ELEMENT clearing (#PCDATA)>
+    <!ELEMENT number (#PCDATA)>
+
+    <!ELEMENT address (line+)>
+    <!ELEMENT line (#PCDATA)>
+
+    <!ELEMENT message (id,text)>
+    <!ELEMENT id (#PCDATA)>
+    <!ELEMENT text (#PCDATA)>
+
+    <!ELEMENT h (date,bg,consent+)>
+    <!ELEMENT consent (payerId,(personalId|corporateId),account,message,info?,address?)>
+    <!ELEMENT info (#PCDATA)>
+]>
+<autogiro version="0.1.0">
+    <h>
+        <date>
+            <year>2012</year>
+            <month>10</month>
+            <day>8</day>
+        </date>
+        <bg>123456-4</bg>
+        <consent>
+            <payerId>198203230258</payerId>
+            <personalId>19820323-0258</personalId>
+            <account>
+                <clearing>7894</clearing>
+                <number>78945612</number>
+            </account>
+            <message>
+                <id>1</id>
+                <text>Första meddelandet</text>
+            </message>
+            <info></info>
+            <address>
+                <line></line>
+            </address>
+        </consent>
+    </h>
+</autogiro>
