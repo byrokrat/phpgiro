@@ -35,7 +35,7 @@ class ConsentContainer extends WritingContainer
      */
     public function remove(LegalPerson $payer)
     {
-        // TODO use $this->payee->getAccount()->format()
+        // TODO use getAccount()->format()
         //      once banking is at 2.0
 
         // TODO use str_pad($payer->getId()->format('Ssk'), 16, '0', STR_PAD_LEFT)
@@ -44,10 +44,15 @@ class ConsentContainer extends WritingContainer
         $this->addLine(
             '03'
             . str_pad(str_replace('-', '', $this->getPayee()->getAccount()), 10, '0', STR_PAD_LEFT)
+
             . '000000'.$payer->getId()->getDate()->format('ymd')
                 . $payer->getId()->getIndividualNr()
                 . $payer->getId()->getCheckDigit()
-            . str_repeat(' ', 52)
+
+            . $payer->getAccount()->getClearing()
+            . str_pad($payer->getAccount()->getNumber(), 12, '0', STR_PAD_LEFT)
+
+            . str_repeat(' ', 36)
         );
     }
 
