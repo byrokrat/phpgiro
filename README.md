@@ -1,84 +1,23 @@
-# ledgr/autogiro [![Build Status](https://travis-ci.org/ledgr/autogiro.svg?branch=master)](https://travis-ci.org/ledgr/autogiro) [![Code Coverage](https://scrutinizer-ci.com/g/ledgr/autogiro/badges/coverage.png?s=33c8ab5cc95b00f2e9f5493830116e96a4866ba5)](https://scrutinizer-ci.com/g/ledgr/autogiro/) [![Dependency Status](https://gemnasium.com/ledgr/autogiro.svg)](https://gemnasium.com/ledgr/autogiro)
+> [experimental] Please note that this package is under development and an updated
+> 2.0 development realese is in progress. The api is subject to change.
 
 
-Create and parse files for the swedish autogiro system.
+# ledgr/autogiro [experimental]
 
-Autogiro is a concrete implementation of [ledgr/giro](https://github.com/ledgr/giro).
-Please note that all exceptions thrown are subclasses of `ledgr\giro\Exception`.
+[![Packagist Version](https://img.shields.io/packagist/v/ledgr/autogiro.svg?style=flat-square)](https://packagist.org/packages/ledgr/autogiro)
+[![Build Status](https://img.shields.io/travis/ledgr/autogiro/master.svg?style=flat-square)](https://travis-ci.org/ledgr/autogiro)
+[![Quality Score](https://img.shields.io/scrutinizer/g/ledgr/autogiro.svg?style=flat-square)](https://scrutinizer-ci.com/g/ledgr/autogiro)
+[![Dependency Status](https://img.shields.io/gemnasium/ledgr/autogiro.svg?style=flat-square)](https://gemnasium.com/ledgr/autogiro)
 
+Create and parse files for the swedish direct debit system *autogirot*.
 
-Installation using composer
----------------------------
-Simply add `ledgr/autogiro` to your list of required libraries.
+> Install using **[composer](http://getcomposer.org/)**. Exists as
+> **[ledgr/autogiro](https://packagist.org/packages/ledgr/autogiro)**
+> in the **[packagist](https://packagist.org/)** repository.
 
-
-Parsing autogiro files
-----------------------
-    use ledgr\giro\Giro;
-    use ledgr\autogiro\AutogiroFactory;
-
-    $giro = new Giro(new AutogiroFactory);
-    $file = file('tests/samples/new/nya-medgivanden-internetbank.txt');
-    $domDocument = $giro->convertToXML($file);
-
-
-Creating autogiro files
+Autogiro specifications
 -----------------------
-    use ledgr\autogiro\Builder\AutogiroBuilder;
-    use ledgr\billing\LegalPerson;
-
-    $org = new LegalPerson(...);
-    $builder = new AutogiroBuilder($org);
-    $builder->addConsent(new LegalPerson(...));
-    echo $builder->getNative();
-
-
-Supported file formats
-----------------------
-Layouts A - H in the legacy Autogiro Privat.
-
-Layouts A - C and E - J in new Autogiro (in use fall 2011). (Support for
-layout D is currently missing, but the BgMax format can be used instead.)
-
-Bankgirot standard format BgMax
-
-[PlusGirot layout N (also known as 02P)]
-
-    +=============================+=====+=====+=====+
-    | LAYOUT                      | PRI | OLD | NEW |
-    +=============================+=====+=====+=====+
-    | A (Medgivandeunderlag)      |  X  |  X  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | B (Betalningsunderlag)      |  X  |  X  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | C (Mak./ändr. bet.underlag) |  X  |  X  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | D (Betalningsspec.)         |  X  |  X  |  ?  |
-    +-----------------------------+-----+-----+-----+
-    | BGMAX (Betalningsspec.)     |  -  |  -  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | E (Medgivandeavisering)     |  X  |  X  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | F (Avvisade bet.)           |  X  |  X  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | G (Mak./ändrings-lista)     |  X  |  X  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | H (Elektr. medgivanden)     |  X  |  X  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | I (Utdrag bevakningsreg)    |  -  |  X  |  X  |
-    +-----------------------------+-----+-----+-----+
-    | J (Utdrag medgivandereg)    |  -  |  X  |  X  |
-    +=============================+=====+=====+=====+
-      PRI = autogiro privat
-      OLD = new autogiro with old layout
-      NEW = nya autogiro with new layout
-
-
-Run tests
----------
-Execute unit tests by typing `phpunit`. The unis tests requires that dependencies
-are installed using composer.
-
-    $ curl -sS https://getcomposer.org/installer | php
-    $ php composer.phar install
-    $ phpunit
+This library is developed against the [technichal manual](/docs/BG9018.pdf) ans
+[user manual](/docs/BG9019.pdf) of the new direct debit system (nya autogirot)
+accessed in october 2014. For updated versions of these documents contact
+[Bankgirocentralen](http://bgc.se).

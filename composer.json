@@ -13,7 +13,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "ledgr\\autogiro\\": "src/"
+            "ledgr\\autogiro\\": "src/",
+            "ledgr\\autogiro\\": "srcOld/"
         }
     },
     "require": {
@@ -31,7 +32,6 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "mockery/mockery": "*"
+        "mockery/mockery": "0.9.*"
     }
 }
