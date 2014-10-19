@@ -13,24 +13,16 @@
     ],
     "autoload": {
         "psr-4": {
-            "ledgr\\autogiro\\": "src/",
-            "ledgr\\autogiro\\": "srcOld/"
+            "ledgr\\autogiro\\": "src/"
         }
     },
     "require": {
-        "php": ">=5.3.0",
-        "ledgr/giro": "1.*",
+        "php": ">=5.4",
+        "ext-iconv": "*",
         "ledgr/id": "1.*",
         "ledgr/banking": "1.*",
-        "ledgr/billing": "1.*",
-        "iio/phpgiro": "dev-master"
+        "ledgr/billing": "1.*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/hanneskod/phpgiro"
-        }
-    ],
     "require-dev": {
         "mockery/mockery": "0.9.*"
     }

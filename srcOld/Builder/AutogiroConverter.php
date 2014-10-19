@@ -16,7 +16,6 @@ use ledgr\banking\Bankgiro;
  * Convert PersonalId and Bankgiro to autogiro formats
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
- * @todo   Remove converter once builder does not use phpgiro
  */
 class AutogiroConverter
 {
