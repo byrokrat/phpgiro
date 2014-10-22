@@ -7,19 +7,13 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace ledgr\autogiro\toBank;
+namespace ledgr\autogiro\Exception;
 
 /**
- * Container of transactions and other assignments and notifications
+ * Autogiro runtime exception
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface ContainerInterface
+class RuntimeException extends \RuntimeException implements \ledgr\autogiro\Exception
 {
-    /**
-     * Get contained transactions and assignments in the bank format
-     *
-     * @return string ISO-8859-1 encoded string
-     */
-    public function createBankData();
 }

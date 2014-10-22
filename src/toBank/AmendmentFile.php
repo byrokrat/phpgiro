@@ -10,19 +10,11 @@
 namespace ledgr\autogiro\toBank;
 
 /**
- * Container for transactions
+ * Container for payment cancellations and amendments
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class TransactionContainer extends WritingContainer
+class AmendmentFile extends File
 {
-    /**
-     * Get contained transactions and assignments in the bank format
-     *
-     * @return string ISO-8859-1 encoded string
-     */
-    public function createBankData()
-    {
-        // TODO implement
-    }
+    // TODO implement
 }

@@ -9,21 +9,22 @@
 
 namespace ledgr\autogiro\toBank;
 
+use ledgr\autogiro\Line;
 use ledgr\billing\LegalPerson;
 
 /**
- * Container for consents
+ * Collection of mandates
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class ConsentContainer extends WritingContainer
+class MandateFile extends File
 {
     /**
      * Send new consent to bank
      *
-     * @param LegalPerson $payer
+     * @param LegalPerson $debtor
      */
-    public function register(LegalPerson $payer)
+    public function register(LegalPerson $debtor)
     {
         // TODO implement ConsentContainer::register()
     }
@@ -31,26 +32,26 @@ class ConsentContainer extends WritingContainer
     /**
      * Remove registered consent
      *
-     * @param LegalPerson $payer
+     * @param LegalPerson $debtor
      */
-    public function remove(LegalPerson $payer)
+    public function remove(LegalPerson $debtor)
     {
         // TODO use getAccount()->format()
         //      once banking is at 2.0
 
-        // TODO use str_pad($payer->getId()->format('Ssk'), 16, '0', STR_PAD_LEFT)
+        // TODO use str_pad($debtor->getId()->format('Ssk'), 16, '0', STR_PAD_LEFT)
         //      once billing allows installing id 2.0
 
         $this->addLine(
             '03'
-            . str_pad(str_replace('-', '', $this->getPayee()->getAccount()), 10, '0', STR_PAD_LEFT)
+            . str_pad(str_replace('-', '', $this->getCreditor()->getAccount()), 10, '0', STR_PAD_LEFT)
 
-            . '000000'.$payer->getId()->getDate()->format('ymd')
-                . $payer->getId()->getIndividualNr()
-                . $payer->getId()->getCheckDigit()
+            . '000000'.$debtor->getId()->getDate()->format('ymd')
+                . $debtor->getId()->getIndividualNr()
+                . $debtor->getId()->getCheckDigit()
 
-            . $payer->getAccount()->getClearing()
-            . str_pad($payer->getAccount()->getNumber(), 12, '0', STR_PAD_LEFT)
+            . $debtor->getAccount()->getClearing()
+            . str_pad($debtor->getAccount()->getNumber(), 12, '0', STR_PAD_LEFT)
 
             . str_repeat(' ', 36)
         );
@@ -59,9 +60,9 @@ class ConsentContainer extends WritingContainer
     /**
      * Approve electronic consent application
      *
-     * @param LegalPerson $payer
+     * @param LegalPerson $debtor
      */
-    public function approve(LegalPerson $payer)
+    public function approve(LegalPerson $debtor)
     {
         // TODO implement ConsentContainer::approve()
     }
@@ -69,9 +70,9 @@ class ConsentContainer extends WritingContainer
     /**
      * Reject electronic consent application
      *
-     * @param LegalPerson $payer
+     * @param LegalPerson $debtor
      */
-    public function reject(LegalPerson $payer)
+    public function reject(LegalPerson $debtor)
     {
         // TODO implement ConsentContainer::reject()
     }

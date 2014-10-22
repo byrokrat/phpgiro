@@ -17,8 +17,8 @@
         }
     },
     "require": {
-        "php": ">=5.4",
-        "ext-iconv": "*",
+        "php": ">=5.5",
+        "ext-mbstring": "*",
         "ledgr/id": "1.*",
         "ledgr/banking": "1.*",
         "ledgr/billing": "1.*"
