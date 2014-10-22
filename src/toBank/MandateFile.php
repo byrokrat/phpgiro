@@ -9,7 +9,6 @@
 
 namespace ledgr\autogiro\toBank;
 
-use ledgr\autogiro\Line;
 use ledgr\billing\LegalPerson;
 
 /**
