@@ -9,6 +9,7 @@
 
 namespace ledgr\autogiro\toBank\Record\Formatter;
 
+use ledgr\billing\LegalPerson;
 use ledgr\autogiro\Exception\LogicException;
 
 /**
@@ -25,7 +26,7 @@ class BankgiroFormatter implements \ledgr\autogiro\toBank\Record\Formatter
      * @return string
      * @throws LogicException If $creditor does not have a Bankgiro account
      */
-    public function format(\ledgr\billing\LegalPerson $creditor)
+    public function format(LegalPerson $creditor)
     {
         $account = $creditor->getAccount();
         if (!$account instanceof \ledgr\banking\Bankgiro) {

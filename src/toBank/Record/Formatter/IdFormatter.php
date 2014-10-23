@@ -9,6 +9,8 @@
 
 namespace ledgr\autogiro\toBank\Record\Formatter;
 
+use ledgr\billing\LegalPerson;
+
 /**
  * Format id numbers
  *
@@ -22,7 +24,7 @@ class IdFormatter implements \ledgr\autogiro\toBank\Record\Formatter
      * @param  LegalPerson $person
      * @return string
      */
-    public function format(\ledgr\billing\LegalPerson $person)
+    public function format(LegalPerson $person)
     {
         // TODO must also be able to format orgnizations. orgnr can not format on Ymd
         return $person->getId()->getDate()->format('Ymd')

@@ -87,8 +87,7 @@ class FileObject implements \Countable, \IteratorAggregate
      */
     public function getFirstLine()
     {
-        for ($number = 0; $number < count($this); $number++) {
-            $line = $this->getLine($number);
+        foreach ($this->lines as $line) {
             if (!$line->isEmpty()) {
                 return $line;
             }
@@ -105,8 +104,7 @@ class FileObject implements \Countable, \IteratorAggregate
      */
     public function getLastLine()
     {
-        for ($number = count($this)-1; $number >= 0; $number--) {
-            $line = $this->getLine($number);
+        foreach (array_reverse($this->lines) as $line) {
             if (!$line->isEmpty()) {
                 return $line;
             }

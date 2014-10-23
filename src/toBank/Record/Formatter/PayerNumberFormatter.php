@@ -9,6 +9,8 @@
 
 namespace ledgr\autogiro\toBank\Record\Formatter;
 
+use ledgr\billing\LegalPerson;
+
 /**
  * Format payer number
  *
@@ -22,7 +24,7 @@ class PayerNumberFormatter implements \ledgr\autogiro\toBank\Record\Formatter
      * @param  LegalPerson $person
      * @return string
      */
-    public function format(\ledgr\billing\LegalPerson $person)
+    public function format(LegalPerson $person)
     {
         // TODO use str_pad($person->getId()->format('Ssk'), 16, '0', STR_PAD_LEFT) (Id 2.0)
         return '000000'
