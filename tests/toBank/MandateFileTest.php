@@ -6,19 +6,32 @@ use Mockery as m;
 
 class MandateFileTest extends \PHPUnit_Framework_TestCase
 {
+    private function getMandateFile()
+    {
+        return m::mock('ledgr\autogiro\toBank\MandateFile', function ($mock) {
+            $mock->shouldReceive('addRecord')->once();
+            $mock->shouldReceive('getCreditor')->once()->andReturn(m::mock('ledgr\billing\LegalPerson'));
+            $mock->shouldReceive('getFormatters')->once()->andReturn(m::mock('ledgr\autogiro\toBank\Record\Formatters'));
+        })->makePartial();
+    }
+
     public function testRemove()
     {
-        $mandateFile = m::mock('ledgr\autogiro\toBank\MandateFile')->makePartial();
-        $mandateFile->shouldReceive('addLine')->once()->with('03000000000A000000YYMMDDNNNKCCCC00000000000N                                    ');
-        $mandateFile->shouldReceive('getCreditor->getAccount')->once()->andReturn('A');
+        $this->getMandateFile()->remove(m::mock('ledgr\billing\LegalPerson'));
+    }
 
-        $debtor = m::mock('ledgr\billing\LegalPerson');
-        $debtor->shouldReceive('getId->getDate->format')->once()->andReturn('YYMMDD');
-        $debtor->shouldReceive('getId->getIndividualNr')->once()->andReturn('NNN');
-        $debtor->shouldReceive('getId->getCheckDigit')->once()->andReturn('K');
-        $debtor->shouldReceive('getAccount->getClearing')->once()->andReturn('CCCC');
-        $debtor->shouldReceive('getAccount->getNumber')->once()->andReturn('N');
+    public function testRegister()
+    {
+        $this->getMandateFile()->register(m::mock('ledgr\billing\LegalPerson'));
+    }
 
-        $mandateFile->remove($debtor);
+    public function testApprove()
+    {
+        $this->getMandateFile()->approve(m::mock('ledgr\billing\LegalPerson'));
+    }
+
+    public function testReject()
+    {
+        $this->getMandateFile()->reject(m::mock('ledgr\billing\LegalPerson'));
     }
 }

@@ -7,23 +7,20 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace ledgr\autogiro\Post;
+namespace ledgr\autogiro\toBank\Record;
 
 /**
+ * Format LegalPerson-objects for bgc file records
+ *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface PostInterface
+interface Formatter
 {
-    const HEADER = '01';
-    const CONSENT_REVOKE = '03';
-    const CONSENT_NEW = '04';
-    const INVOICE_DEBIT = '82';
-    const INVOICE_CREDIT = '32';
-
     /**
-     * Get the raw string representation
+     * Formar person according to rule
      *
+     * @param  \ledgr\billing\LegalPerson $person
      * @return string
      */
-    public function getRaw();
+    public function format(\ledgr\billing\LegalPerson $person);
 }

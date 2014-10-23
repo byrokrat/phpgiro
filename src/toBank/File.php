@@ -14,7 +14,7 @@ use ledgr\autogiro\Line;
 use ledgr\billing\LegalPerson;
 
 /**
- * Base BG file implementation
+ * Base bgc file implementation
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
@@ -31,16 +31,36 @@ class File
     private $fileObj;
 
     /**
-     * Register payment recipient
-     *
-     * @param LegalPerson $creditor Payment recipient
-     * @param FileObject  $fileObj  Bank file abstraction
+     * @var Record\Formatters Formatters collection
      */
-    public function __construct(LegalPerson $creditor, FileObject $fileObj = null)
-    {
-        // TODO update once LegalPerson is an interface in billing..
+    private $formatters;
+
+    /**
+     * Create bgc file
+     *
+     * @param LegalPerson       $creditor      Payment recipient
+     * @param \DateTime         $date          Date of file creation
+     * @param Record\Formatters $formatters    Formatters collection
+     * @param FileObject        $fileObj       Bank file abstraction
+     * @param Record            $openingRecord Opening record of file
+     */
+    public function __construct(
+        LegalPerson $creditor,
+        \DateTime $date = null,
+        Record\Formatters $formatters = null,
+        FileObject $fileObj = null,
+        Record $openingRecord = null
+    ) {
         $this->creditor = $creditor;
-        $this->fileObj = $fileObj ?: $this->createFileObject($creditor);
+        $this->formatters = $formatters ?: new Record\Formatters;
+        $this->fileObj = $fileObj ?: new FileObject;
+        $this->addRecord(
+            $openingRecord ?: new Record\OpeningRecord(
+                $creditor,
+                $date ?: new \DateTime,
+                $this->formatters
+            )
+        );
     }
 
     /**
@@ -54,6 +74,26 @@ class File
     }
 
     /**
+     * Get formatters collection
+     *
+     * @return Record\Formatters
+     */
+    public function getFormatters()
+    {
+        return $this->formatters;
+    }
+
+    /**
+     * Add record to file
+     *
+     * @param Record $record
+     */
+    public function addRecord(Record $record)
+    {
+        $this->fileObj->addLine(new Line($record->getRecord()));
+    }
+
+    /**
      * Get file contents
      *
      * @return string
@@ -61,39 +101,5 @@ class File
     public function getContents()
     {
         return $this->fileObj->getContents();
-    }
-
-    /**
-     * Add line to section
-     *
-     * @param string $line
-     */
-    public function addLine($line)
-    {
-        $this->fileObj->addLine(new Line($line));
-    }
-
-    /**
-     * Create new file object
-     *
-     * @param  LegalPerson $creditor Payment recipient
-     * @return FileObject
-     */
-    private function createFileObject(LegalPerson $creditor)
-    {
-        $fileObj = new FileObject;
-        // TODO use $creditor->getAccount()->format() once banking is at 2.0
-        $fileObj->addLine(
-            new Line(
-                '01'
-                . (new \DateTime)->format('Ymd')
-                . 'AUTOGIRO'
-                . str_repeat(' ', 44)
-                . str_pad($creditor->getCustomerNumber(), 6, '0', STR_PAD_LEFT)
-                . str_pad(str_replace('-', '', $creditor->getAccount()), 10, '0', STR_PAD_LEFT)
-                . str_repeat(' ', 2)
-            )
-        );
-        return $fileObj;
     }
 }

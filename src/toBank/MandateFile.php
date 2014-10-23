@@ -12,22 +12,12 @@ namespace ledgr\autogiro\toBank;
 use ledgr\billing\LegalPerson;
 
 /**
- * Collection of mandates
+ * Collection of mandate records
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class MandateFile extends File
 {
-    /**
-     * Send new consent to bank
-     *
-     * @param LegalPerson $debtor
-     */
-    public function register(LegalPerson $debtor)
-    {
-        // TODO implement ConsentContainer::register()
-    }
-
     /**
      * Remove registered consent
      *
@@ -35,24 +25,28 @@ class MandateFile extends File
      */
     public function remove(LegalPerson $debtor)
     {
-        // TODO use getAccount()->format()
-        //      once banking is at 2.0
+        $this->addRecord(
+            new Record\RemoveMandateRecord(
+                $this->getCreditor(),
+                $debtor,
+                $this->getFormatters()
+            )
+        );
+    }
 
-        // TODO use str_pad($debtor->getId()->format('Ssk'), 16, '0', STR_PAD_LEFT)
-        //      once billing allows installing id 2.0
-
-        $this->addLine(
-            '03'
-            . str_pad(str_replace('-', '', $this->getCreditor()->getAccount()), 10, '0', STR_PAD_LEFT)
-
-            . '000000'.$debtor->getId()->getDate()->format('ymd')
-                . $debtor->getId()->getIndividualNr()
-                . $debtor->getId()->getCheckDigit()
-
-            . $debtor->getAccount()->getClearing()
-            . str_pad($debtor->getAccount()->getNumber(), 12, '0', STR_PAD_LEFT)
-
-            . str_repeat(' ', 36)
+    /**
+     * Send new consent to bank
+     *
+     * @param LegalPerson $debtor
+     */
+    public function register(LegalPerson $debtor)
+    {
+        $this->addRecord(
+            new Record\RegisterMandateRecord(
+                $this->getCreditor(),
+                $debtor,
+                $this->getFormatters()
+            )
         );
     }
 
@@ -63,7 +57,7 @@ class MandateFile extends File
      */
     public function approve(LegalPerson $debtor)
     {
-        // TODO implement ConsentContainer::approve()
+        return $this->register($debtor);
     }
 
     /**
@@ -73,6 +67,12 @@ class MandateFile extends File
      */
     public function reject(LegalPerson $debtor)
     {
-        // TODO implement ConsentContainer::reject()
+        $this->addRecord(
+            new Record\RejectMandateRecord(
+                $this->getCreditor(),
+                $debtor,
+                $this->getFormatters()
+            )
+        );
     }
 }

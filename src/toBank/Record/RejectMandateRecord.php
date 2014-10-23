@@ -7,20 +7,22 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace ledgr\autogiro\Builder;
+namespace ledgr\autogiro\toBank\Record;
 
 /**
- * Reject online consent application
- *
- * Use to reject an online consent application. To approve an online application
- * use the regular ConsentBuilder.
+ * Record to reject online ag application
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class RejectedConsentBuilder extends ConsentBuilder
+class RejectMandateRecord extends RegisterMandateRecord
 {
-    public function getRaw()
+    /**
+     * Get record as string
+     *
+     * @return string
+     */
+    public function getRecord()
     {
-        return substr(parent::getRaw(), 0, 76) . 'AV  ';
+        return substr(parent::getRecord(), 0, 76) . 'AV  ';
     }
 }
