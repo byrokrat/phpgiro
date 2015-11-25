@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\autogiro;
+namespace byrokrat\autogiro;
 
 class LineTest extends \PHPUnit_Framework_TestCase
 {

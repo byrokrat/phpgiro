@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\autogiro\toBank;
+namespace byrokrat\autogiro\toBank;
 
 use Mockery as m;
 
@@ -8,16 +8,16 @@ class FileTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateInstance()
     {
-        $creditor = m::mock('ledgr\billing\LegalPerson');
+        $creditor = m::mock('byrokrat\billing\LegalPerson');
 
-        $formatters = m::mock('ledgr\autogiro\toBank\Record\Formatters');
+        $formatters = m::mock('byrokrat\autogiro\toBank\Record\Formatters');
 
-        $fileObj = m::mock('ledgr\autogiro\FileObject', function($mock) {
+        $fileObj = m::mock('byrokrat\autogiro\FileObject', function($mock) {
             $mock->shouldReceive('addLine')->once();
             $mock->shouldReceive('getContents')->once()->andReturn('contents');
         });
 
-        $openingRecord = m::mock('ledgr\autogiro\toBank\Record', function($mock) {
+        $openingRecord = m::mock('byrokrat\autogiro\toBank\Record', function($mock) {
             $mock->shouldReceive('getRecord')->once();
         });
 

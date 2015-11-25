@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\autogiro\toBank\Record\Formatter;
+namespace byrokrat\autogiro\toBank\Record\Formatter;
 
 use Mockery as m;
 
@@ -8,25 +8,25 @@ class BankgiroFormatterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFormatNoBankgiroException()
     {
-        $account = m::mock('ledgr\banking\BankAccountInterface', function ($mock) {
+        $account = m::mock('byrokrat\banking\BankAccountInterface', function ($mock) {
             $mock->shouldReceive('getType')->once()->andReturn('no-giro');
         });
 
-        $creditor = m::mock('ledgr\billing\LegalPerson', function ($mock) use ($account) {
+        $creditor = m::mock('byrokrat\billing\LegalPerson', function ($mock) use ($account) {
             $mock->shouldReceive('getAccount')->once()->andReturn($account);
         });
 
-        $this->setExpectedException('ledgr\autogiro\Exception\LogicException');
+        $this->setExpectedException('byrokrat\autogiro\Exception\LogicException');
         (new BankgiroFormatter)->format($creditor);
     }
 
     public function testFormat()
     {
-        $account = m::mock('ledgr\banking\Bankgiro', function ($mock) {
+        $account = m::mock('byrokrat\banking\Bankgiro', function ($mock) {
             $mock->shouldReceive('getNumber')->once()->andReturn('111-1111');
         });
 
-        $creditor = m::mock('ledgr\billing\LegalPerson', function ($mock) use ($account) {
+        $creditor = m::mock('byrokrat\billing\LegalPerson', function ($mock) use ($account) {
             $mock->shouldReceive('getAccount')->once()->andReturn($account);
         });
 

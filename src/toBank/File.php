@@ -1,22 +1,13 @@
 <?php
-/**
- * This program is free software. It comes without any warranty, to
- * the extent permitted by applicable law. You can redistribute it
- * and/or modify it under the terms of the Do What The Fuck You Want
- * To Public License, Version 2, as published by Sam Hocevar. See
- * http://www.wtfpl.net/ for more details.
- */
 
-namespace ledgr\autogiro\toBank;
+namespace byrokrat\autogiro\toBank;
 
-use ledgr\autogiro\FileObject;
-use ledgr\autogiro\Line;
-use ledgr\billing\LegalPerson;
+use byrokrat\autogiro\FileObject;
+use byrokrat\autogiro\Line;
+use byrokrat\billing\LegalPerson;
 
 /**
  * Base bgc file implementation
- *
- * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class File
 {

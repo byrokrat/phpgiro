@@ -1,6 +1,6 @@
 {
     "name": "byrokrat/autogiro",
-    "description": "Create and parse files for swedish autogiro system",
+    "description": "Read and write files for the swedish direct debit system autogirot",
     "keywords": ["autogiro"],
     "homepage": "https://github.com/byrokrat/autogiro",
     "type": "library",
@@ -13,15 +13,15 @@
     ],
     "autoload": {
         "psr-4": {
-            "ledgr\\autogiro\\": "src/"
+            "byrokrat\\autogiro\\": "src/"
         }
     },
     "require": {
         "php": ">=5.5",
         "ext-mbstring": "*",
-        "ledgr/id": "1.*",
-        "ledgr/banking": "1.*",
-        "ledgr/billing": "1.*"
+        "byrokrat/id": "^1.0",
+        "byrokrat/banking": "^1.0",
+        "byrokrat/billing": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*"

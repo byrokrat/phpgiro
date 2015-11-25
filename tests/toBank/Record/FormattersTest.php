@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\autogiro\toBank\Record;
+namespace byrokrat\autogiro\toBank\Record;
 
 use Mockery as m;
 
@@ -8,7 +8,7 @@ class FormattersTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSet()
     {
-        $formatter = m::mock('ledgr\autogiro\toBank\Record\Formatter');
+        $formatter = m::mock('byrokrat\autogiro\toBank\Record\Formatter');
         $formatters = new Formatters;
 
         $this->assertNotSame(

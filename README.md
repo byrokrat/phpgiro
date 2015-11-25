@@ -5,12 +5,10 @@
 
 Create and parse files for the swedish direct debit system *autogirot*
 
-[![Packagist Version](https://img.shields.io/packagist/v/byrokrat/autogiro.svg?style=flat-square)](https://packagist.org/packages/byrokrat/autogiro)
 [![Build Status](https://img.shields.io/travis/byrokrat/autogiro/master.svg?style=flat-square)](https://travis-ci.org/byrokrat/autogiro)
-[![Quality Score](https://img.shields.io/scrutinizer/g/byrokrat/autogiro.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/autogiro)
 [![Dependency Status](https://img.shields.io/gemnasium/byrokrat/autogiro.svg?style=flat-square)](https://gemnasium.com/byrokrat/autogiro)
 
-**PACKAGE CURRENTLY BROKEN. FIX PENDING.**
+**PACKAGE CURRENTLY UNDER DEVELOPMENT**
 
 Autogiro specifications
 -----------------------
