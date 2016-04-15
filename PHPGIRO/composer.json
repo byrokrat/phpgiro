@@ -1,0 +1,12 @@
+{
+    "name": "byrokrat/phpgiro",
+    "description": "Deprecated autogiro package",
+    "homepage": "https://github.com/byrokrat/phpgiro",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "classmap": [
+            ""
+        ]
+    }
+}
