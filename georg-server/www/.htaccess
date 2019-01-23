@@ -1,0 +1,24 @@
+php_flag session.cookie_secure off
+php_flag html_errors on
+php_value xdebug.collect_params 3
+php_flag xdebug.show_local_vars on
+php_flag xdebug.collect_return on
+php_flag assert.active on
+php_flag assert.warning on
+php_flag assert.bail on
+php_flag display_errors on
+php_flag display_startup_errors on
+php_value error_reporting -1
+php_flag session.bug_compat_42 on
+php_flag session.bug_compat_warn on
+
+php_value include_path .:../
+
+Options -Indexes
+Options +FollowSymlinks
+
+# Outdated setting (see code to fix)
+# SetEnv GEORG_BASE_DIR "../../../../"
+
+RewriteEngine On
+RewriteRule ^(.*) index.php [QSA,E=URI:/$1]

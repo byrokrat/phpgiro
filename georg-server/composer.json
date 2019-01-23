@@ -1,0 +1,57 @@
+{
+    "name": "ledgr/georg-server",
+    "description": "Georg backend",
+    "keywords": ["georg"],
+    "homepage": "https://github.com/ledgr/georg-server",
+    "type": "library",
+    "license": "WTFPL",
+    "authors": [
+        {
+            "name": "Hannes Forsgård",
+            "email": "hannes.forsgard@fripost.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ledgr\\georg\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "ext-sqlite3": "*",
+        "ledgr/amount": "1.*",
+        "ledgr/banking": "1.*",
+        "ledgr/id": "1.*",
+        "ledgr/autogiro": "1.*",
+        "ledgr/billing": "1.*",
+        "j4mie/paris": "1.4.*",
+        "symfony/event-dispatcher": "2.3.*",
+        "symfony/http-foundation": "2.3.*",
+        "monolog/monolog": "1.*",
+        "zircote/hal": "0.3.*",
+        "knplabs/gaufrette": "0.1.*"
+    },
+    "require-dev": {
+        "hanneskod/inroute": "dev-master",
+        "mockery/mockery": "dev-master@dev"
+    },
+    "minimum-stability": "dev",
+    "scripts": {
+        "post-install-cmd": "ledgr\\georg\\Setup\\ComposerScripts::postInstall",
+        "post-update-cmd": "ledgr\\georg\\Setup\\ComposerScripts::postUpdate"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/byrokrat/phpgiro"
+        }
+    ],
+    "scripts": {
+        "post-update-cmd": [
+            "ledgr\\georg\\Setup\\ComposerScripts::postUpdate"
+        ],
+        "post-install-cmd": [
+            "ledgr\\georg\\Setup\\ComposerScripts::postInstall"
+        ]
+    }    
+}
